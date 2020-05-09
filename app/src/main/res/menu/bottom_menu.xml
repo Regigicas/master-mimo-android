@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/optionHome"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/app_home"
+        />
+
+    <item
+        android:id="@+id/optionPlatforms"
+        android:icon="@drawable/ic_videogame_asset_black_24dp"
+        android:title="@string/app_platforms"
+        />
+
+    <item
+        android:id="@+id/optionSearch"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="@string/app_search"
+        />
+
+    <item
+        android:id="@+id/optionFavorites"
+        android:icon="@drawable/ic_star_black_24dp"
+        android:title="@string/app_favorites"
+        />
+</menu>

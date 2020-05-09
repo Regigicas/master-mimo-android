@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="order_default">By default</string>
+    <string name="order_name">By name A-Z</string>
+    <string name="order_name_inverse">By name Z-A</string>
+    <string name="order_released">By release date lower to higher</string>
+    <string name="order_released_inverse">By release date higher to lower</string>
+    <string name="order_added">By date added to the platform lower to higher</string>
+    <string name="order_added_inverse">By date added to the platform lower to higher</string>
+    <string name="order_created">By date created on the platform lower to higher</string>
+    <string name="order_created_inverse">By date created on the platform higher to lower</string>
+    <string name="order_rating">By rating lower to higher</string>
+    <string name="order_rating_inverse">By rating higher to lower</string>
+    <string name="error_existing_username">That username is alredy taken</string>
+    <string name="error_existing_email">That email is already in use</string>
+    <string name="error_invalid_email">The given email is not valid</string>
+    <string name="error_user_not_found">There is no account with that username</string>
+    <string name="error_pass_mismatch">The password doesn\'t match</string>
+</resources>

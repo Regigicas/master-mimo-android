@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name" translatable="false">GamesViewer</string>
+    <string name="login_login_msg">Login</string>
+    <string name="str_username">Username</string>
+    <string name="str_password">Password</string>
+    <string name="str_register">Register</string>
+    <string name="register_username">Username:</string>
+    <string name="register_username_hint">Enter your username</string>
+    <string name="register_email">Email:</string>
+    <string name="register_email_hint">Enter your email</string>
+    <string name="register_password">Password:</string>
+    <string name="register_password_hint">Enter your password</string>
+    <string name="register_pwd_dup">Re-type password:</string>
+    <string name="register_pwd_dup_hint">Re-type password</string>
+    <string name="register_ok_return_login">Registration successful. You will return to login screen soon</string>
+    <string name="assert_view_not_created">Not all views has been created</string>
+    <string name="app_home">Home</string>
+    <string name="error_no_autologin">Your device doesn\'t support encryptation. Autologin is not possible</string>
+    <string name="app_platforms">Platforms</string>
+    <string name="app_search">Search</string>
+    <string name="app_favorites">Favorites</string>
+    <string name="assert_invalid_bottombar_item">Selected invalid BottomBar item</string>
+</resources>

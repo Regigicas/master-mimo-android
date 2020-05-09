@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_login_msg">Iniciar sesión</string>
+    <string name="str_username">Nombre de usuario</string>
+    <string name="str_password">Contraseña</string>
+    <string name="str_register">Registrarse</string>
+    <string name="register_username">Nombre de usuario:</string>
+    <string name="register_username_hint">Introduce el nombre de usuario</string>
+    <string name="register_email">Correo electrónico:</string>
+    <string name="register_email_hint">Introduce el correo electrónico</string>
+    <string name="register_password">Contraseña:</string>
+    <string name="register_password_hint">Introduce la contraseña</string>
+    <string name="register_pwd_dup">Repetir contraseña:</string>
+    <string name="register_pwd_dup_hint">Vuelve a introducir la contraseña</string>
+    <string name="register_ok_return_login">Registrado correctamente. Volveras a la pantalla de inicio de sesión en breve</string>
+    <string name="assert_view_not_created">No se han podido crear todas las vistas</string>
+    <string name="app_home">Inicio</string>
+    <string name="error_no_autologin">Tu dispositivo no soporta encriptación. El inicio de sesión automático no es posible</string>
+    <string name="app_platforms">Plataformas</string>
+    <string name="app_search">Buscar</string>
+    <string name="app_favorites">Favoritos</string>
+    <string name="assert_invalid_bottombar_item">Seleccionado un BottomBar item no valido</string>
+</resources>

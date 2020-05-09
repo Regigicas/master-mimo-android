@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="order_default">Por defecto</string>
+    <string name="order_name">Por nombre A-Z</string>
+    <string name="order_name_inverse">Por nombre Z-A</string>
+    <string name="order_released">Por fecha de salida menor a mayor</string>
+    <string name="order_released_inverse">Por fecha de salida mayor a menor</string>
+    <string name="order_added">Por fecha de añadido a la plataforma menor a mayor</string>
+    <string name="order_added_inverse">Por fecha de añadido a la plataforma mayor a menor</string>
+    <string name="order_created">Por fecha de creación en la plataforma menor a mayor</string>
+    <string name="order_created_inverse">Por fecha de creación en la plataforma mayor a menor</string>
+    <string name="order_rating">Por rating menor a mayor</string>
+    <string name="order_rating_inverse">Por rating mayor a menor</string>
+    <string name="error_existing_username">Ese nombre de usuario ya está en uso</string>
+    <string name="error_existing_email">Ese correo electrónico ya está en uso</string>
+    <string name="error_invalid_email">El correo electrónico proporcionado no es valido</string>
+    <string name="error_user_not_found">No hay ninguna cuenta con el nombre de usuario indicado</string>
+    <string name="error_pass_mismatch">La contraseña no coincide</string>
+</resources>

@@ -1,0 +1,4 @@
+rootProject.name='GamesViewer'
+include ':app'
+include ':networkmodule'
+include ':datamodule'
