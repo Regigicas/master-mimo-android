@@ -2,6 +2,7 @@ package es.upsa.mimo.gamesviewer.activities
 
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -87,21 +88,35 @@ class HomeActivity : AppCompatActivity()
         if (fragment == activeFragment)
             return;
 
-        if (initial)
+        val visibleFragment = supportFragmentManager.findFragmentById(R.id.fragmentFrame);
+        val isMenuFragment = visibleFragment is MenuFragment;
+        val fragmentToRemove = if (!isMenuFragment && visibleFragment != null) visibleFragment else activeFragment;
+
+        if (initial && isMenuFragment)
         {
-            getSupportFragmentManager()
+            supportFragmentManager
                 .beginTransaction()
-                .hide(activeFragment)
+                .hide(fragmentToRemove)
                 .add(R.id.fragmentFrame, fragment)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null)
+                .commit();
+        }
+        else if (isMenuFragment)
+        {
+            supportFragmentManager
+                .beginTransaction()
+                .hide(fragmentToRemove)
+                .show(fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null)
                 .commit();
         }
         else
         {
-            getSupportFragmentManager()
+            supportFragmentManager
                 .beginTransaction()
-                .hide(activeFragment)
+                .remove(fragmentToRemove)
                 .show(fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null)
