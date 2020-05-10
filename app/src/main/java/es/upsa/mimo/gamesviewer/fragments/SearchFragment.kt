@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.misc.MenuFragment
 
-class SearchFragment : MenuFragment()
+class SearchFragment : MenuFragment(R.string.app_search)
 {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {

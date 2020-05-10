@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.misc.MenuFragment
 
-class HomeFragment : MenuFragment()
+class HomeFragment : MenuFragment(R.string.app_home)
 {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {

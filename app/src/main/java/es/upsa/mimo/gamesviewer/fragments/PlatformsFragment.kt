@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.datamodule.models.PlatformModel
 import es.upsa.mimo.gamesviewer.R
+import es.upsa.mimo.gamesviewer.activities.HomeActivity
 import es.upsa.mimo.gamesviewer.misc.MenuFragment
 import es.upsa.mimo.gamesviewer.misc.RVBackButtonClickListener
 import es.upsa.mimo.gamesviewer.misc.RVItemClickListener
@@ -21,7 +22,7 @@ import es.upsa.mimo.networkmodule.controllers.PlataformaNetworkController
 import kotlinx.coroutines.launch
 
 
-class PlatformsFragment : MenuFragment(), RVItemClickListener<PlatformModel>, RVBackButtonClickListener
+class PlatformsFragment : MenuFragment(R.string.app_platforms), RVItemClickListener<PlatformModel>, RVBackButtonClickListener
 {
     private val plataformas: MutableList<PlatformModel> = mutableListOf();
     private var initialCreation = false;
@@ -63,6 +64,10 @@ class PlatformsFragment : MenuFragment(), RVItemClickListener<PlatformModel>, RV
     override fun onItemClick(item: PlatformModel)
     {
         val nextFrag = PlatformInfoFragment(this);
+        val bundle = Bundle();
+        bundle.putSerializable(PlatformInfoFragment.bundlePlatformInfoKey, item);
+        nextFrag.arguments = bundle;
+
         activity!!.supportFragmentManager
             .beginTransaction()
             .hide(this)
@@ -74,6 +79,9 @@ class PlatformsFragment : MenuFragment(), RVItemClickListener<PlatformModel>, RV
 
     override fun onFragmentBackClick(fragment: Fragment)
     {
+        val homeActivity = activity as? HomeActivity;
+        homeActivity?.supportActionBar?.title = getString(titleId);
+
         activity!!.supportFragmentManager
             .beginTransaction()
             .remove(fragment)

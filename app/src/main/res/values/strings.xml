@@ -22,4 +22,5 @@
     <string name="assert_invalid_bottombar_item">Selected invalid BottomBar item</string>
     <string name="placeholder_text" translatable="false">Placeholder</string>
     <string name="description_logo_platform">Platform logo</string>
+    <string name="platform_title_name">Platform %s</string>
 </resources>

@@ -82,7 +82,7 @@ class HomeActivity : AppCompatActivity()
             .commit();
     }
 
-    private fun openFragment(fragment: Fragment, initial: Boolean)
+    private fun openFragment(fragment: MenuFragment, initial: Boolean)
     {
         if (fragment == activeFragment)
             return;
@@ -107,6 +107,8 @@ class HomeActivity : AppCompatActivity()
                 .addToBackStack(null)
                 .commit();
         }
+
+        supportActionBar?.title = getString(fragment.titleId);
 
         activeFragment = fragment;
     }

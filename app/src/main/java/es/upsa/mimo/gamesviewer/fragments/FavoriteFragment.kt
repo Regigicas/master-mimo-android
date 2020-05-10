@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.misc.MenuFragment
 
-class FavoriteFragment : MenuFragment()
+class FavoriteFragment : MenuFragment(R.string.app_favorites)
 {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {

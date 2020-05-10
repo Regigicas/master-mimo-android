@@ -4,8 +4,9 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.Log
 import es.upsa.mimo.datamodule.R
+import java.io.Serializable
 
-class PlatformModel
+class PlatformModel : Serializable
 {
     var id: Int? = null;
     var name: String? = null;
