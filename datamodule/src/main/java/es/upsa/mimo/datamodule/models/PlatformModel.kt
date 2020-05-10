@@ -1,5 +1,10 @@
 package es.upsa.mimo.datamodule.models
 
+import android.content.Context
+import android.graphics.drawable.Drawable
+import android.util.Log
+import es.upsa.mimo.datamodule.R
+
 class PlatformModel
 {
     var id: Int? = null;
@@ -17,38 +22,37 @@ class PlatformModel
         lateinit var results: List<PlatformModel>;
     }
 
-    fun getImgFile(dark: Boolean): String? // El API no devuelve el logo, pero si lo tiene en la pagina, asi que usamos está funcion
+    fun getImgFile(dark: Boolean): Int // El API no devuelve el logo, pero si lo tiene en la pagina, asi que usamos está funcion
     {
-        var imgPath: String = "logo_web"
+        var imgId = if (dark) R.drawable.logo_web_dark else R.drawable.logo_web;
         this.name?.let {
             val plataformaNombre = it.toLowerCase();
             if (plataformaNombre.contains("pc"))
-                imgPath = "logo_pc"
+                imgId = if (dark) R.drawable.logo_pc_dark else R.drawable.logo_pc;
             else if (plataformaNombre.contains("sega") || plataformaNombre.contains("dreamcast") || plataformaNombre.contains("game gear") ||
                     plataformaNombre.contains("genesis") || plataformaNombre.contains("nepnep"))
-                imgPath = "logo_sega"
+                imgId = if (dark) R.drawable.logo_sega_dark else R.drawable.logo_sega;
             else if (plataformaNombre.contains("playstation") || plataformaNombre.contains("ps"))
-                imgPath = "logo_ps"
+                imgId = if (dark) R.drawable.logo_ps_dark else R.drawable.logo_ps;
             else if (plataformaNombre.contains("xbox"))
-                imgPath = "logo_xbox"
+                imgId = if (dark) R.drawable.logo_xbox_dark else R.drawable.logo_xbox;
             else if (plataformaNombre.contains("nintendo") || plataformaNombre.contains("gamecube") || plataformaNombre.contains("game boy") ||
                     plataformaNombre.contains("nes") || plataformaNombre.contains("wii"))
-                imgPath = "logo_nintendo"
+                imgId = if (dark) R.drawable.logo_nintendo_dark else R.drawable.logo_nintendo;
             else if (plataformaNombre.contains("atari") || plataformaNombre.contains("jaguar"))
-                imgPath = "logo_atari"
+                imgId = if (dark) R.drawable.logo_atari_dark else R.drawable.logo_atari;
             else if (plataformaNombre.contains("mac") || plataformaNombre.contains("ios") || plataformaNombre.contains("apple"))
-                imgPath = "logo_apple"
+                imgId = if (dark) R.drawable.logo_apple_dark else R.drawable.logo_apple;
             else if (plataformaNombre.contains("android"))
-                imgPath = "logo_android"
+                imgId = if (dark) R.drawable.logo_android_dark else R.drawable.logo_android;
             else if (plataformaNombre.contains("linux"))
-                imgPath = "logo_linux"
+                imgId = if (dark) R.drawable.logo_linux_dark else R.drawable.logo_linux;
             else if (plataformaNombre.contains("commodore"))
-                imgPath = "logo_commodore"
+                imgId = if (dark) R.drawable.logo_commodore_dark else R.drawable.logo_commodore;
             else if (plataformaNombre.contains("3do"))
-                imgPath = "logo_threedo"
+                imgId = if (dark) R.drawable.logo_threedo_dark else R.drawable.logo_threedo;
         }
 
-        val darkModeStr = if (dark) "_dark.png" else ".png"
-        return "$imgPath$darkModeStr"
+        return imgId;
     }
 }

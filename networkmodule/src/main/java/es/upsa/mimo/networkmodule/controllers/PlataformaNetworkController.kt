@@ -13,7 +13,7 @@ class PlataformaNetworkController
     companion object
     {
         @JvmStatic
-        fun getListadoPlataformas(context: Context, callback: (juegos: List<PlatformModel>) -> Void)
+        fun getListadoPlataformas(context: Context, callback: (juegos: List<PlatformModel>) -> Unit)
         {
             val queue = VolleyQueueInstance.getInstance(context);
             val url = context.getString(R.string.plataformas_global);

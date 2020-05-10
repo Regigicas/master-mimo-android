@@ -84,7 +84,7 @@
         android:text="@string/str_register"
         android:backgroundTint="@android:color/transparent"
         android:background="@android:color/transparent"
-        android:textColor="@color/colorGrayLight"
+        android:textColor="@color/colorGrayDarker"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
