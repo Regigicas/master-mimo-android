@@ -2,13 +2,15 @@ package es.upsa.mimo.gamesviewer.activities
 
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import es.upsa.mimo.gamesviewer.R
-import es.upsa.mimo.gamesviewer.fragments.*
+import es.upsa.mimo.gamesviewer.fragments.FavoriteFragment
+import es.upsa.mimo.gamesviewer.fragments.HomeFragment
+import es.upsa.mimo.gamesviewer.fragments.PlatformsFragment
+import es.upsa.mimo.gamesviewer.fragments.SearchFragment
 import es.upsa.mimo.gamesviewer.misc.BackFragment
 import es.upsa.mimo.gamesviewer.misc.MenuFragment
 
@@ -114,13 +116,13 @@ class HomeActivity : AppCompatActivity()
         }
         else
         {
-            supportFragmentManager
-                .beginTransaction()
-                .remove(fragmentToRemove)
-                .show(fragment)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .addToBackStack(null)
-                .commit();
+            val ft = supportFragmentManager.beginTransaction();
+            for (oldFragment in supportFragmentManager.fragments)
+                if (oldFragment is BackFragment)
+                    ft.remove(oldFragment);
+            ft.hide(activeFragment);
+            ft.show(fragment);
+            ft.commit();
         }
 
         supportActionBar?.title = getString(fragment.titleId);

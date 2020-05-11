@@ -22,4 +22,7 @@
     <string name="assert_invalid_bottombar_item">Seleccionado un BottomBar item no valido</string>
     <string name="description_logo_platform">Logo de la plataforma</string>
     <string name="platform_title_name">Plataforma %s</string>
+    <string name="assert_needed_data_not_present">Faltan datos necesarios para poder construir la vista</string>
+    <string name="view_platform_games">Ver juegos de la plataforma</string>
+    <string name="description_platform_image">Imagen de juego de la plataforma</string>
 </resources>

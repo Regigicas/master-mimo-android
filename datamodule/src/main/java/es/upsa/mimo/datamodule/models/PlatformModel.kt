@@ -1,12 +1,8 @@
 package es.upsa.mimo.datamodule.models
 
-import android.content.Context
-import android.graphics.drawable.Drawable
-import android.util.Log
 import es.upsa.mimo.datamodule.R
-import java.io.Serializable
 
-class PlatformModel : Serializable
+class PlatformModel
 {
     var id: Int? = null;
     var name: String? = null;

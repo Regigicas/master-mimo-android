@@ -3,10 +3,8 @@ package es.upsa.mimo.gamesviewer.views
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.datamodule.models.PlatformModel
 import es.upsa.mimo.gamesviewer.R

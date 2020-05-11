@@ -6,9 +6,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import es.upsa.mimo.gamesviewer.activities.HomeActivity
 
-abstract class BackFragment(private val ownerFragment: RVBackButtonClickListener) : Fragment()
+abstract class BackFragment(private val ownerFragment: Fragment) : Fragment()
 {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -22,20 +23,23 @@ abstract class BackFragment(private val ownerFragment: RVBackButtonClickListener
 
     override fun onDestroyView()
     {
-        val homeActivity = activity as? HomeActivity;
-        homeActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(false);
-        setHasOptionsMenu(false);
+        if (!(ownerFragment is BackFragment))
+        {
+            val homeActivity = activity as? HomeActivity;
+            homeActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(false);
+            setHasOptionsMenu(false);
+        }
+
         super.onDestroyView();
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean
     {
-        val homeActivity = activity as? HomeActivity;
         return when (item.itemId)
         {
             android.R.id.home ->
             {
-                homeActivity?.onBackPressed();
+                onFragmentBack();
                 true
             }
             else -> super.onOptionsItemSelected(item);
@@ -44,6 +48,12 @@ abstract class BackFragment(private val ownerFragment: RVBackButtonClickListener
 
     fun onFragmentBack()
     {
-        ownerFragment.onFragmentBackClick(this);
+        activity!!.supportFragmentManager
+            .beginTransaction()
+            .remove(this)
+            .show(ownerFragment)
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            .addToBackStack(null)
+            .commit();
     }
 }

@@ -31,15 +31,15 @@ class PlataformaNetworkController
         }
 
         @JvmStatic
-        fun getPlataformaInfo(id: Int, context: Context, callback: (juegos: PlatformModel) -> Void)
+        fun getPlataformaInfo(id: Int, context: Context, callback: (juegos: PlatformModel) -> Unit)
         {
             val queue = VolleyQueueInstance.getInstance(context);
             val url = context.getString(R.string.plataformas_id, id);
             val juegoRequest = GSONRequest(url,
-                PlatformModel.PlatformsResponse::class.java,
+                PlatformModel::class.java,
                 null,
                 Response.Listener { response ->
-                    callback(response.platform);
+                    callback(response);
                 },
                 Response.ErrorListener { response ->
                     Log.e("response", response.localizedMessage);
