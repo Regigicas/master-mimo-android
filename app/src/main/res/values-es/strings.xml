@@ -25,4 +25,13 @@
     <string name="assert_needed_data_not_present">Faltan datos necesarios para poder construir la vista</string>
     <string name="view_platform_games">Ver juegos de la plataforma</string>
     <string name="description_platform_image">Imagen de juego de la plataforma</string>
+    <string name="description_game_image">Imagen del juego</string>
+    <string name="platform_games_title">Juegos %s</string>
+    <string name="available_on">Disponible en:</string>
+    <string name="description_favorite">Es favorito</string>
+    <string name="game_rating">Valoración:</string>
+    <string name="game_release_date">Fecha de salida:</string>
+    <string name="game_description">Descripción:</string>
+    <string name="description_game_description">Descripción del juego</string>
+    <string name="description_qr">QRCode</string>
 </resources>

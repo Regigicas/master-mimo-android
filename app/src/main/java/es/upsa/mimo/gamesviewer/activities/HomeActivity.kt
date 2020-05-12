@@ -75,11 +75,27 @@ class HomeActivity : AppCompatActivity()
             true
         }
 
-        // Ponemos en home la primera
-        bottomBar!!.selectedItemId = R.id.optionHome;
-        getSupportFragmentManager()
+        var selected = 0;
+        savedInstanceState?.let { saveState ->
+            bottomBar?.let {
+                selected = saveState.getInt(saveMenuIdKey);
+                it.selectedItemId = selected;
+            }
+        }
+
+        val showFragment = when (selected)
+        {
+            1 -> platformsFragment;
+            2 -> searchFragment;
+            3 -> favoriteFragment;
+            else -> homeFragment;
+        }
+
+        // Ponemos en home la primera o la guardada
+        bottomBar!!.selectedItemId = selected;
+        supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragmentFrame, homeFragment)
+            .replace(R.id.fragmentFrame, showFragment as Fragment)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .addToBackStack(null)
             .commit();
@@ -141,24 +157,11 @@ class HomeActivity : AppCompatActivity()
             super.onBackPressed()
     }
 
-    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?)
+    override fun onSaveInstanceState(outState: Bundle)
     {
-        super.onSaveInstanceState(outState, outPersistentState);
-        outState?.let { saveState ->
-            bottomBar?.let {
-                saveState.putInt(saveMenuIdKey, it.selectedItemId);
-            };
-        }
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?)
-    {
-        super.onRestoreInstanceState(savedInstanceState);
-        savedInstanceState?.let { saveState ->
-            bottomBar?.let {
-                val selected = saveState.getInt(saveMenuIdKey);
-                it.selectedItemId = selected;
-            };
-        }
+        super.onSaveInstanceState(outState);
+        bottomBar?.let {
+            outState.putInt(saveMenuIdKey, it.selectedItemId);
+        };
     }
 }

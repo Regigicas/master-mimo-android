@@ -1,8 +1,9 @@
 package es.upsa.mimo.datamodule.models
 
 import es.upsa.mimo.datamodule.R
+import java.io.Serializable
 
-class PlatformModel
+class PlatformModel : Serializable
 {
     var id: Int? = null;
     var name: String? = null;

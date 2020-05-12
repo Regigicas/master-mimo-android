@@ -7,12 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.activities.HomeActivity
+import kotlin.reflect.KClass
 
-abstract class BackFragment(private val ownerFragment: Fragment) : Fragment()
+abstract class BackFragment : Fragment()
 {
+    var ownerFragment: Fragment? = null;
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
+        if (ownerFragment == null)
+            throw AssertionError(getString(R.string.assert_needed_data_not_present));
+
         val homeActivity = activity as? HomeActivity;
         homeActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(true);
         setHasOptionsMenu(true);
@@ -23,7 +30,7 @@ abstract class BackFragment(private val ownerFragment: Fragment) : Fragment()
 
     override fun onDestroyView()
     {
-        if (!(ownerFragment is BackFragment))
+        if (ownerFragment != null && !(ownerFragment is BackFragment))
         {
             val homeActivity = activity as? HomeActivity;
             homeActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(false);
@@ -51,7 +58,7 @@ abstract class BackFragment(private val ownerFragment: Fragment) : Fragment()
         activity!!.supportFragmentManager
             .beginTransaction()
             .remove(this)
-            .show(ownerFragment)
+            .show(ownerFragment!!)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .addToBackStack(null)
             .commit();

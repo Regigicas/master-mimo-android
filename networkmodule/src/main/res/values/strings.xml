@@ -3,4 +3,7 @@
     <string name="juegos_global" translatable="false">https://api.rawg.io/api/games</string>
     <string name="plataformas_global" translatable="false">https://api.rawg.io/api/platforms</string>
     <string name="plataformas_id" translatable="false">https://api.rawg.io/api/platforms/%d</string>
+    <string name="max_games_per_request" translatable="false">20</string>
+    <string name="assert_invalid_page">Page must be greater than zero</string>
+    <string name="juego_id" translatable="false">https://api.rawg.io/api/games/%d</string>
 </resources>

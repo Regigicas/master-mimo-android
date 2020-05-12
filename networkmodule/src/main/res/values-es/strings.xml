@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="assert_invalid_page">El número de la página tiene que ser mayor que 0</string>
+</resources>

@@ -1,6 +1,8 @@
 package es.upsa.mimo.datamodule.models
 
-class JuegoModel
+import java.io.Serializable
+
+class JuegoModel : Serializable
 {
     var id: Int? = null;
     var name: String? = null;
@@ -28,11 +30,6 @@ class JuegoModel
         lateinit var results: List<JuegoModel>;
     }
 
-    /*fun getBackgroundURL(): URL
-    {
-        return URL(string: self.getBackgroundString())!
-    }*/
-
     fun getBackgroundString(): String
     {
         if (background_image == null)
@@ -46,26 +43,25 @@ class JuegoModel
         return backgroundUrl;
     }
 
-    /*func getPlatformString() -> String
+    fun getPlatformString(): String
     {
-        var platforms: String = "Ninguna"
-
-        var first: Bool = true
-        if let plataformasList = self.plataformas
-        {
-            for plat in plataformasList {
-                if first
+        var platforms = "Ninguna"
+        var first = true
+        plataformas?.let {
+            for (plat in it)
+            {
+                if (first)
                 {
                     first = false
-                    platforms = plat.name!
+                    platforms = plat.name!!;
                 }
                 else
                 {
-                    platforms += " | \(plat.name!)"
+                    platforms += " | ${plat.name}"
                 }
             }
         }
 
         return platforms
-    }*/
+    }
 }

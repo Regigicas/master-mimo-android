@@ -1,6 +1,8 @@
 package es.upsa.mimo.gamesviewer.activities
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -90,6 +92,7 @@ class MainActivity : AppCompatActivity(), TextWatcher
                 val storeResult = UsuarioController.saveUserLoginData(textEditUsername!!.text.toString().trim(),
                     textEditPassword!!.text.toString().trim(), this@MainActivity);
 
+                UsuarioController.saveActiveUserId(result.second!!.id!!, this@MainActivity);
                 if (storeResult == false)
                     Toast.makeText(this@MainActivity, getString(R.string.error_no_autologin),
                         Toast.LENGTH_LONG).show();

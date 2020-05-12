@@ -26,4 +26,13 @@
     <string name="assert_needed_data_not_present">Missing needed data to build the view</string>
     <string name="view_platform_games">View platform games</string>
     <string name="description_platform_image">Platform game image</string>
+    <string name="description_game_image">Game image</string>
+    <string name="platform_games_title">Games %s</string>
+    <string name="available_on">Available on:</string>
+    <string name="description_favorite">Is favorite</string>
+    <string name="game_rating">Rating:</string>
+    <string name="game_release_date">Release date:</string>
+    <string name="game_description">Description:</string>
+    <string name="description_game_description">Game description</string>
+    <string name="description_qr">QRCode</string>
 </resources>

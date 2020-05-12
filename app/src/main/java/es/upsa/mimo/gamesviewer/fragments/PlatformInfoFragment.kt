@@ -16,11 +16,20 @@ import es.upsa.mimo.gamesviewer.misc.BackFragment
 import es.upsa.mimo.gamesviewer.misc.Util
 import es.upsa.mimo.networkmodule.controllers.PlataformaNetworkController
 
-class PlatformInfoFragment(ownerFragment: Fragment) : BackFragment(ownerFragment)
+class PlatformInfoFragment : BackFragment()
 {
     companion object
     {
         val bundlePlatformInfoKey = "PlatformInfoFragmentPlatformId";
+
+        @JvmStatic
+        fun newInstance(owner: Fragment, bundle: Bundle?): PlatformInfoFragment
+        {
+            val nuevoFrag = PlatformInfoFragment();
+            nuevoFrag.arguments = bundle;
+            nuevoFrag.ownerFragment = owner;
+            return nuevoFrag;
+        }
     }
 
     private var platformId: Int? = null;
@@ -39,21 +48,20 @@ class PlatformInfoFragment(ownerFragment: Fragment) : BackFragment(ownerFragment
         super.onViewCreated(view, savedInstanceState);
 
         activity?.let {
-            PlataformaNetworkController.getPlataformaInfo(platformId!!, it) {
+            PlataformaNetworkController.getPlataformaInfo(platformId!!, it) { platformInfo ->
                 val homeActivity = activity as? HomeActivity;
-                homeActivity?.supportActionBar?.title = getString(R.string.platform_title_name, it.name);
+                homeActivity?.supportActionBar?.title = getString(R.string.platform_title_name, platformInfo.name);
 
                 val imagenPlataforma = view.findViewById<ImageView>(R.id.imageViewImgPlataforma);
                 val textPlataforma = view.findViewById<TextView>(R.id.textPlatformDescription);
                 val button = view.findViewById<Button>(R.id.buttonJuegosPlat);
 
-                Picasso.get().load(it.image_background).fit().centerCrop().into(imagenPlataforma);
-                textPlataforma.text = HtmlCompat.fromHtml(it.description!!, HtmlCompat.FROM_HTML_MODE_LEGACY);
+                Picasso.get().load(platformInfo.image_background).fit().centerCrop().into(imagenPlataforma);
+                textPlataforma.text = HtmlCompat.fromHtml(platformInfo.description!!, HtmlCompat.FROM_HTML_MODE_LEGACY);
                 button.setOnClickListener {
-                    val nextFrag = PlatformGamesFragment(this);
                     val bundle = Bundle();
-                    bundle.putInt(PlatformGamesFragment.bundlePlatformGamesKey, platformId!!);
-                    nextFrag.arguments = bundle;
+                    bundle.putSerializable(PlatformGamesFragment.bundlePlatformGamesKey, platformInfo);
+                    val nextFrag = PlatformGamesFragment.newInstance(this, bundle);
                     Util.launchChildFragment(this, nextFrag, activity!!.supportFragmentManager);
                 }
             };

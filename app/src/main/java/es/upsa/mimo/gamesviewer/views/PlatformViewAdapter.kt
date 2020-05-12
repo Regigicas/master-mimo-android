@@ -8,14 +8,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.datamodule.models.PlatformModel
 import es.upsa.mimo.gamesviewer.R
-import es.upsa.mimo.gamesviewer.misc.RVItemClickListener
+import es.upsa.mimo.gamesviewer.misc.GVItemClickListener
 
-class PlatformViewAdapter(private val dataSet: List<PlatformModel>, private val listener: RVItemClickListener<PlatformModel>): RecyclerView.Adapter<PlatformViewAdapter.ViewHolder>()
+class PlatformViewAdapter(private val dataSet: List<PlatformModel>, private val listener: GVItemClickListener<PlatformModel>) : RecyclerView.Adapter<PlatformViewAdapter.ViewHolder>()
 {
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view)
     {
         var imageView = view.findViewById<ImageView>(R.id.imageViewLogo);
-        var textView = view.findViewById<TextView>(R.id.textEditPlatformName);
+        var textView = view.findViewById<TextView>(R.id.textViewPlatformName);
 
         fun bind(platformInfo: PlatformModel)
         {

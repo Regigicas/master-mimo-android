@@ -10,12 +10,8 @@ import com.google.gson.JsonSyntaxException
 import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
 
-class GSONRequest<T>(
-    url: String,
-    private val clazz: Class<T>,
-    private val headers: MutableMap<String, String>?,
-    private val listener: Response.Listener<T>,
-    errorListener: Response.ErrorListener) : Request<T>(Method.GET, url, errorListener)
+class GSONRequest<T>(url: String, private val clazz: Class<T>, private val headers: MutableMap<String, String>?,
+    private val listener: Response.Listener<T>, errorListener: Response.ErrorListener) : Request<T>(Method.GET, url, errorListener)
 {
     private val gson = Gson()
 

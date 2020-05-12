@@ -2,6 +2,7 @@ package es.upsa.mimo.datamodule.controllers
 
 import android.content.Context
 import android.util.Log
+import androidx.room.Database
 import com.jcloquell.androidsecurestorage.SecureStorage
 import es.upsa.mimo.datamodule.database.DatabaseInstance
 import es.upsa.mimo.datamodule.database.entities.Usuario
@@ -14,6 +15,8 @@ class UsuarioController
     {
         private val usernameStoreFieldName = "acc_login_username";
         private val passwordStoreFieldname = "acc_login_password";
+        private val activeUserId = "acc_active_user_id";
+        private val sharedPreferencesAccessName = "es.upsa.mimo.gameviewer";
 
         @JvmStatic
         suspend fun registrarUsuario(username: String, email: String, password: String, context: Context): UsuarioResultEnum
@@ -92,6 +95,31 @@ class UsuarioController
         }
 
         @JvmStatic
+        fun saveActiveUserId(id: Int, context: Context)
+        {
+            val sharedPreferences = context.getSharedPreferences(sharedPreferencesAccessName, Context.MODE_PRIVATE);
+            sharedPreferences.edit().putInt(activeUserId, id).apply();
+        }
+
+        @JvmStatic
+        fun getActiveUserId(context: Context): Int
+        {
+            val sharedPreferences = context.getSharedPreferences(sharedPreferencesAccessName, Context.MODE_PRIVATE);
+            val userId = sharedPreferences.getInt(sharedPreferencesAccessName, -1);
+            return userId;
+        }
+
+        @JvmStatic
+        suspend fun getActiveUser(context: Context): Usuario?
+        {
+            val userId = getActiveUserId(context);
+            if (userId == -1)
+                return null;
+
+            return DatabaseInstance.getInstance(context).usuarioDao().getUsuario(userId);
+        }
+
+        @JvmStatic
         suspend fun tryAutoLogin(context: Context): Boolean
         {
             val secureStorage = SecureStorage(context);
@@ -111,7 +139,7 @@ class UsuarioController
                 return false;
             }
 
-            return true;
+            return false;
         }
     }
 }

@@ -5,24 +5,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.datamodule.models.PlatformModel
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.misc.MenuFragment
-import es.upsa.mimo.gamesviewer.misc.RVItemClickListener
+import es.upsa.mimo.gamesviewer.misc.GVItemClickListener
 import es.upsa.mimo.gamesviewer.misc.Util
 import es.upsa.mimo.gamesviewer.views.PlatformViewAdapter
 import es.upsa.mimo.networkmodule.controllers.PlataformaNetworkController
 import kotlinx.coroutines.launch
+import java.io.Serializable
 
 
-class PlatformsFragment : MenuFragment(R.string.app_platforms), RVItemClickListener<PlatformModel>
+class PlatformsFragment : MenuFragment(R.string.app_platforms), GVItemClickListener<PlatformModel>
 {
     private val plataformas: MutableList<PlatformModel> = mutableListOf();
     private var initialCreation = false;
+    private val savePlatformsKey = "PlatformsLoadedData";
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
@@ -41,6 +43,7 @@ class PlatformsFragment : MenuFragment(R.string.app_platforms), RVItemClickListe
         recyclerView.setHasFixedSize(true);
         recyclerView.adapter = adapter;
         recyclerView.layoutManager = LinearLayoutManager(activity);
+        recyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL));
 
         lifecycleScope.launch {
             activity?.let {fragActivity ->
@@ -60,13 +63,17 @@ class PlatformsFragment : MenuFragment(R.string.app_platforms), RVItemClickListe
 
     override fun onItemClick(item: PlatformModel)
     {
-        val nextFrag = PlatformInfoFragment(this);
         val bundle = Bundle();
         item.id?.let {
             bundle.putInt(PlatformInfoFragment.bundlePlatformInfoKey, it);
-            nextFrag.arguments = bundle;
         };
-
+        val nextFrag = PlatformInfoFragment.newInstance(this, bundle);
         Util.launchChildFragment(this, nextFrag, activity!!.supportFragmentManager);
+    }
+
+    override fun onSaveInstanceState(outState: Bundle)
+    {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(savePlatformsKey, plataformas as Serializable);
     }
 }

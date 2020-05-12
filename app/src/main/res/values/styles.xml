@@ -11,6 +11,7 @@
         <item name="toolbarStyle">@style/CustomToolBar</item>
         <item name="actionBarTheme">@style/CustomActionBar</item>
         <item name="android:statusBarColor">@color/colorPurpleDarker</item>
+        <item name="android:windowBackground">@android:color/white</item>
     </style>
 
     <style name="CustomToolBar" parent="Widget.AppCompat.Toolbar">
