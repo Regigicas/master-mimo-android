@@ -1,5 +1,6 @@
 package es.upsa.mimo.gamesviewer.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,10 +18,12 @@ import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.activities.HomeActivity
 import es.upsa.mimo.gamesviewer.misc.BackFragment
 import es.upsa.mimo.gamesviewer.misc.GVItemClickListener
+import es.upsa.mimo.gamesviewer.misc.TitleFragment
 import es.upsa.mimo.gamesviewer.misc.Util
 import es.upsa.mimo.gamesviewer.views.PlatformGameViewAdapter
 import es.upsa.mimo.networkmodule.controllers.JuegoNetworkController
 import kotlinx.coroutines.launch
+import java.io.Serializable
 
 class PlatformGamesFragment : BackFragment(), GVItemClickListener<JuegoModel>
 {
@@ -29,7 +32,7 @@ class PlatformGamesFragment : BackFragment(), GVItemClickListener<JuegoModel>
         val bundlePlatformGamesKey = "PlatformGamesFragmentPlatformInfo";
 
         @JvmStatic
-        fun newInstance(owner: Fragment, bundle: Bundle?): PlatformGamesFragment
+        fun newInstance(owner: PlatformInfoFragment, bundle: Bundle?): PlatformGamesFragment
         {
             val nuevoFrag = PlatformGamesFragment();
             nuevoFrag.arguments = bundle;
@@ -47,6 +50,23 @@ class PlatformGamesFragment : BackFragment(), GVItemClickListener<JuegoModel>
     private var loadingMoreData = false;
     private val layoutManager = LinearLayoutManager(activity);
     private val maxLoadedItems = 100;
+    private val saveStateKey = "JuegosStateKey";
+    private val saveJuegosKey = "JuegosListKey";
+
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null)
+        {
+            val juegosGuardados = savedInstanceState.getSerializable(saveJuegosKey) as MutableList<*>;
+            for (juegoInfo in juegosGuardados)
+                juegos.add(juegoInfo as JuegoModel);
+
+            layoutManager.onRestoreInstanceState(savedInstanceState.getParcelable(saveStateKey));
+            if (activity != null)
+                ownerFragment = Util.findFragmentByClassName(PlatformInfoFragment::class.qualifiedName!!, activity!!.supportFragmentManager); // La vista solo puede ser creada por esta clase
+        }
+    }
 
     override fun onCreateChildView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -71,7 +91,23 @@ class PlatformGamesFragment : BackFragment(), GVItemClickListener<JuegoModel>
         if (layoutJuegosPlat == null)
             throw AssertionError(getString(R.string.assert_view_not_created));
 
+        if (juegos.size > 0)
+        {
+            setupView(view);
+            initialCreation = true;
+            return;
+        }
+
         layoutJuegosPlat!!.isRefreshing = true;
+        setupView(view);
+        refreshDatos();
+    }
+
+    private fun setupView(view: View)
+    {
+        val homeActivity = activity as? HomeActivity;
+        homeActivity?.supportActionBar?.title = getString(R.string.platform_games_title, plataforma?.name);
+
         layoutJuegosPlat!!.setOnRefreshListener {
             refreshDatos();
         }
@@ -81,7 +117,6 @@ class PlatformGamesFragment : BackFragment(), GVItemClickListener<JuegoModel>
         rvJuegosPlat.adapter = adapter;
         rvJuegosPlat.layoutManager = layoutManager;
         rvJuegosPlat.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL));
-        refreshDatos();
 
         rvJuegosPlat.addOnScrollListener(object : RecyclerView.OnScrollListener()
         {
@@ -150,5 +185,17 @@ class PlatformGamesFragment : BackFragment(), GVItemClickListener<JuegoModel>
         };
         val nextFrag = JuegoInfoFragment.newInstance(this, bundle);
         Util.launchChildFragment(this, nextFrag, activity!!.supportFragmentManager);
+    }
+
+    override fun getFragmentTitle(context: Context): String
+    {
+        return getString(R.string.platform_games_title, plataforma?.name);
+    }
+
+    override fun onSaveInstanceState(outState: Bundle)
+    {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(saveJuegosKey, juegos as Serializable);
+        outState.putParcelable(saveStateKey, layoutManager.onSaveInstanceState());
     }
 }

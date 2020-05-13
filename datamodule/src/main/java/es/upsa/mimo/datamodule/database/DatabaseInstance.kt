@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import es.upsa.mimo.datamodule.database.dao.JuegoFavDao
 import es.upsa.mimo.datamodule.database.dao.UsuarioDao
+import es.upsa.mimo.datamodule.database.dao.UsuarioJuegoDao
 import es.upsa.mimo.datamodule.database.entities.JuegoFav
 import es.upsa.mimo.datamodule.database.entities.Usuario
 import es.upsa.mimo.datamodule.database.entities.UsuariosJuegos
@@ -31,4 +32,5 @@ abstract class DatabaseInstance : RoomDatabase()
 
     abstract fun usuarioDao(): UsuarioDao;
     abstract fun juegoFavDao(): JuegoFavDao;
+    abstract fun usuarioJuegoFavDao(): UsuarioJuegoDao;
 }

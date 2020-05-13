@@ -2,6 +2,7 @@ package es.upsa.mimo.datamodule.models
 
 import es.upsa.mimo.datamodule.R
 import java.io.Serializable
+import java.util.*
 
 class PlatformModel : Serializable
 {
@@ -10,7 +11,7 @@ class PlatformModel : Serializable
     var image_background: String? = null;
     var description: String? = null;
 
-    class PlatformsResponse
+    class PlatformsResponse : Serializable
     {
         lateinit var platform: PlatformModel;
     }
@@ -24,7 +25,7 @@ class PlatformModel : Serializable
     {
         var imgId = if (dark) R.drawable.logo_web_dark else R.drawable.logo_web;
         this.name?.let {
-            val plataformaNombre = it.toLowerCase();
+            val plataformaNombre = it.toLowerCase(Locale.ROOT);
             if (plataformaNombre.contains("pc"))
                 imgId = if (dark) R.drawable.logo_pc_dark else R.drawable.logo_pc;
             else if (plataformaNombre.contains("sega") || plataformaNombre.contains("dreamcast") || plataformaNombre.contains("game gear") ||

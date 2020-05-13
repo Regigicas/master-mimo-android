@@ -11,9 +11,9 @@ import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.activities.HomeActivity
 import kotlin.reflect.KClass
 
-abstract class BackFragment : Fragment()
+abstract class BackFragment : TitleFragment()
 {
-    var ownerFragment: Fragment? = null;
+    var ownerFragment: TitleFragment? = null;
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -55,6 +55,9 @@ abstract class BackFragment : Fragment()
 
     fun onFragmentBack()
     {
+        val homeActivity = activity as? HomeActivity;
+        homeActivity?.supportActionBar?.title = ownerFragment?.getFragmentTitle(ownerFragment!!.context!!);
+
         activity!!.supportFragmentManager
             .beginTransaction()
             .remove(this)

@@ -5,6 +5,7 @@ import android.os.Handler
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.Menu
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
@@ -86,6 +87,12 @@ class RegisterActivity : AppCompatActivity(), TextWatcher
             else
                 pendingInsert = false;
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean
+    {
+        menuInflater.inflate(R.menu.toolbar_menu, menu);
+        return super.onCreateOptionsMenu(menu)
     }
 
     fun validateAllFields(): Boolean

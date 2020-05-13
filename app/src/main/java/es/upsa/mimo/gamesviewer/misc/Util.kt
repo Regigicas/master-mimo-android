@@ -30,5 +30,15 @@ class Util
                 .addToBackStack(null)
                 .commit();
         }
+
+        @JvmStatic
+        fun findFragmentByClassName(name: String, fragmentManager: FragmentManager): TitleFragment?
+        {
+            for (oldFragment in fragmentManager.fragments)
+                if (oldFragment::class.qualifiedName!! == name)
+                    return oldFragment as TitleFragment;
+
+            return null;
+        }
     }
 }

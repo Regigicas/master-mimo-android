@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.view.Menu
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
@@ -101,6 +102,12 @@ class MainActivity : AppCompatActivity(), TextWatcher
                 startActivity(Intent(this@MainActivity, HomeActivity::class.java));
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean
+    {
+        menuInflater.inflate(R.menu.toolbar_menu, menu);
+        return super.onCreateOptionsMenu(menu)
     }
 
     override fun afterTextChanged(p0: Editable?)

@@ -1,6 +1,8 @@
 package es.upsa.mimo.gamesviewer.fragments
 
 import android.os.Bundle
+import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.datamodule.models.PlatformModel
 import es.upsa.mimo.gamesviewer.R
+import es.upsa.mimo.gamesviewer.activities.HomeActivity
 import es.upsa.mimo.gamesviewer.misc.MenuFragment
 import es.upsa.mimo.gamesviewer.misc.GVItemClickListener
 import es.upsa.mimo.gamesviewer.misc.Util
@@ -25,6 +28,21 @@ class PlatformsFragment : MenuFragment(R.string.app_platforms), GVItemClickListe
     private val plataformas: MutableList<PlatformModel> = mutableListOf();
     private var initialCreation = false;
     private val savePlatformsKey = "PlatformsLoadedData";
+    private val saveStateKey = "PlatformsStateKey";
+    private val layoutManager = LinearLayoutManager(activity);
+
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null)
+        {
+            val platformGuardadas = savedInstanceState.getSerializable(savePlatformsKey) as MutableList<*>;
+            for (plat in platformGuardadas)
+                plataformas.add(plat as PlatformModel);
+
+            layoutManager.onRestoreInstanceState(savedInstanceState.getParcelable(saveStateKey));
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
@@ -42,8 +60,16 @@ class PlatformsFragment : MenuFragment(R.string.app_platforms), GVItemClickListe
         val adapter = PlatformViewAdapter(plataformas, this);
         recyclerView.setHasFixedSize(true);
         recyclerView.adapter = adapter;
-        recyclerView.layoutManager = LinearLayoutManager(activity);
+        recyclerView.layoutManager = layoutManager;
         recyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL));
+        val progressLoad = view.findViewById<ProgressBar>(R.id.progressLoad);
+
+        if (plataformas.size > 0)
+        {
+            initialCreation = false;
+            progressLoad.visibility = View.GONE;
+            return;
+        }
 
         lifecycleScope.launch {
             activity?.let {fragActivity ->
@@ -54,7 +80,6 @@ class PlatformsFragment : MenuFragment(R.string.app_platforms), GVItemClickListe
                     initialCreation = true;
                     plataformas.addAll(it);
                     adapter.notifyDataSetChanged();
-                    val progressLoad = view.findViewById<ProgressBar>(R.id.progressLoad);
                     progressLoad.visibility = View.GONE;
                 }
             }
@@ -75,5 +100,6 @@ class PlatformsFragment : MenuFragment(R.string.app_platforms), GVItemClickListe
     {
         super.onSaveInstanceState(outState);
         outState.putSerializable(savePlatformsKey, plataformas as Serializable);
+        outState.putParcelable(saveStateKey, layoutManager.onSaveInstanceState());
     }
 }

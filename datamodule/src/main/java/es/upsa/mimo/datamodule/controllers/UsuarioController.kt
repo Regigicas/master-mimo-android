@@ -1,13 +1,20 @@
 package es.upsa.mimo.datamodule.controllers
 
 import android.content.Context
+import android.preference.PreferenceManager
 import android.util.Log
 import androidx.room.Database
 import com.jcloquell.androidsecurestorage.SecureStorage
 import es.upsa.mimo.datamodule.database.DatabaseInstance
+import es.upsa.mimo.datamodule.database.entities.JuegoFav
 import es.upsa.mimo.datamodule.database.entities.Usuario
+import es.upsa.mimo.datamodule.database.entities.UsuariosJuegos
 import es.upsa.mimo.datamodule.enums.UsuarioResultEnum
+import es.upsa.mimo.datamodule.models.JuegoModel
 import java.security.MessageDigest
+import java.sql.Date
+import java.text.SimpleDateFormat
+import java.util.*
 
 class UsuarioController
 {
@@ -16,7 +23,7 @@ class UsuarioController
         private val usernameStoreFieldName = "acc_login_username";
         private val passwordStoreFieldname = "acc_login_password";
         private val activeUserId = "acc_active_user_id";
-        private val sharedPreferencesAccessName = "es.upsa.mimo.gameviewer";
+        private val sharedPreferencesAccessName = "gamesViewerPreferences";
 
         @JvmStatic
         suspend fun registrarUsuario(username: String, email: String, password: String, context: Context): UsuarioResultEnum
@@ -24,7 +31,7 @@ class UsuarioController
             if (!validateEmail(email))
                 return UsuarioResultEnum.invalidEmail;
 
-            val passHash = hashPassword("${username.toUpperCase()}:$password");
+            val passHash = hashPassword("${username.toUpperCase(Locale.ROOT)}:$password");
             val usuario = Usuario(null, username, email, 0, passHash);
 
             try
@@ -67,7 +74,7 @@ class UsuarioController
             if (userLogin == null)
                 return Pair(UsuarioResultEnum.usernameNotFound, null);
 
-            val passHash = hashPassword("${username.toUpperCase()}:$password");
+            val passHash = hashPassword("${username.toUpperCase(Locale.ROOT)}:$password");
 
             Log.d("info", "$passHash - ${userLogin.shaHashPass}")
 
@@ -105,7 +112,7 @@ class UsuarioController
         fun getActiveUserId(context: Context): Int
         {
             val sharedPreferences = context.getSharedPreferences(sharedPreferencesAccessName, Context.MODE_PRIVATE);
-            val userId = sharedPreferences.getInt(sharedPreferencesAccessName, -1);
+            val userId = sharedPreferences.getInt(activeUserId, -1);
             return userId;
         }
 
@@ -140,6 +147,76 @@ class UsuarioController
             }
 
             return false;
+        }
+
+        @JvmStatic
+        suspend fun addJuegoFavorito(juegoModel: JuegoModel, context: Context): Boolean
+        {
+            val usuario = getActiveUser(context);
+            if (usuario == null)
+                return false;
+
+            val favoritos = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserId(usuario.id!!);
+            if (favoritos.find { it.id == juegoModel.id } != null)
+                return false;
+
+            // Si no tiene el juego en favorito miramos si lo tenemos ya registrado en la DB
+            var juegoFav = DatabaseInstance.getInstance(context).juegoFavDao().getJuegoFav(juegoModel.id!!);
+            if (juegoFav == null)
+                juegoFav = JuegoController.insertNewGameFav(juegoModel, context);
+            if (juegoFav == null) // Si tampoco se ha creado en DB retornamos ya false
+                return false;
+
+            val userFav = UsuariosJuegos(usuario.id, juegoFav.id);
+            try
+            {
+                DatabaseInstance.getInstance(context).usuarioJuegoFavDao().insertJuegoFav(userFav);
+                return true;
+            }
+            catch (ex: Throwable)
+            {
+                Log.e("error", ex.localizedMessage);
+            }
+
+            return false;
+        }
+
+        @JvmStatic
+        suspend fun removeJuegoFavorito(juegoId: Int, context: Context): Boolean
+        {
+            val usuario = getActiveUser(context);
+            if (usuario == null)
+                return false;
+
+            val favoritos = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserId(usuario.id!!);
+            if (favoritos.find { it.id == juegoId } == null)
+                return false;
+
+            try
+            {
+                DatabaseInstance.getInstance(context).usuarioJuegoFavDao().deleteByUserIdAndGameId(usuario.id, juegoId);
+                return true;
+            }
+            catch (ex: Throwable)
+            {
+                Log.e("error", ex.localizedMessage);
+            }
+
+            return false;
+        }
+
+        @JvmStatic
+        suspend fun hasFavorite(juegoId: Int, context: Context): Boolean
+        {
+            val usuario = getActiveUser(context);
+            if (usuario == null)
+                return false;
+
+            val favoritos = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserId(usuario.id!!);
+            if (favoritos.find { it.id == juegoId } == null)
+                return false;
+
+            return true;
         }
     }
 }
