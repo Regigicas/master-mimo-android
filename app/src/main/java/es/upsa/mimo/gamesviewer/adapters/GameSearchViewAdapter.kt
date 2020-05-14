@@ -1,4 +1,4 @@
-package es.upsa.mimo.gamesviewer.views
+package es.upsa.mimo.gamesviewer.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import es.upsa.mimo.datamodule.models.JuegoModel
 import es.upsa.mimo.gamesviewer.R
-import es.upsa.mimo.gamesviewer.misc.GVItemClickListener
+import es.upsa.mimo.gamesviewer.misc.RLItemClickListener
 
-class PlatformGameViewAdapter(private val dataSet: List<JuegoModel>, private val listener: GVItemClickListener<JuegoModel>) : RecyclerView.Adapter<PlatformGameViewAdapter.ViewHolder>()
+class GameSearchViewAdapter(private val dataSet: List<JuegoModel>, private val listener: RLItemClickListener<JuegoModel>) : RecyclerView.Adapter<GameSearchViewAdapter.ViewHolder>()
 {
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view)
     {
@@ -32,7 +32,7 @@ class PlatformGameViewAdapter(private val dataSet: List<JuegoModel>, private val
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
     {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_platform_game,
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_search_game,
                 parent, false));
     }
 

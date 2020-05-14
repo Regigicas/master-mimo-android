@@ -1,8 +1,6 @@
 package es.upsa.mimo.gamesviewer.fragments
 
 import android.os.Bundle
-import android.os.Parcelable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,17 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.datamodule.models.PlatformModel
 import es.upsa.mimo.gamesviewer.R
-import es.upsa.mimo.gamesviewer.activities.HomeActivity
 import es.upsa.mimo.gamesviewer.misc.MenuFragment
-import es.upsa.mimo.gamesviewer.misc.GVItemClickListener
+import es.upsa.mimo.gamesviewer.misc.RLItemClickListener
 import es.upsa.mimo.gamesviewer.misc.Util
-import es.upsa.mimo.gamesviewer.views.PlatformViewAdapter
+import es.upsa.mimo.gamesviewer.adapters.PlatformViewAdapter
 import es.upsa.mimo.networkmodule.controllers.PlataformaNetworkController
 import kotlinx.coroutines.launch
 import java.io.Serializable
 
 
-class PlatformsFragment : MenuFragment(R.string.app_platforms), GVItemClickListener<PlatformModel>
+class PlatformsFragment : MenuFragment(R.string.app_platforms), RLItemClickListener<PlatformModel>
 {
     private val plataformas: MutableList<PlatformModel> = mutableListOf();
     private var initialCreation = false;

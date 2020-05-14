@@ -15,11 +15,12 @@ import androidx.lifecycle.lifecycleScope
 import es.upsa.mimo.datamodule.controllers.UsuarioController
 import es.upsa.mimo.datamodule.enums.UsuarioResultEnum
 import es.upsa.mimo.gamesviewer.R
+import es.upsa.mimo.gamesviewer.misc.AppCompatActivityTopBar
 import es.upsa.mimo.gamesviewer.misc.Util
 import kotlinx.coroutines.launch
 import java.lang.AssertionError
 
-class RegisterActivity : AppCompatActivity(), TextWatcher
+class RegisterActivity : AppCompatActivityTopBar(), TextWatcher
 {
     private var textEditUsername: EditText? = null;
     private var textEditEmail: EditText? = null;
@@ -87,12 +88,6 @@ class RegisterActivity : AppCompatActivity(), TextWatcher
             else
                 pendingInsert = false;
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean
-    {
-        menuInflater.inflate(R.menu.toolbar_menu, menu);
-        return super.onCreateOptionsMenu(menu)
     }
 
     fun validateAllFields(): Boolean

@@ -71,5 +71,26 @@ class JuegoNetworkController
 
             queue.addToRequestQueue(juegoRequest);
         }
+
+        @JvmStatic
+        fun getJuegosQuery(page: Int, query: String, context: Context, callback: (juegos: List<JuegoModel>) -> Unit)
+        {
+            if (page == 0)
+                throw AssertionError(context.getString(R.string.assert_invalid_page));
+
+            val queue = VolleyQueueInstance.getInstance(context);
+            val url = UrlFormatter.addParametersToURL(context.getString(R.string.juegos_global), mutableMapOf(
+                Pair("page_size", context.getString(R.string.max_games_per_request)),
+                Pair("page", "$page"), Pair("search", query)));
+            val juegoRequest = GSONRequest(url, JuegoModel.ResponseQuery::class.java, null,
+                Response.Listener { response ->
+                    callback(response.results);
+                },
+                Response.ErrorListener { response ->
+                    Log.e("response", response.localizedMessage);
+                });
+
+            queue.addToRequestQueue(juegoRequest);
+        }
     }
 }

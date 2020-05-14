@@ -1,4 +1,4 @@
-package es.upsa.mimo.gamesviewer.views
+package es.upsa.mimo.gamesviewer.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.datamodule.models.PlatformModel
 import es.upsa.mimo.gamesviewer.R
-import es.upsa.mimo.gamesviewer.misc.GVItemClickListener
+import es.upsa.mimo.gamesviewer.misc.RLItemClickListener
 
-class PlatformViewAdapter(private val dataSet: List<PlatformModel>, private val listener: GVItemClickListener<PlatformModel>) : RecyclerView.Adapter<PlatformViewAdapter.ViewHolder>()
+class PlatformViewAdapter(private val dataSet: List<PlatformModel>, private val listener: RLItemClickListener<PlatformModel>) : RecyclerView.Adapter<PlatformViewAdapter.ViewHolder>()
 {
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view)
     {

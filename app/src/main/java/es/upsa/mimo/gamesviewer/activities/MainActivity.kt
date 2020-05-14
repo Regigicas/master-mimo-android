@@ -17,10 +17,11 @@ import androidx.lifecycle.lifecycleScope
 import es.upsa.mimo.datamodule.controllers.UsuarioController
 import es.upsa.mimo.datamodule.enums.UsuarioResultEnum
 import es.upsa.mimo.gamesviewer.R
+import es.upsa.mimo.gamesviewer.misc.AppCompatActivityTopBar
 import es.upsa.mimo.gamesviewer.misc.Util
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity(), TextWatcher
+class MainActivity : AppCompatActivityTopBar(), TextWatcher
 {
     private var textEditUsername: EditText? = null;
     private var textEditPassword: EditText? = null;
@@ -102,12 +103,6 @@ class MainActivity : AppCompatActivity(), TextWatcher
                 startActivity(Intent(this@MainActivity, HomeActivity::class.java));
             }
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean
-    {
-        menuInflater.inflate(R.menu.toolbar_menu, menu);
-        return super.onCreateOptionsMenu(menu)
     }
 
     override fun afterTextChanged(p0: Editable?)

@@ -1,6 +1,6 @@
 package es.upsa.mimo.gamesviewer.misc
 
-interface GVItemClickListener<T>
+interface RLItemClickListener<T>
 {
     fun onItemClick(item: T);
 }

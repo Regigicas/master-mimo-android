@@ -2,4 +2,8 @@
 <resources>
     <dimen name="platformViewItemSize" type="">44dp</dimen>
     <dimen name="platformViewItemSizePlus" type="">45dp</dimen>
+    <dimen name="textDescription" type="">16sp</dimen>
+    <dimen name="viewPaddingSmall" type="">8dp</dimen>
+    <dimen name="viewPaddingExtra" type="">10dp</dimen>
+    <dimen name="viewCornerRadius" type="">15dp</dimen>
 </resources>

@@ -13,11 +13,12 @@ import es.upsa.mimo.gamesviewer.fragments.FavoriteFragment
 import es.upsa.mimo.gamesviewer.fragments.HomeFragment
 import es.upsa.mimo.gamesviewer.fragments.PlatformsFragment
 import es.upsa.mimo.gamesviewer.fragments.SearchFragment
+import es.upsa.mimo.gamesviewer.misc.AppCompatActivityTopBar
 import es.upsa.mimo.gamesviewer.misc.BackFragment
 import es.upsa.mimo.gamesviewer.misc.MenuFragment
 
 
-class HomeActivity : AppCompatActivity()
+class HomeActivity : AppCompatActivityTopBar()
 {
     private var homeFragment: HomeFragment? = null;
     private var platformsFragment: PlatformsFragment? = null;
@@ -205,11 +206,5 @@ class HomeActivity : AppCompatActivity()
                 supportFragmentManager.putFragment(outState, oldFragment::class.qualifiedName!!, oldFragment);
 
         outState.putBoolean(saveInitialSetupKey, initialSetup);
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean
-    {
-        menuInflater.inflate(R.menu.toolbar_menu, menu);
-        return super.onCreateOptionsMenu(menu)
     }
 }

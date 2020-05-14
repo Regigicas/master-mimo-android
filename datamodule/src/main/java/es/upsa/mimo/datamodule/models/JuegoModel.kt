@@ -33,7 +33,7 @@ class JuegoModel : Serializable
     fun getBackgroundString(): String
     {
         if (background_image == null)
-            return "https://via.placeholder.com/500x500";
+            return "https://via.placeholder.com/100x100";
 
         val splits = background_image!!.split("/")
         val url1 = splits[splits.size - 1];

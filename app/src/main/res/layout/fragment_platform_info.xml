@@ -28,9 +28,9 @@
                 android:id="@+id/textPlatformDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:textSize="16sp"
+                android:paddingLeft="@dimen/viewPaddingExtra"
+                android:paddingRight="@dimen/viewPaddingExtra"
+                android:textSize="@dimen/textDescription"
                 />
         </androidx.core.widget.NestedScrollView>
 
@@ -45,7 +45,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintVertical_bias="0.1"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/viewPaddingExtra"
             android:theme="@style/DefaultButtonTheme"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>

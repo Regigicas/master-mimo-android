@@ -2,11 +2,9 @@ package es.upsa.mimo.gamesviewer.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,15 +15,14 @@ import es.upsa.mimo.datamodule.models.PlatformModel
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.activities.HomeActivity
 import es.upsa.mimo.gamesviewer.misc.BackFragment
-import es.upsa.mimo.gamesviewer.misc.GVItemClickListener
-import es.upsa.mimo.gamesviewer.misc.TitleFragment
+import es.upsa.mimo.gamesviewer.misc.RLItemClickListener
 import es.upsa.mimo.gamesviewer.misc.Util
-import es.upsa.mimo.gamesviewer.views.PlatformGameViewAdapter
+import es.upsa.mimo.gamesviewer.adapters.GameSearchViewAdapter
 import es.upsa.mimo.networkmodule.controllers.JuegoNetworkController
 import kotlinx.coroutines.launch
 import java.io.Serializable
 
-class PlatformGamesFragment : BackFragment(), GVItemClickListener<JuegoModel>
+class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
 {
     companion object
     {
@@ -45,7 +42,7 @@ class PlatformGamesFragment : BackFragment(), GVItemClickListener<JuegoModel>
     private var juegos: MutableList<JuegoModel> = mutableListOf();
     private var initialCreation = false;
     private var currentPage = 1;
-    private val adapter = PlatformGameViewAdapter(juegos, this);
+    private val adapter = GameSearchViewAdapter(juegos, this);
     private var layoutJuegosPlat: SwipeRefreshLayout? = null;
     private var loadingMoreData = false;
     private val layoutManager = LinearLayoutManager(activity);
@@ -98,9 +95,8 @@ class PlatformGamesFragment : BackFragment(), GVItemClickListener<JuegoModel>
             return;
         }
 
-        layoutJuegosPlat!!.isRefreshing = true;
         setupView(view);
-        refreshDatos();
+        fetchGameData(true);
     }
 
     private fun setupView(view: View)
@@ -109,7 +105,7 @@ class PlatformGamesFragment : BackFragment(), GVItemClickListener<JuegoModel>
         homeActivity?.supportActionBar?.title = getString(R.string.platform_games_title, plataforma?.name);
 
         layoutJuegosPlat!!.setOnRefreshListener {
-            refreshDatos();
+            fetchGameData(true);
         }
 
         val rvJuegosPlat = view.findViewById<RecyclerView>(R.id.rvJuegosPlat);
@@ -138,37 +134,29 @@ class PlatformGamesFragment : BackFragment(), GVItemClickListener<JuegoModel>
                     if ((visibleItemCount + pastVisiblesItems) >= totalItemCount)
                     {
                         loadingMoreData = true;
-                        loadMoreData();
+                        fetchGameData(false);
                     }
                 }
             }
         });
     }
 
-    private fun refreshDatos()
-    {
-        juegos.clear();
-        currentPage = 1;
-        lifecycleScope.launch {
-            activity?.let {fragActivity ->
-                JuegoNetworkController.getJuegosPlataforma(currentPage, plataforma!!.id!!, fragActivity) {
-                    initialCreation = true;
-                    juegos.addAll(it);
-                    adapter.notifyDataSetChanged();
-                    layoutJuegosPlat!!.isRefreshing = false;
-                }
-            }
-        }
-    }
-
-    private fun loadMoreData()
+    private fun fetchGameData(reset: Boolean)
     {
         layoutJuegosPlat!!.isRefreshing = true; // Evitamos que se pueda actualizar
-        currentPage += 1;
+        if (reset)
+        {
+            juegos.clear();
+            currentPage = 1;
+        }
+        else
+            currentPage += 1;
+
         lifecycleScope.launch {
             activity?.let {fragActivity ->
                 JuegoNetworkController.getJuegosPlataforma(currentPage, plataforma!!.id!!, fragActivity) {
                     loadingMoreData = false;
+                    initialCreation = true;
                     juegos.addAll(it);
                     adapter.notifyDataSetChanged();
                     layoutJuegosPlat!!.isRefreshing = false;

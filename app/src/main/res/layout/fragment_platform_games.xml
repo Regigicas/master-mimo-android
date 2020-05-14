@@ -10,8 +10,6 @@
         android:id="@+id/rvJuegosPlat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/selectableItemBackground"
-        android:focusable="true"
-        android:clickable="true"/>
+        />
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

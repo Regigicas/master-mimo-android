@@ -34,4 +34,10 @@
     <string name="game_description">Descripción:</string>
     <string name="description_game_description">Descripción del juego</string>
     <string name="description_qr">QRCode</string>
+    <string name="searchbar_hint">Introduce el nombre del juego</string>
+    <string name="upsa_logo">Logo UPSA</string>
+    <string name="about_text">GamesViewer, desarrollado para MIMO (Máster Universitario en Informática Móvil) por José María Moreno. 2020 Universidad Pontificia de Salamanca. Todos lo derechos reservados.</string>
+    <string name="click_me">¡Hazme clic!</string>
+    <string name="title_about">Acerca de</string>
+    <string name="title_config">Configuración</string>
 </resources>
