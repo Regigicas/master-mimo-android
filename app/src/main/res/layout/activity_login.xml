@@ -6,21 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageLogoApp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="220dp"
+        android:maxWidth="@dimen/width220"
         android:adjustViewBounds="true"
         android:src="@drawable/logo_app"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintVertical_bias="@dimen/bias10"
         />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,18 +28,18 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:text="@string/login_login_msg"
-        android:layout_marginTop="20dp"
-        android:textSize="30sp"
+        android:layout_marginTop="@dimen/text20dp"
+        android:textSize="@dimen/text30sp"
         />
 
-    <EditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/textEditUsername"
-        android:layout_width="250dp"
+        android:layout_width="@dimen/width250"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/textLogin"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/width5"
         android:hint="@string/str_username"
         android:maxLines="1"
         android:nextFocusDown="@id/textEditPassword"
@@ -47,13 +47,13 @@
         android:inputType="textNoSuggestions"
         />
     
-    <EditText
+    <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/textEditPassword"
-        android:layout_width="250dp"
+        android:layout_width="@dimen/width250"
         android:layout_height="wrap_content"
         android:hint="@string/str_password"
         app:layout_constraintTop_toBottomOf="@id/textEditUsername"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/width5"
         app:layout_constraintRight_toRightOf="@id/textEditUsername"
         app:layout_constraintLeft_toLeftOf="@id/textEditUsername"
         android:maxLines="1"
@@ -61,22 +61,22 @@
         android:imeOptions="actionDone"
         />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonLogin"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/width200"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/textEditPassword"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/width5"
         android:text="@string/login_login_msg"
         android:enabled="false"
         android:theme="@style/DefaultButtonTheme"
         />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonRegister"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/width200"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/buttonLogin"
         app:layout_constraintLeft_toLeftOf="parent"

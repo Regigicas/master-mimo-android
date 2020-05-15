@@ -13,6 +13,7 @@ import kotlin.reflect.KClass
 
 abstract class BackFragment : TitleFragment()
 {
+    @JvmField
     var ownerFragment: TitleFragment? = null;
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -30,7 +31,7 @@ abstract class BackFragment : TitleFragment()
 
     override fun onDestroyView()
     {
-        if (ownerFragment != null && !(ownerFragment is BackFragment))
+        if (!(ownerFragment is BackFragment))
         {
             val homeActivity = activity as? HomeActivity;
             homeActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(false);
@@ -56,14 +57,18 @@ abstract class BackFragment : TitleFragment()
     fun onFragmentBack()
     {
         val homeActivity = activity as? HomeActivity;
-        homeActivity?.supportActionBar?.title = ownerFragment?.getFragmentTitle(ownerFragment!!.context!!);
+        homeActivity?.supportActionBar?.title =
+            ownerFragment?.getFragmentTitle(ownerFragment?.context!!);
 
-        activity!!.supportFragmentManager
-            .beginTransaction()
-            .remove(this)
-            .show(ownerFragment!!)
-            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-            .addToBackStack(null)
-            .commit();
+        if (activity != null && ownerFragment != null)
+        {
+            activity!!.supportFragmentManager
+                .beginTransaction()
+                .remove(this)
+                .show(ownerFragment!!)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .addToBackStack(null)
+                .commit();
+        }
     }
 }

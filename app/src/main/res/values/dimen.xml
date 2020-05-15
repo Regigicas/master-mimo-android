@@ -6,4 +6,23 @@
     <dimen name="viewPaddingSmall" type="">8dp</dimen>
     <dimen name="viewPaddingExtra" type="">10dp</dimen>
     <dimen name="viewCornerRadius" type="">15dp</dimen>
+    <dimen name="text20dp" type="">20dp</dimen>
+    <dimen name="text30sp" type="">30sp</dimen>
+    <dimen name="height0" type="">0dp</dimen>
+    <dimen name="logosMaxSize" type="">160dp</dimen>
+    <dimen name="width1" type="">1dp</dimen>
+    <dimen name="width2" type="">2dp</dimen>
+    <dimen name="width5" type="">5dp</dimen>
+    <dimen name="width80" type="">80dp</dimen>
+    <dimen name="width100" type="">100dp</dimen>
+    <dimen name="width200" type="">200dp</dimen>
+    <dimen name="width220" type="">220dp</dimen>
+    <dimen name="width240" type="">250dp</dimen>
+    <dimen name="width250" type="">250dp</dimen>
+    <dimen name="width320" type="">320dp</dimen>
+    <dimen name="width400" type="">400dp</dimen>
+    <dimen name="bias30" type="">0.3</dimen>
+    <dimen name="bias10" type="">0.1</dimen>
+    <dimen name="bias09" type="">0.09</dimen>
+    <dimen name="bias93" type="">0.93</dimen>
 </resources>

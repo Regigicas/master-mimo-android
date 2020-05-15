@@ -4,12 +4,11 @@ import java.io.Serializable
 
 class JuegoModel : Serializable
 {
-    var id: Int? = null;
-    var name: String? = null;
+    var id: Int = -1;
+    lateinit var name: String;
     var description: String? = null;
     var released: String? = null;
     var background_image: String? = null;
-    var background_image_additional: String? = null;
     var rating: Float? = null;
     private var platforms: List<PlatformModel.PlatformsResponse>? = null;
     var plataformas: List<PlatformModel>?
@@ -53,7 +52,7 @@ class JuegoModel : Serializable
                 if (first)
                 {
                     first = false
-                    platforms = plat.name!!;
+                    platforms = plat.name;
                 }
                 else
                 {

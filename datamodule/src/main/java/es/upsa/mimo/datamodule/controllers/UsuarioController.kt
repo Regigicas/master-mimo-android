@@ -161,7 +161,7 @@ class UsuarioController
                 return false;
 
             // Si no tiene el juego en favorito miramos si lo tenemos ya registrado en la DB
-            var juegoFav = DatabaseInstance.getInstance(context).juegoFavDao().getJuegoFav(juegoModel.id!!);
+            var juegoFav = DatabaseInstance.getInstance(context).juegoFavDao().getJuegoFav(juegoModel.id);
             if (juegoFav == null)
                 juegoFav = JuegoController.insertNewGameFav(juegoModel, context);
             if (juegoFav == null) // Si tampoco se ha creado en DB retornamos ya false

@@ -4,19 +4,20 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageButton
+    <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/imageButtonClose"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="@dimen/width80"
+        android:layout_height="@dimen/width80"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@android:drawable/ic_menu_close_clear_cancel"
         android:tint="@android:color/black"
         android:backgroundTint="@android:color/transparent"
         android:scaleType="fitCenter"
+        android:contentDescription="@string/text_close"
         />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewNombreJuego"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,13 +25,13 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toTopOf="@id/imageViewQRCode"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="@dimen/viewPaddingExtra"
         />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageViewQRCode"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
+        android:layout_width="@dimen/width240"
+        android:layout_height="@dimen/width240"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

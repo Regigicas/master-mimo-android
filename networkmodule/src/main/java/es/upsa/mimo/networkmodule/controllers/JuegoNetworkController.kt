@@ -5,10 +5,7 @@ import android.util.Log
 import com.android.volley.Response
 import es.upsa.mimo.datamodule.enums.JuegoOrderEnum
 import es.upsa.mimo.datamodule.models.JuegoModel
-import es.upsa.mimo.networkmodule.GSONRequest
-import es.upsa.mimo.networkmodule.R
-import es.upsa.mimo.networkmodule.UrlFormatter
-import es.upsa.mimo.networkmodule.VolleyQueueInstance
+import es.upsa.mimo.networkmodule.*
 
 class JuegoNetworkController
 {
@@ -21,7 +18,7 @@ class JuegoNetworkController
                 throw AssertionError(context.getString(R.string.assert_invalid_page));
 
             val queue = VolleyQueueInstance.getInstance(context);
-            val url = UrlFormatter.addParametersToURL(context.getString(R.string.juegos_global), mapOf(
+            val url = context.getString(R.string.juegos_global).addParametersToURL(mapOf(
                 Pair("page_size", context.getString(R.string.max_games_per_request)),
                 Pair("page", "$page"), Pair("ordering", "${order.stringValue()}")));
             val juegoRequest = GSONRequest(url, JuegoModel.ResponseQuery::class.java, null,
@@ -42,7 +39,7 @@ class JuegoNetworkController
                 throw AssertionError(context.getString(R.string.assert_invalid_page));
 
             val queue = VolleyQueueInstance.getInstance(context);
-            val url = UrlFormatter.addParametersToURL(context.getString(R.string.juegos_global), mutableMapOf(
+            val url = context.getString(R.string.juegos_global).addParametersToURL(mutableMapOf(
                 Pair("page_size", context.getString(R.string.max_games_per_request)),
                 Pair("page", "$page"), Pair("platforms", "$platId")));
             val juegoRequest = GSONRequest(url, JuegoModel.ResponseQuery::class.java, null,
@@ -79,7 +76,7 @@ class JuegoNetworkController
                 throw AssertionError(context.getString(R.string.assert_invalid_page));
 
             val queue = VolleyQueueInstance.getInstance(context);
-            val url = UrlFormatter.addParametersToURL(context.getString(R.string.juegos_global), mutableMapOf(
+            val url = context.getString(R.string.juegos_global).addParametersToURL(mutableMapOf(
                 Pair("page_size", context.getString(R.string.max_games_per_request)),
                 Pair("page", "$page"), Pair("search", query)));
             val juegoRequest = GSONRequest(url, JuegoModel.ResponseQuery::class.java, null,

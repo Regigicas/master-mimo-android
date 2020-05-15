@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageViewImgPlataforma"
             android:layout_width="match_parent"
-            android:layout_height="320dp"
+            android:layout_height="@dimen/width320"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/description_platform_image" />
 
@@ -22,9 +22,9 @@
             app:layout_constraintTop_toBottomOf="@id/imageViewImgPlataforma"
             app:layout_constraintBottom_toTopOf="@id/buttonJuegosPlat"
             android:fillViewport="true"
-            app:layout_constraintVertical_bias="0.1">
+            app:layout_constraintVertical_bias="@dimen/bias10">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textPlatformDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -34,17 +34,17 @@
                 />
         </androidx.core.widget.NestedScrollView>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonJuegosPlat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="200dp"
+            android:minWidth="@dimen/width200"
             android:textAlignment="center"
             android:text="@string/view_platform_games"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintVertical_bias="0.1"
+            app:layout_constraintVertical_bias="@dimen/bias10"
             android:layout_marginBottom="@dimen/viewPaddingExtra"
             android:theme="@style/DefaultButtonTheme"
             />

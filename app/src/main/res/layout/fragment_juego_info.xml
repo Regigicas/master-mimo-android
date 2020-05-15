@@ -8,21 +8,21 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageViewJuego"
             android:layout_width="match_parent"
-            android:layout_height="320dp"
+            android:layout_height="@dimen/width320"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:contentDescription="@string/description_game_image"
             />
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/imageButtonFavorito"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="80dp"
+            android:maxWidth="@dimen/width80"
             app:layout_constraintTop_toBottomOf="@id/imageViewJuego"
             app:layout_constraintRight_toRightOf="parent"
             android:src="@drawable/icono_favorito_off"
@@ -34,11 +34,11 @@
             android:contentDescription="@string/description_favorite"
             />
 
-        <ImageButton
+        <androidx.appcompat.widget.AppCompatImageButton
             android:id="@+id/imageButtonQRCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="80dp"
+            android:maxWidth="@dimen/width80"
             app:layout_constraintTop_toBottomOf="@id/imageButtonFavorito"
             app:layout_constraintRight_toRightOf="parent"
             android:src="@drawable/icono_qr"
@@ -49,7 +49,7 @@
             android:contentDescription="@string/description_favorite"
             />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewAvailableOn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,19 +61,19 @@
             android:textStyle="bold"
             />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewPlatforms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/placeholder_text"
-            android:maxWidth="400dp"
+            android:maxWidth="@dimen/width400"
             app:layout_constraintTop_toBottomOf="@id/textViewAvailableOn"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="@dimen/viewPaddingExtra"
             android:layout_marginStart="@dimen/viewPaddingSmall"
             />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,17 +84,17 @@
             android:layout_marginStart="@dimen/viewPaddingSmall"
             />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewRatingValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/placeholder_text"
             app:layout_constraintTop_toTopOf="@id/textViewRating"
             app:layout_constraintLeft_toRightOf="@id/textViewRating"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="@dimen/width2"
             />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewRelease"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -105,17 +105,17 @@
             android:layout_marginStart="@dimen/viewPaddingSmall"
             />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewReleaseValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/placeholder_text"
             app:layout_constraintTop_toTopOf="@id/textViewRelease"
             app:layout_constraintLeft_toRightOf="@id/textViewRelease"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="@dimen/width2"
             />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -134,9 +134,9 @@
             app:layout_constraintTop_toBottomOf="@id/imageButtonQRCode"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="5dp"
-            app:layout_constraintVertical_bias="0.1">
+            app:layout_constraintVertical_bias="@dimen/bias10">
 
-            <TextView
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/textViewDescriptionValue"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

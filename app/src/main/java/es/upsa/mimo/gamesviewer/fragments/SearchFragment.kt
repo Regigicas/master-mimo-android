@@ -14,9 +14,9 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import es.upsa.mimo.datamodule.models.JuegoModel
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.misc.MenuFragment
-import es.upsa.mimo.gamesviewer.misc.Util
 import es.upsa.mimo.gamesviewer.adapters.GameSearchViewAdapter
 import es.upsa.mimo.gamesviewer.misc.RLItemClickListener
+import es.upsa.mimo.gamesviewer.misc.launchChildFragment
 import es.upsa.mimo.networkmodule.controllers.JuegoNetworkController
 import kotlinx.coroutines.launch
 import java.io.Serializable
@@ -30,7 +30,7 @@ class SearchFragment : MenuFragment(R.string.app_search), RLItemClickListener<Ju
     private val saveStateKey = "JuegosSearchStateKey";
     private val saveSearchQueryKey = "JuegosSearchQueryKey";
     private var loadingData = false;
-    private var swipeRefreshSearch: SwipeRefreshLayout? = null;
+    private lateinit var swipeRefreshSearch: SwipeRefreshLayout;
     private val maxLoadedItems = 100;
     private var currentPage = 1;
     private var lastSearchTerm = "";
@@ -81,7 +81,7 @@ class SearchFragment : MenuFragment(R.string.app_search), RLItemClickListener<Ju
         });
 
         swipeRefreshSearch = view.findViewById(R.id.swipeRefreshSearch);
-        swipeRefreshSearch!!.setOnRefreshListener {
+        swipeRefreshSearch.setOnRefreshListener {
             fetchGameData(true);
         }
 
@@ -138,7 +138,7 @@ class SearchFragment : MenuFragment(R.string.app_search), RLItemClickListener<Ju
                     {
                         juegosCargados.addAll(it);
                         adapter.notifyDataSetChanged();
-                        swipeRefreshSearch!!.isRefreshing = false;
+                        swipeRefreshSearch.isRefreshing = false;
                     }
                 }
             }
@@ -169,10 +169,8 @@ class SearchFragment : MenuFragment(R.string.app_search), RLItemClickListener<Ju
     override fun onItemClick(item: JuegoModel)
     {
         val bundle = Bundle();
-        item.id?.let {
-            bundle.putInt(JuegoInfoFragment.bundleJuegoInfoKey, it);
-        };
+        bundle.putInt(JuegoInfoFragment.bundleJuegoInfoKey, item.id);
         val nextFrag = JuegoInfoFragment.newInstance(this, bundle);
-        Util.launchChildFragment(this, nextFrag, activity!!.supportFragmentManager);
+        launchChildFragment(this, nextFrag);
     }
 }

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomBar"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/height0"
         />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

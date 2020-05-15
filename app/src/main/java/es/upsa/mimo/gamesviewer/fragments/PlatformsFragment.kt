@@ -13,8 +13,8 @@ import es.upsa.mimo.datamodule.models.PlatformModel
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.misc.MenuFragment
 import es.upsa.mimo.gamesviewer.misc.RLItemClickListener
-import es.upsa.mimo.gamesviewer.misc.Util
 import es.upsa.mimo.gamesviewer.adapters.PlatformViewAdapter
+import es.upsa.mimo.gamesviewer.misc.launchChildFragment
 import es.upsa.mimo.networkmodule.controllers.PlataformaNetworkController
 import kotlinx.coroutines.launch
 import java.io.Serializable
@@ -86,11 +86,9 @@ class PlatformsFragment : MenuFragment(R.string.app_platforms), RLItemClickListe
     override fun onItemClick(item: PlatformModel)
     {
         val bundle = Bundle();
-        item.id?.let {
-            bundle.putInt(PlatformInfoFragment.bundlePlatformInfoKey, it);
-        };
+        bundle.putInt(PlatformInfoFragment.bundlePlatformInfoKey, item.id);
         val nextFrag = PlatformInfoFragment.newInstance(this, bundle);
-        Util.launchChildFragment(this, nextFrag, activity!!.supportFragmentManager);
+        launchChildFragment(this, nextFrag);
     }
 
     override fun onSaveInstanceState(outState: Bundle)

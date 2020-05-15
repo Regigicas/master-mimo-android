@@ -40,4 +40,7 @@
     <string name="click_me">¡Hazme clic!</string>
     <string name="title_about">Acerca de</string>
     <string name="title_config">Configuración</string>
+    <string name="text_close">Cerrar</string>
+    <string name="text_description_not_found">No tiene descripción</string>
+    <string name="text_github">¡Código en GitHub!</string>
 </resources>

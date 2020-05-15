@@ -6,8 +6,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPlataformas"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/height0"
+        android:layout_height="@dimen/height0"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

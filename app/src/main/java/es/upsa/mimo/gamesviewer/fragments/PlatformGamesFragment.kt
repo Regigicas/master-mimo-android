@@ -14,10 +14,8 @@ import es.upsa.mimo.datamodule.models.JuegoModel
 import es.upsa.mimo.datamodule.models.PlatformModel
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.activities.HomeActivity
-import es.upsa.mimo.gamesviewer.misc.BackFragment
-import es.upsa.mimo.gamesviewer.misc.RLItemClickListener
-import es.upsa.mimo.gamesviewer.misc.Util
 import es.upsa.mimo.gamesviewer.adapters.GameSearchViewAdapter
+import es.upsa.mimo.gamesviewer.misc.*
 import es.upsa.mimo.networkmodule.controllers.JuegoNetworkController
 import kotlinx.coroutines.launch
 import java.io.Serializable
@@ -38,12 +36,12 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
         }
     }
 
-    private var plataforma: PlatformModel? = null;
+    private lateinit var plataforma: PlatformModel;
     private var juegos: MutableList<JuegoModel> = mutableListOf();
     private var initialCreation = false;
     private var currentPage = 1;
     private val adapter = GameSearchViewAdapter(juegos, this);
-    private var layoutJuegosPlat: SwipeRefreshLayout? = null;
+    private lateinit var layoutJuegosPlat: SwipeRefreshLayout;
     private var loadingMoreData = false;
     private val layoutManager = LinearLayoutManager(activity);
     private val maxLoadedItems = 100;
@@ -61,14 +59,14 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
 
             layoutManager.onRestoreInstanceState(savedInstanceState.getParcelable(saveStateKey));
             if (activity != null)
-                ownerFragment = Util.findFragmentByClassName(PlatformInfoFragment::class.qualifiedName!!, activity!!.supportFragmentManager); // La vista solo puede ser creada por esta clase
+                ownerFragment = findFragmentByClassName(PlatformInfoFragment::javaClass.name, activity!!.supportFragmentManager); // La vista solo puede ser creada por esta clase
         }
     }
 
     override fun onCreateChildView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
-        plataforma = arguments?.getSerializable(bundlePlatformGamesKey) as PlatformModel?;
-        if (plataforma == null)
+        plataforma = arguments?.getSerializable(bundlePlatformGamesKey) as PlatformModel;
+        if (!this::plataforma.isInitialized)
             throw AssertionError(R.string.assert_needed_data_not_present);
 
         return inflater.inflate(R.layout.fragment_platform_games, container, false);
@@ -80,13 +78,11 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
         if (initialCreation)
         {
             val homeActivity = activity as? HomeActivity;
-            homeActivity?.supportActionBar?.title = getString(R.string.platform_games_title, plataforma?.name);
+            homeActivity?.supportActionBar?.title = getString(R.string.platform_games_title, plataforma.name);
             return;
         }
 
         layoutJuegosPlat = view.findViewById(R.id.layoutJuegosPlat);
-        if (layoutJuegosPlat == null)
-            throw AssertionError(getString(R.string.assert_view_not_created));
 
         if (juegos.size > 0)
         {
@@ -102,9 +98,9 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
     private fun setupView(view: View)
     {
         val homeActivity = activity as? HomeActivity;
-        homeActivity?.supportActionBar?.title = getString(R.string.platform_games_title, plataforma?.name);
+        homeActivity?.supportActionBar?.title = getString(R.string.platform_games_title, plataforma.name);
 
-        layoutJuegosPlat!!.setOnRefreshListener {
+        layoutJuegosPlat.setOnRefreshListener {
             fetchGameData(true);
         }
 
@@ -143,7 +139,7 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
 
     private fun fetchGameData(reset: Boolean)
     {
-        layoutJuegosPlat!!.isRefreshing = true; // Evitamos que se pueda actualizar
+        layoutJuegosPlat.isRefreshing = true; // Evitamos que se pueda actualizar
         if (reset)
         {
             juegos.clear();
@@ -154,12 +150,12 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
 
         lifecycleScope.launch {
             activity?.let {fragActivity ->
-                JuegoNetworkController.getJuegosPlataforma(currentPage, plataforma!!.id!!, fragActivity) {
+                JuegoNetworkController.getJuegosPlataforma(currentPage, plataforma.id, fragActivity) {
                     loadingMoreData = false;
                     initialCreation = true;
                     juegos.addAll(it);
                     adapter.notifyDataSetChanged();
-                    layoutJuegosPlat!!.isRefreshing = false;
+                    layoutJuegosPlat.isRefreshing = false;
                 }
             }
         }
@@ -168,16 +164,14 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
     override fun onItemClick(item: JuegoModel)
     {
         val bundle = Bundle();
-        item.id?.let {
-            bundle.putInt(JuegoInfoFragment.bundleJuegoInfoKey, it);
-        };
+        bundle.putInt(JuegoInfoFragment.bundleJuegoInfoKey, item.id);
         val nextFrag = JuegoInfoFragment.newInstance(this, bundle);
-        Util.launchChildFragment(this, nextFrag, activity!!.supportFragmentManager);
+        launchChildFragment(this, nextFrag);
     }
 
     override fun getFragmentTitle(context: Context): String
     {
-        return getString(R.string.platform_games_title, plataforma?.name);
+        return getString(R.string.platform_games_title, plataforma.name);
     }
 
     override fun onSaveInstanceState(outState: Bundle)
