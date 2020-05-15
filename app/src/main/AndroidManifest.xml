@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activities.MainActivity"
+            android:label="@string/title_loading">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -19,9 +20,9 @@
 
         <activity android:name=".activities.RegisterActivity"
             android:label="@string/str_register"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName=".activities.LoginActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity"/>
+                android:value=".activities.LoginActivity"/>
         </activity>
 
         <activity android:name=".activities.HomeActivity"
@@ -33,6 +34,8 @@
 
         <activity android:name=".activities.ConfigActivity"
             android:label="@string/title_config"/>
+
+        <activity android:name=".activities.LoginActivity"/>
 
     </application>
 

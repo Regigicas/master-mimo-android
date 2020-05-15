@@ -12,8 +12,6 @@ import es.upsa.mimo.gamesviewer.fragments.SearchFragment
 import es.upsa.mimo.gamesviewer.misc.AppCompatActivityTopBar
 import es.upsa.mimo.gamesviewer.misc.BackFragment
 import es.upsa.mimo.gamesviewer.misc.MenuFragment
-import kotlin.reflect.KClass
-
 
 class HomeActivity : AppCompatActivityTopBar()
 {
@@ -37,10 +35,18 @@ class HomeActivity : AppCompatActivityTopBar()
         var selected = R.id.optionHome;
         if (savedInstanceState != null)
         {
-            homeFragment = supportFragmentManager.getFragment(savedInstanceState, HomeFragment::javaClass.name) as HomeFragment;
-            platformsFragment = supportFragmentManager.getFragment(savedInstanceState, PlatformsFragment::javaClass.name) as PlatformsFragment;
-            searchFragment = supportFragmentManager.getFragment(savedInstanceState, SearchFragment::javaClass.name) as SearchFragment;
-            favoriteFragment = supportFragmentManager.getFragment(savedInstanceState, FavoriteFragment::javaClass.name) as FavoriteFragment;
+            supportFragmentManager.getFragment(savedInstanceState, HomeFragment::class.java.name)?.let {
+                homeFragment = it as HomeFragment;
+            }
+            supportFragmentManager.getFragment(savedInstanceState, PlatformsFragment::class.java.name)?.let {
+                platformsFragment = it as PlatformsFragment;
+            }
+            supportFragmentManager.getFragment(savedInstanceState, SearchFragment::class.java.name)?.let {
+                searchFragment = it as SearchFragment;
+            }
+            supportFragmentManager.getFragment(savedInstanceState, FavoriteFragment::class.java.name)?.let {
+                favoriteFragment = it as FavoriteFragment;
+            }
             selected = savedInstanceState.getInt(saveMenuIdKey);
             initialSetup = savedInstanceState.getBoolean(saveInitialSetupKey);
         }
@@ -123,7 +129,7 @@ class HomeActivity : AppCompatActivityTopBar()
                 .addToBackStack(null)
                 .commit();
         }
-        if (isMenuFragment)
+        else if (isMenuFragment)
         {
             supportFragmentManager
                 .beginTransaction()
@@ -140,7 +146,10 @@ class HomeActivity : AppCompatActivityTopBar()
                 if (oldFragment is BackFragment)
                     ft.remove(oldFragment);
             ft.hide(activeFragment);
-            ft.show(fragment);
+            if (initial)
+                ft.add(R.id.fragmentFrame, fragment);
+            else
+                ft.show(fragment);
             ft.commit();
         }
 
@@ -166,20 +175,20 @@ class HomeActivity : AppCompatActivityTopBar()
         outState.putInt(saveMenuIdKey, bottomBar.selectedItemId);
 
         if (homeFragment.isAdded())
-            supportFragmentManager.putFragment(outState, HomeFragment::javaClass.name, homeFragment);
+            supportFragmentManager.putFragment(outState, HomeFragment::class.java.name, homeFragment);
 
         if (platformsFragment.isAdded())
-            supportFragmentManager.putFragment(outState, PlatformsFragment::javaClass.name, platformsFragment);
+            supportFragmentManager.putFragment(outState, PlatformsFragment::class.java.name, platformsFragment);
 
         if (searchFragment.isAdded())
-            supportFragmentManager.putFragment(outState, SearchFragment::javaClass.name, searchFragment);
+            supportFragmentManager.putFragment(outState, SearchFragment::class.java.name, searchFragment);
 
         if (favoriteFragment.isAdded())
-            supportFragmentManager.putFragment(outState, FavoriteFragment::javaClass.name, favoriteFragment);
+            supportFragmentManager.putFragment(outState, FavoriteFragment::class.java.name, favoriteFragment);
 
         for (oldFragment in supportFragmentManager.fragments)
             if (oldFragment is BackFragment)
-                supportFragmentManager.putFragment(outState, oldFragment::javaClass.name, oldFragment);
+                supportFragmentManager.putFragment(outState, oldFragment::class.java.name, oldFragment);
 
         outState.putBoolean(saveInitialSetupKey, initialSetup);
     }

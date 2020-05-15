@@ -2,6 +2,7 @@ package es.upsa.mimo.gamesviewer.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,10 +16,7 @@ import es.upsa.mimo.datamodule.controllers.UsuarioController
 import es.upsa.mimo.datamodule.models.JuegoModel
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.activities.HomeActivity
-import es.upsa.mimo.gamesviewer.misc.BackFragment
-import es.upsa.mimo.gamesviewer.misc.TitleFragment
-import es.upsa.mimo.gamesviewer.misc.findFragmentByClassName
-import es.upsa.mimo.gamesviewer.misc.launchChildFragment
+import es.upsa.mimo.gamesviewer.misc.*
 import es.upsa.mimo.networkmodule.controllers.JuegoNetworkController
 import kotlinx.coroutines.launch
 
@@ -105,8 +103,9 @@ class JuegoInfoFragment : BackFragment()
         val buttonQR = view.findViewById<ImageButton>(R.id.imageButtonQRCode);
         val buttonFavorite = view.findViewById<ImageButton>(R.id.imageButtonFavorito);
 
-        Picasso.get().load(juegoInfo.background_image).fit().centerCrop().into(imagenJuego);
-        if (juegoInfo.description != null)
+        if (juegoInfo.background_image != null)
+            imagenJuego.loadFromURL(juegoInfo.background_image!!);
+        if (!TextUtils.isEmpty(juegoInfo.description))
             textoDescripcion.text = HtmlCompat.fromHtml(juegoInfo.description!!, HtmlCompat.FROM_HTML_MODE_LEGACY);
         else
             textoDescripcion.text = getString(R.string.text_description_not_found);
@@ -170,7 +169,7 @@ class JuegoInfoFragment : BackFragment()
         outState.putInt(saveJuegoIdKey, juegoId);
         outState.putSerializable(saveJuegoInfoKey, juegoInfo);
         if (ownerFragment != null)
-            outState.putString(saveParentFragmentIdKey, ownerFragment!!::javaClass.name);
+            outState.putString(saveParentFragmentIdKey, ownerFragment!!::class.java.name);
         outState.putBoolean(saveEsFavoritoKey, esFavorito);
     }
 }

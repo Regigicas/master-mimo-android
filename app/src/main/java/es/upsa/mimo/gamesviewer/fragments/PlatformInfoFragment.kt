@@ -2,6 +2,7 @@ package es.upsa.mimo.gamesviewer.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +51,7 @@ class PlatformInfoFragment : BackFragment()
                 platformId = savedPlatId;
             platformInfo = savedInstanceState.getSerializable(savePlatformInfoKey) as PlatformModel;
             if (activity != null)
-                ownerFragment = findFragmentByClassName(PlatformsFragment::javaClass.name, activity!!.supportFragmentManager); // La vista solo puede ser creada por esta clase
+                ownerFragment = findFragmentByClassName(PlatformsFragment::class.java.name, activity!!.supportFragmentManager); // La vista solo puede ser creada por esta clase
         }
     }
 
@@ -91,8 +92,12 @@ class PlatformInfoFragment : BackFragment()
         val homeActivity = activity as? HomeActivity;
         homeActivity?.supportActionBar?.title = getString(R.string.platform_title_name, platformInfo.name);
 
-        Picasso.get().load(platformInfo.image_background).fit().centerCrop().into(imagenPlataforma);
-        textPlataforma.text = HtmlCompat.fromHtml(platformInfo.description!!, HtmlCompat.FROM_HTML_MODE_LEGACY);
+        if (platformInfo.image_background != null)
+            imagenPlataforma.loadFromURL(platformInfo.image_background!!);
+        if (!TextUtils.isEmpty(platformInfo.description))
+            textPlataforma.text = HtmlCompat.fromHtml(platformInfo.description!!, HtmlCompat.FROM_HTML_MODE_LEGACY);
+        else
+            textPlataforma.text = getString(R.string.text_description_not_found);
         button.setOnClickListener {
             val bundle = Bundle();
             bundle.putSerializable(PlatformGamesFragment.bundlePlatformGamesKey, platformInfo);

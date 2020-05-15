@@ -43,4 +43,6 @@
     <string name="text_close">Cerrar</string>
     <string name="text_description_not_found">No tiene descripción</string>
     <string name="text_github">¡Código en GitHub!</string>
+    <string name="title_loading">Cargando</string>
+    <string name="text_loading">Cargando...</string>
 </resources>

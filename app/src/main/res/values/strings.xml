@@ -46,4 +46,6 @@
     <string name="text_description_not_found">Has no description</string>
     <string name="github_source_url" translatable="false">https://github.com/Regigicas/master-mimo-android</string>
     <string name="text_github">¡Code on GitHub!</string>
+    <string name="title_loading">Loading</string>
+    <string name="text_loading">Loading...</string>
 </resources>

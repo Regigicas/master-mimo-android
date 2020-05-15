@@ -10,6 +10,7 @@ import com.squareup.picasso.Picasso
 import es.upsa.mimo.datamodule.models.JuegoModel
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.misc.RLItemClickListener
+import es.upsa.mimo.gamesviewer.misc.loadFromURL
 
 class GameSearchViewAdapter(private val dataSet: List<JuegoModel>, private val listener: RLItemClickListener<JuegoModel>) : RecyclerView.Adapter<GameSearchViewAdapter.ViewHolder>()
 {
@@ -21,7 +22,7 @@ class GameSearchViewAdapter(private val dataSet: List<JuegoModel>, private val l
 
         fun bind(juegoInfo: JuegoModel)
         {
-            Picasso.get().load(juegoInfo.getBackgroundString()).fit().centerCrop().into(imageView);
+            imageView.loadFromURL(juegoInfo.getBackgroundString());
             textViewNombre.text = juegoInfo.name;
             textViewFecha.text = juegoInfo.released;
             view.setOnClickListener {

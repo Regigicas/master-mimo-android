@@ -59,7 +59,7 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
 
             layoutManager.onRestoreInstanceState(savedInstanceState.getParcelable(saveStateKey));
             if (activity != null)
-                ownerFragment = findFragmentByClassName(PlatformInfoFragment::javaClass.name, activity!!.supportFragmentManager); // La vista solo puede ser creada por esta clase
+                ownerFragment = findFragmentByClassName(PlatformInfoFragment::class.java.name, activity!!.supportFragmentManager); // La vista solo puede ser creada por esta clase
         }
     }
 

@@ -87,9 +87,9 @@ class UsuarioController
         @JvmStatic
         fun saveUserLoginData(username: String, password: String, context: Context): Boolean
         {
-            val secureStorage = SecureStorage(context);
             try
             {
+                val secureStorage = SecureStorage(context);
                 secureStorage.storeObject(usernameStoreFieldName, username);
                 secureStorage.storeObject(passwordStoreFieldname, password);
             }
@@ -104,16 +104,20 @@ class UsuarioController
         @JvmStatic
         fun saveActiveUserId(id: Int, context: Context)
         {
-            val sharedPreferences = context.getSharedPreferences(sharedPreferencesAccessName, Context.MODE_PRIVATE);
-            sharedPreferences.edit().putInt(activeUserId, id).apply();
+            try
+            {
+                val secureStorage = SecureStorage(context);
+                secureStorage.storeObject(activeUserId, id);
+            }
+            catch (ex: Throwable) {}
         }
 
         @JvmStatic
         fun getActiveUserId(context: Context): Int
         {
-            val sharedPreferences = context.getSharedPreferences(sharedPreferencesAccessName, Context.MODE_PRIVATE);
-            val userId = sharedPreferences.getInt(activeUserId, -1);
-            return userId;
+            val secureStorage = SecureStorage(context);
+            val userId = secureStorage.getObject(activeUserId, Int::class.java);
+            return userId ?: -1;
         }
 
         @JvmStatic
@@ -129,16 +133,20 @@ class UsuarioController
         @JvmStatic
         suspend fun tryAutoLogin(context: Context): Boolean
         {
-            val secureStorage = SecureStorage(context);
             try
             {
+                val secureStorage = SecureStorage(context);
                 val username = secureStorage.getObject(usernameStoreFieldName, String::class.java);
                 val password = secureStorage.getObject(passwordStoreFieldname, String::class.java);
                 if (username != null && password != null)
                 {
-                    val (result, _) = tryLogin(username, password, context);
+                    val (result, usuario) = tryLogin(username, password, context);
                     if (result == UsuarioResultEnum.ok)
+                    {
+                        if (usuario != null)
+                            saveActiveUserId(usuario.id!!, context)
                         return true;
+                    }
                 }
             }
             catch (ex: Throwable)
