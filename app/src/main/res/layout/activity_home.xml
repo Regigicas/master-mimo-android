@@ -22,7 +22,6 @@
         app:menu="@menu/bottom_menu"
         app:labelVisibilityMode="labeled"
         style="@style/CustomNavigationBar"
-        android:background="@color/colorPurple"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

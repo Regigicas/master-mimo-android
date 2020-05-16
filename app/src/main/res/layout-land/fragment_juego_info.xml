@@ -5,12 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageViewJuego"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/width320"
+        android:layout_width="@dimen/width320"
+        android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:contentDescription="@string/description_game_image"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         />
 
     <androidx.appcompat.widget.AppCompatImageButton
@@ -18,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxWidth="@dimen/width80"
-        app:layout_constraintTop_toBottomOf="@id/imageViewJuego"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:src="@drawable/icono_favorito_off"
         android:layout_marginEnd="@dimen/viewPaddingSmall"
@@ -49,8 +51,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/available_on"
-        app:layout_constraintTop_toBottomOf="@id/imageViewJuego"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/imageViewJuego"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/viewPaddingSmall"
         android:layout_marginStart="@dimen/viewPaddingSmall"
         android:textStyle="bold"
@@ -63,7 +65,7 @@
         android:text="@string/placeholder_text"
         android:maxWidth="@dimen/width400"
         app:layout_constraintTop_toBottomOf="@id/textViewAvailableOn"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/imageViewJuego"
         android:layout_marginTop="@dimen/viewPaddingExtra"
         android:layout_marginStart="@dimen/viewPaddingSmall"
         />
@@ -74,7 +76,7 @@
         android:layout_height="wrap_content"
         android:text="@string/game_rating"
         app:layout_constraintTop_toBottomOf="@id/textViewPlatforms"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/imageViewJuego"
         android:layout_marginTop="@dimen/viewPaddingExtra"
         android:layout_marginStart="@dimen/viewPaddingSmall"
         />
@@ -95,7 +97,7 @@
         android:layout_height="wrap_content"
         android:text="@string/game_release_date"
         app:layout_constraintTop_toBottomOf="@id/textViewRating"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/imageViewJuego"
         android:layout_marginTop="@dimen/viewPaddingExtra"
         android:layout_marginStart="@dimen/viewPaddingSmall"
         />
@@ -116,7 +118,7 @@
         android:layout_height="wrap_content"
         android:text="@string/game_description"
         app:layout_constraintTop_toBottomOf="@id/textViewRelease"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/imageViewJuego"
         app:layout_constraintBottom_toTopOf="@id/nestedScrollView"
         android:layout_marginStart="@dimen/viewPaddingSmall"
         android:layout_marginTop="@dimen/viewPaddingExtra"
@@ -124,12 +126,15 @@
 
     <ScrollView
         android:id="@+id/nestedScrollView"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/height0"
         android:layout_height="@dimen/height0"
         app:layout_constraintTop_toBottomOf="@id/imageButtonQRCode"
+        app:layout_constraintLeft_toRightOf="@id/imageViewJuego"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/width5"
-        app:layout_constraintVertical_bias="@dimen/bias10">
+        app:layout_constraintVertical_bias="@dimen/bias10"
+        android:fillViewport="true">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewDescriptionValue"
@@ -142,3 +147,4 @@
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

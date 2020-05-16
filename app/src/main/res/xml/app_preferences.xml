@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreferenceCompat
+        android:key="@string/config_lowdata_key"
+        android:title="@string/dont_load_list_image"
+        />
+
+    <SwitchPreferenceCompat
+        android:key="@string/config_autologin_status"
+        android:title="@string/enable_autologin"
+        android:defaultValue="true"
+        />
+
+    <es.upsa.mimo.gamesviewer.misc.IntegerEditPreference
+        android:key="@string/config_max_elements_in_list"
+        android:title="@string/max_elements_list"
+        android:summary="@string/max_element_list_default"
+        android:defaultValue="@dimen/defaultMaxElements"
+        />
+
+</PreferenceScreen>

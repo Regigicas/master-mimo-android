@@ -48,4 +48,13 @@
     <string name="text_github">¡Code on GitHub!</string>
     <string name="title_loading">Loading</string>
     <string name="text_loading">Loading...</string>
+    <string name="dont_load_list_image">Don\'t load images for lists</string>
+    <string name="enable_autologin">Enable autologin</string>
+    <string name="config_lowdata_key" translatable="false">config_lowdata_key</string>
+    <string name="config_autologin_status" translatable="false">config_autologin_status</string>
+    <string name="config_max_elements_in_list" translatable="false">config_max_elements_in_list</string>
+    <string name="max_elements_list">Max elements to load in lists</string>
+    <string name="max_element_list_default">Lists can have 100 loaded elements</string>
+    <string name="max_element_list_override">List can have %d loaded elements</string>
+    <string name="max_elements_num_default" translatable="false">100</string>
 </resources>

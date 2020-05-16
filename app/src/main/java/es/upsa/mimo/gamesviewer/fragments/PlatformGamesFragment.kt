@@ -44,7 +44,7 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
     private lateinit var layoutJuegosPlat: SwipeRefreshLayout;
     private var loadingMoreData = false;
     private val layoutManager = LinearLayoutManager(activity);
-    private val maxLoadedItems = 100;
+    private var maxLoadedItems = 100;
     private val saveStateKey = "JuegosStateKey";
     private val saveJuegosKey = "JuegosListKey";
 
@@ -59,8 +59,10 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
 
             layoutManager.onRestoreInstanceState(savedInstanceState.getParcelable(saveStateKey));
             if (activity != null)
-                ownerFragment = findFragmentByClassName(PlatformInfoFragment::class.java.name, activity!!.supportFragmentManager); // La vista solo puede ser creada por esta clase
+                ownerFragment = findFragmentByClassName(PlatformInfoFragment::class.java.name, requireActivity().supportFragmentManager); // La vista solo puede ser creada por esta clase
         }
+
+        maxLoadedItems = PreferencesManager.getMaxElementsInList(requireContext());
     }
 
     override fun onCreateChildView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?

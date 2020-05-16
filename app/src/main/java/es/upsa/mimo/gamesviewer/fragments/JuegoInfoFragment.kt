@@ -56,7 +56,7 @@ class JuegoInfoFragment : BackFragment()
             juegoInfo = savedInstanceState.getSerializable(saveJuegoInfoKey) as JuegoModel;
             val savedFragmentName = savedInstanceState.getString(saveParentFragmentIdKey);
             if (activity != null && savedFragmentName != null)
-                ownerFragment = findFragmentByClassName(savedFragmentName, activity!!.supportFragmentManager); // La vista solo puede ser creada por esta clase
+                ownerFragment = findFragmentByClassName(savedFragmentName, requireActivity() .supportFragmentManager); // La vista solo puede ser creada por esta clase
             if (savedInstanceState.containsKey(saveEsFavoritoKey))
                 esFavorito = savedInstanceState.getBoolean(saveEsFavoritoKey);
         }
@@ -139,9 +139,9 @@ class JuegoInfoFragment : BackFragment()
             blockedUpdate = true;
             lifecycleScope.launch {
                 if (esFavorito == true)
-                    UsuarioController.removeJuegoFavorito(juegoInfo.id, activity!!);
+                    UsuarioController.removeJuegoFavorito(juegoInfo.id, requireActivity());
                 else
-                    UsuarioController.addJuegoFavorito(juegoInfo, activity!!);
+                    UsuarioController.addJuegoFavorito(juegoInfo, requireActivity());
 
                 blockedUpdate = false;
                 esFavorito = !esFavorito;
@@ -153,9 +153,9 @@ class JuegoInfoFragment : BackFragment()
     private fun updateFavoriteIcon(buttonFavorite: ImageButton)
     {
         if (esFavorito)
-            buttonFavorite.setImageDrawable(activity!!.getDrawable(R.drawable.icono_favorito_on));
+            buttonFavorite.setImageDrawable(requireActivity().getDrawable(R.drawable.icono_favorito_on));
         else
-            buttonFavorite.setImageDrawable(activity!!.getDrawable(R.drawable.icono_favorito_off));
+            buttonFavorite.setImageDrawable(requireActivity().getDrawable(R.drawable.icono_favorito_off));
     }
 
     override fun getFragmentTitle(context: Context): String

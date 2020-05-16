@@ -23,8 +23,13 @@
         <item name="colorPrimary">@color/colorPurple</item>
     </style>
 
-    <style name="DefaultButtonTheme" parent="@style/AppTheme">
-        <item name="colorButtonNormal">@drawable/button_color</item>
+    <style name="BotonRedondoColor" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/button_round</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="BotonTransparente" parent="Widget.AppCompat.Button">
+        <item name="android:background">@android:color/transparent</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
@@ -32,6 +37,7 @@
         <item name="itemBackground">@color/colorPurple</item>
         <item name="itemTextColor">@android:color/white</item>
         <item name="itemIconTint">@drawable/bottombar_color</item>
+        <item name="android:background">@color/colorPurple</item>
     </style>
 
 </resources>

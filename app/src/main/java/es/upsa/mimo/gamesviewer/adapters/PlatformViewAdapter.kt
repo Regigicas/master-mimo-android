@@ -14,8 +14,8 @@ class PlatformViewAdapter(private val dataSet: List<PlatformModel>, private val 
 {
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view)
     {
-        var imageView = view.findViewById<ImageView>(R.id.imageViewLogo);
-        var textView = view.findViewById<TextView>(R.id.textViewPlatformName);
+        val imageView = view.findViewById<ImageView>(R.id.imageViewLogo);
+        val textView = view.findViewById<TextView>(R.id.textViewPlatformName);
 
         fun bind(platformInfo: PlatformModel)
         {

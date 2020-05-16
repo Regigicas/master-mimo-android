@@ -11,33 +11,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <es.upsa.mimo.gamesviewer.views.CircleImageView
             android:id="@+id/imageViewJuego"
-            android:layout_width="@dimen/width100"
-            android:layout_height="@dimen/platformViewItemSize"
-            android:contentDescription="@string/description_game_image"
+            android:layout_width="@dimen/width85"
+            android:layout_height="@dimen/width85"
+            app:circleImgDescription="@string/description_game_image"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:paddingTop="@dimen/width2_5"
+            android:paddingStart="@dimen/width2_5"
+            android:paddingEnd="@dimen/height0"
             />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewNombreJuego"
             android:layout_width="@dimen/height0"
-            android:layout_height="@dimen/platformViewItemSize"
+            android:layout_height="@dimen/width42_5"
             android:gravity="center_vertical|center_horizontal"
             android:text="@string/placeholder_text"
             app:layout_constraintLeft_toRightOf="@id/imageViewJuego"
             app:layout_constraintRight_toLeftOf="@id/textViewFechaSalida"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="@dimen/textDescription"
             />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewFechaSalida"
-            android:layout_height="@dimen/platformViewItemSize"
+            android:layout_height="@dimen/width42_5"
             android:layout_width="@dimen/width100"
             android:gravity="center_vertical|center_horizontal"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:paddingTop="@dimen/viewPaddingExtra"
+            />
+
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="@dimen/width80"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewFechaSalida"
+            app:layout_constraintLeft_toLeftOf="@id/textViewFechaSalida"
+            app:layout_constraintBottom_toBottomOf="parent"
+            style="?android:attr/ratingBarStyleSmall"
+            android:paddingBottom="@dimen/viewPaddingExtra"
+            android:isIndicator="true"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

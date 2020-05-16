@@ -51,7 +51,7 @@ class PlatformInfoFragment : BackFragment()
                 platformId = savedPlatId;
             platformInfo = savedInstanceState.getSerializable(savePlatformInfoKey) as PlatformModel;
             if (activity != null)
-                ownerFragment = findFragmentByClassName(PlatformsFragment::class.java.name, activity!!.supportFragmentManager); // La vista solo puede ser creada por esta clase
+                ownerFragment = findFragmentByClassName(PlatformsFragment::class.java.name, requireActivity().supportFragmentManager); // La vista solo puede ser creada por esta clase
         }
     }
 

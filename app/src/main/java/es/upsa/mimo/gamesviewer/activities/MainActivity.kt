@@ -3,23 +3,34 @@ package es.upsa.mimo.gamesviewer.activities
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import es.upsa.mimo.datamodule.controllers.UsuarioController
 import es.upsa.mimo.gamesviewer.R
+import es.upsa.mimo.gamesviewer.misc.PreferencesManager
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity()
 {
+    private var wasInitialized = false;
+    private var saveWasInitializedKey = "WasInitializedKey";
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
 
+        if (savedInstanceState != null)
+            wasInitialized = savedInstanceState.getBoolean(saveWasInitializedKey);
+
+        if (wasInitialized)
+            return;
+
+        wasInitialized = true;
         var autoLoginOk = false;
-        lifecycleScope.launch {
-            if (UsuarioController.tryAutoLogin(this@MainActivity))
+        MainScope().launch {
+            if (PreferencesManager.getBooleanConfig(this@MainActivity, R.string.config_autologin_status) &&
+                UsuarioController.tryAutoLogin(this@MainActivity))
             {
                 autoLoginOk = true;
                 val intent = Intent(this@MainActivity, HomeActivity::class.java);
@@ -36,5 +47,11 @@ class MainActivity : AppCompatActivity()
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }, 1000);
+    }
+
+    override fun onSaveInstanceState(outState: Bundle)
+    {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(saveWasInitializedKey, wasInitialized);
     }
 }

@@ -3,15 +3,15 @@
     android:shape="rectangle">
 
     <stroke
-        android:width="2dp"
+        android:width="@dimen/width2"
         android:color="@color/colorGrayLighter">
     </stroke>
 
     <padding
-        android:left="5dp"
-        android:top="5dp"
-        android:right="5dp"
-        android:bottom="5dp">
+        android:left="@dimen/width5"
+        android:top="@dimen/width5"
+        android:right="@dimen/width5"
+        android:bottom="@dimen/width5">
     </padding>
 
     <corners

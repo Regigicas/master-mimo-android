@@ -58,11 +58,11 @@ abstract class BackFragment : TitleFragment()
     {
         val homeActivity = activity as? HomeActivity;
         homeActivity?.supportActionBar?.title =
-            ownerFragment?.getFragmentTitle(ownerFragment?.context!!);
+            ownerFragment?.requireContext()?.let { ownerFragment?.getFragmentTitle(it) };
 
         if (activity != null && ownerFragment != null)
         {
-            activity!!.supportFragmentManager
+            requireActivity().supportFragmentManager
                 .beginTransaction()
                 .remove(this)
                 .show(ownerFragment!!)

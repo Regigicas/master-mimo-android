@@ -11,6 +11,12 @@
         android:adjustViewBounds="true"
         />
 
+    <View
+        android:layout_marginTop="@dimen/width2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width1"
+        android:background="@android:color/darker_gray"/>
+
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewDescription"
         android:layout_width="match_parent"

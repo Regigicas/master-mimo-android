@@ -23,7 +23,6 @@ class UsuarioController
         private val usernameStoreFieldName = "acc_login_username";
         private val passwordStoreFieldname = "acc_login_password";
         private val activeUserId = "acc_active_user_id";
-        private val sharedPreferencesAccessName = "gamesViewerPreferences";
 
         @JvmStatic
         suspend fun registrarUsuario(username: String, email: String, password: String, context: Context): UsuarioResultEnum

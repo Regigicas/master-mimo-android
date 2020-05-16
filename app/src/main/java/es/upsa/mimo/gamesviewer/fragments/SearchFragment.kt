@@ -15,6 +15,7 @@ import es.upsa.mimo.datamodule.models.JuegoModel
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.misc.MenuFragment
 import es.upsa.mimo.gamesviewer.adapters.GameSearchViewAdapter
+import es.upsa.mimo.gamesviewer.misc.PreferencesManager
 import es.upsa.mimo.gamesviewer.misc.RLItemClickListener
 import es.upsa.mimo.gamesviewer.misc.launchChildFragment
 import es.upsa.mimo.networkmodule.controllers.JuegoNetworkController
@@ -31,7 +32,7 @@ class SearchFragment : MenuFragment(R.string.app_search), RLItemClickListener<Ju
     private val saveSearchQueryKey = "JuegosSearchQueryKey";
     private var loadingData = false;
     private lateinit var swipeRefreshSearch: SwipeRefreshLayout;
-    private val maxLoadedItems = 100;
+    private var maxLoadedItems = 100;
     private var currentPage = 1;
     private var lastSearchTerm = "";
     private val adapter = GameSearchViewAdapter(juegosCargados, this);
@@ -48,6 +49,8 @@ class SearchFragment : MenuFragment(R.string.app_search), RLItemClickListener<Ju
             layoutManager.onRestoreInstanceState(savedInstanceState.getParcelable(saveStateKey));
             lastSearchTerm = savedInstanceState.getString(saveSearchQueryKey, "");
         }
+
+        maxLoadedItems = PreferencesManager.getMaxElementsInList(requireContext());
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View

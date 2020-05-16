@@ -45,4 +45,9 @@
     <string name="text_github">¡Código en GitHub!</string>
     <string name="title_loading">Cargando</string>
     <string name="text_loading">Cargando...</string>
+    <string name="dont_load_list_image">No cargar imagenes en las listas</string>
+    <string name="enable_autologin">Habilitar inicio de sesión automático</string>
+    <string name="max_elements_list">Máximo número de elementos a cargar en las listas</string>
+    <string name="max_element_list_default">Las listas pueden tener 100 elementos cargados</string>
+    <string name="max_element_list_override">Las listas pueden tener %d elementos cargados</string>
 </resources>

@@ -14,7 +14,7 @@ fun Fragment.launchChildFragment(parentFragment: Fragment, fragment: BackFragmen
 {
     if (parentFragment.activity != null)
     {
-        parentFragment.activity!!.supportFragmentManager
+        parentFragment.requireActivity().supportFragmentManager
             .beginTransaction()
             .hide(parentFragment)
             .add(R.id.fragmentFrame, fragment)
@@ -41,5 +41,13 @@ fun Activity.hideKeyBoard()
 
 fun ImageView.loadFromURL(url: String)
 {
-    Picasso.get().load(url).fit().centerCrop().into(this);
+    if (PreferencesManager.getBooleanConfig(context, R.string.config_lowdata_key))
+        setImageDrawable(context.getDrawable(R.drawable.ic_gamepad_purple_200dp));
+    else
+    {
+        Picasso.get().load(url)
+            .placeholder(R.drawable.ic_gamepad_purple_200dp)
+            .error(R.drawable.ic_gamepad_purple_200dp)
+            .fit().centerCrop().into(this);
+    }
 }

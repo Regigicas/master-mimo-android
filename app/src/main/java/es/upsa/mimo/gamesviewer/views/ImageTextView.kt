@@ -22,6 +22,6 @@ class ImageTextView(context: Context, attrs: AttributeSet) : LinearLayout(contex
         imageView.setImageDrawable(attributes.getDrawable(R.styleable.ImageTextView_imgSrc));
         imageView.contentDescription = attributes.getString(R.styleable.ImageTextView_imgDecription);
 
-        attributes.recycle()
+        attributes.recycle();
     }
 }
