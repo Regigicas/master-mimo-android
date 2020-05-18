@@ -1,4 +1,4 @@
-package es.upsa.mimo.gamesviewer.misc
+package es.upsa.mimo.gamesviewer.fragments
 
 import android.content.Context
 import androidx.fragment.app.Fragment

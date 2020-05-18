@@ -45,9 +45,12 @@
     <string name="text_github">¡Code on GitHub!</string>
     <string name="title_loading">Loading</string>
     <string name="text_loading">Loading...</string>
-    <string name="dont_load_list_image">Don\'t load images for lists</string>
+    <string name="dont_load_image">Don\'t load images</string>
     <string name="enable_autologin">Enable autologin</string>
     <string name="max_elements_list">Max elements to load in lists</string>
     <string name="max_element_list_default">Lists can have 100 loaded elements</string>
-    <string name="max_element_list_override">List can have %d loaded elements</string>
+    <string name="max_element_list_override">List can have %d loaded elements. Min of 20</string>
+    <string name="page_x_of_y">%d/%d</string>
+    <string name="scan_qr">Scan QR</string>
+    <string name="change_default_sorting">Home screen sorting</string>
 </resources>

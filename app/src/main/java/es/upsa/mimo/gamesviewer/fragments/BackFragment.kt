@@ -1,15 +1,13 @@
-package es.upsa.mimo.gamesviewer.misc
+package es.upsa.mimo.gamesviewer.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.activities.HomeActivity
-import kotlin.reflect.KClass
 
 abstract class BackFragment : TitleFragment()
 {

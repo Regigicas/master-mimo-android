@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.squareup.picasso.Picasso
 import es.upsa.mimo.gamesviewer.R
+import es.upsa.mimo.gamesviewer.fragments.BackFragment
+import es.upsa.mimo.gamesviewer.fragments.TitleFragment
 
 fun Fragment.launchChildFragment(parentFragment: Fragment, fragment: BackFragment)
 {

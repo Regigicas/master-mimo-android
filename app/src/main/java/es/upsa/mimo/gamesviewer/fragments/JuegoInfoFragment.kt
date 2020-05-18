@@ -11,7 +11,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.lifecycleScope
-import com.squareup.picasso.Picasso
 import es.upsa.mimo.datamodule.controllers.UsuarioController
 import es.upsa.mimo.datamodule.models.JuegoModel
 import es.upsa.mimo.gamesviewer.R

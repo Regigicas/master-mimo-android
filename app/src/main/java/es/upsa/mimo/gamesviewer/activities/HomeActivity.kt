@@ -1,6 +1,7 @@
 package es.upsa.mimo.gamesviewer.activities
 
 import android.os.Bundle
+import android.view.Menu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -10,8 +11,8 @@ import es.upsa.mimo.gamesviewer.fragments.HomeFragment
 import es.upsa.mimo.gamesviewer.fragments.PlatformsFragment
 import es.upsa.mimo.gamesviewer.fragments.SearchFragment
 import es.upsa.mimo.gamesviewer.misc.AppCompatActivityTopBar
-import es.upsa.mimo.gamesviewer.misc.BackFragment
-import es.upsa.mimo.gamesviewer.misc.MenuFragment
+import es.upsa.mimo.gamesviewer.fragments.BackFragment
+import es.upsa.mimo.gamesviewer.fragments.MenuFragment
 
 class HomeActivity : AppCompatActivityTopBar()
 {
@@ -97,7 +98,7 @@ class HomeActivity : AppCompatActivityTopBar()
         }
         else
         {
-            val showFragment = when (selected)
+            val showFragment: MenuFragment = when (selected)
             {
                 R.id.optionPlatforms -> platformsFragment;
                 R.id.optionSearch -> searchFragment;
@@ -107,6 +108,7 @@ class HomeActivity : AppCompatActivityTopBar()
 
             activeFragment = showFragment;
             bottomBar.selectedItemId = selected;
+            supportActionBar?.title = showFragment.getFragmentTitle(this);
         }
     }
 
@@ -163,10 +165,12 @@ class HomeActivity : AppCompatActivityTopBar()
         val fragment = supportFragmentManager.findFragmentById(R.id.fragmentFrame)
         if (fragment is BackFragment)
             fragment.onFragmentBack();
+        else if (fragment is FavoriteFragment)
+            fragment.fragmentBackPressed();
         else if (fragment is MenuFragment)
             moveTaskToBack(false);
         else
-            super.onBackPressed()
+            super.onBackPressed();
     }
 
     override fun onSaveInstanceState(outState: Bundle)

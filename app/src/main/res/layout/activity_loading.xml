@@ -6,6 +6,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activities.MainActivity">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLine1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintGuide_percent="@dimen/bias21_5"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/logoGamesViewerView"
         android:layout_width="wrap_content"
@@ -14,11 +23,9 @@
         android:src="@drawable/logo_redondo"
         android:adjustViewBounds="true"
         android:maxWidth="@dimen/width220"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="@dimen/bias30"
+        app:layout_constraintTop_toBottomOf="@id/guideLine1"
         />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -29,7 +36,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:textAlignment="center"
-        android:paddingTop="@dimen/text20dp"
+        android:paddingTop="@dimen/width20"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

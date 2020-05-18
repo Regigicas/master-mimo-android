@@ -1,9 +1,8 @@
 package es.upsa.mimo.datamodule.controllers
 
 import android.content.Context
-import android.preference.PreferenceManager
 import android.util.Log
-import androidx.room.Database
+import androidx.lifecycle.LiveData
 import com.jcloquell.androidsecurestorage.SecureStorage
 import es.upsa.mimo.datamodule.database.DatabaseInstance
 import es.upsa.mimo.datamodule.database.entities.JuegoFav
@@ -12,8 +11,6 @@ import es.upsa.mimo.datamodule.database.entities.UsuariosJuegos
 import es.upsa.mimo.datamodule.enums.UsuarioResultEnum
 import es.upsa.mimo.datamodule.models.JuegoModel
 import java.security.MessageDigest
-import java.sql.Date
-import java.text.SimpleDateFormat
 import java.util.*
 
 class UsuarioController
@@ -163,8 +160,8 @@ class UsuarioController
             if (usuario == null)
                 return false;
 
-            val favoritos = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserId(usuario.id!!);
-            if (favoritos.find { it.id == juegoModel.id } != null)
+            val favorito = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserIdAndGameId(usuario.id!!, juegoModel.id);
+            if (favorito != null)
                 return false;
 
             // Si no tiene el juego en favorito miramos si lo tenemos ya registrado en la DB
@@ -195,8 +192,8 @@ class UsuarioController
             if (usuario == null)
                 return false;
 
-            val favoritos = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserId(usuario.id!!);
-            if (favoritos.find { it.id == juegoId } == null)
+            val favorito = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserIdAndGameId(usuario.id!!, juegoId);
+            if (favorito == null)
                 return false;
 
             try
@@ -219,11 +216,25 @@ class UsuarioController
             if (usuario == null)
                 return false;
 
-            val favoritos = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserId(usuario.id!!);
-            if (favoritos.find { it.id == juegoId } == null)
+            val favorito = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserIdAndGameId(usuario.id!!, juegoId);
+            if (favorito == null)
                 return false;
 
             return true;
+        }
+
+        @JvmStatic
+        fun getObservableOfFavorites(context: Context): LiveData<List<JuegoFav>>
+        {
+            return DatabaseInstance.getInstance(context).usuarioJuegoFavDao()
+                .getJuegosFavsByUserIdLive(getActiveUserId(context));
+        }
+
+        @JvmStatic
+        suspend fun getFavoritesOfUser(context: Context): List<JuegoFav>
+        {
+            return DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserId(
+                getActiveUserId(context));
         }
     }
 }

@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import es.upsa.mimo.datamodule.models.JuegoModel
 import es.upsa.mimo.gamesviewer.R
-import es.upsa.mimo.gamesviewer.misc.MenuFragment
 import es.upsa.mimo.gamesviewer.adapters.GameSearchViewAdapter
 import es.upsa.mimo.gamesviewer.misc.PreferencesManager
 import es.upsa.mimo.gamesviewer.misc.RLItemClickListener
@@ -30,6 +29,7 @@ class SearchFragment : MenuFragment(R.string.app_search), RLItemClickListener<Ju
     private val saveJuegosCargadosKey = "JuegosSearchLoadedData";
     private val saveStateKey = "JuegosSearchStateKey";
     private val saveSearchQueryKey = "JuegosSearchQueryKey";
+    private val saveSearchQueryCurrentPage = "JuegoSearchCurrentPageKey";
     private var loadingData = false;
     private lateinit var swipeRefreshSearch: SwipeRefreshLayout;
     private var maxLoadedItems = 100;
@@ -48,6 +48,7 @@ class SearchFragment : MenuFragment(R.string.app_search), RLItemClickListener<Ju
 
             layoutManager.onRestoreInstanceState(savedInstanceState.getParcelable(saveStateKey));
             lastSearchTerm = savedInstanceState.getString(saveSearchQueryKey, "");
+            currentPage = savedInstanceState.getInt(saveSearchQueryCurrentPage, 1);
         }
 
         maxLoadedItems = PreferencesManager.getMaxElementsInList(requireContext());
@@ -126,10 +127,7 @@ class SearchFragment : MenuFragment(R.string.app_search), RLItemClickListener<Ju
     private fun fetchGameData(reset: Boolean)
     {
         if (reset)
-        {
-            juegosCargados.clear();
             currentPage = 1;
-        }
         else
             currentPage += 1;
 
@@ -139,6 +137,8 @@ class SearchFragment : MenuFragment(R.string.app_search), RLItemClickListener<Ju
                     loadingData = false;
                     if (it.size > 0)
                     {
+                        if (reset)
+                            juegosCargados.clear();
                         juegosCargados.addAll(it);
                         adapter.notifyDataSetChanged();
                         swipeRefreshSearch.isRefreshing = false;
@@ -167,6 +167,7 @@ class SearchFragment : MenuFragment(R.string.app_search), RLItemClickListener<Ju
         outState.putSerializable(saveJuegosCargadosKey, juegosCargados as Serializable);
         outState.putParcelable(saveStateKey, layoutManager.onSaveInstanceState());
         outState.putString(saveSearchQueryKey, lastSearchTerm);
+        outState.putInt(saveSearchQueryCurrentPage, currentPage);
     }
 
     override fun onItemClick(item: JuegoModel)

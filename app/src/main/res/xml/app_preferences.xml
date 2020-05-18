@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <SwitchPreferenceCompat
         android:key="@string/config_lowdata_key"
-        android:title="@string/dont_load_list_image"
+        android:title="@string/dont_load_image"
         />
 
     <SwitchPreferenceCompat
@@ -17,6 +18,15 @@
         android:title="@string/max_elements_list"
         android:summary="@string/max_element_list_default"
         android:defaultValue="@dimen/defaultMaxElements"
+        />
+
+    <ListPreference
+        android:key="@string/config_home_sorting"
+        android:title="@string/change_default_sorting"
+        android:entries="@array/spinner_values"
+        android:entryValues="@array/spinner_values_ids"
+        app:defaultValue="0"
+        android:summary="@string/order_default"
         />
 
 </PreferenceScreen>

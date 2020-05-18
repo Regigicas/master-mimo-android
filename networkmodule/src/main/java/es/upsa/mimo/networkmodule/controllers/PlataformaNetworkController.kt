@@ -24,7 +24,7 @@ class PlataformaNetworkController
                     callback(response.results);
                 },
                 Response.ErrorListener { response ->
-                    Log.e("response", response.localizedMessage);
+                    response.printStackTrace();
                 });
 
             queue.addToRequestQueue(juegoRequest);
@@ -42,7 +42,7 @@ class PlataformaNetworkController
                     callback(response);
                 },
                 Response.ErrorListener { response ->
-                    Log.e("response", response.localizedMessage);
+                    response.printStackTrace();
                 });
 
             queue.addToRequestQueue(juegoRequest);

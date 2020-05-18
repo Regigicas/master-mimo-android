@@ -17,13 +17,13 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import org.jetbrains.annotations.NotNull;
 
 import es.upsa.mimo.datamodule.models.JuegoModel;
 import es.upsa.mimo.datamodule.models.QRModel;
 import es.upsa.mimo.gamesviewer.R;
-import es.upsa.mimo.gamesviewer.misc.BackFragment;
 import es.upsa.mimo.gamesviewer.misc.Utils;
 
 public class GenerateQRCodeFragment extends BackFragment
@@ -94,18 +94,12 @@ public class GenerateQRCodeFragment extends BackFragment
     private void generateQRCode(ImageView imageView) throws WriterException
     {
         QRModel qrModel = new QRModel(juegoInfo.getId(), juegoInfo.getName());
-        QRCodeWriter writer = new QRCodeWriter();
-        BitMatrix bitMatrix = writer.encode(new Gson().toJson(qrModel), BarcodeFormat.QR_CODE, 512, 512);
-        int width = bitMatrix.getWidth();
-        int height = bitMatrix.getWidth();
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-        for (int x = 0; x < width; ++x)
-            for (int y = 0; y < height; ++y)
-                bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
-
+        BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+        Bitmap bitmap = barcodeEncoder.encodeBitmap(new Gson().toJson(qrModel), BarcodeFormat.QR_CODE, 512, 512);
         imageView.setImageBitmap(bitmap);
     }
 
+    @NotNull
     @Override
     public String getFragmentTitle(@NotNull Context context)
     {
@@ -113,7 +107,7 @@ public class GenerateQRCodeFragment extends BackFragment
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState)
+    public void onSaveInstanceState(@NotNull Bundle outState)
     {
         super.onSaveInstanceState(outState);
         outState.putSerializable(saveJuegoQRInfoKey, juegoInfo);

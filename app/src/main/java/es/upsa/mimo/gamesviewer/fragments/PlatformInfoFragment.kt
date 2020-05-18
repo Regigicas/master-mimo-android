@@ -10,15 +10,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.text.HtmlCompat
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.squareup.picasso.Picasso
 import es.upsa.mimo.datamodule.models.PlatformModel
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.activities.HomeActivity
 import es.upsa.mimo.gamesviewer.misc.*
 import es.upsa.mimo.networkmodule.controllers.PlataformaNetworkController
-import java.io.Serializable
 
 class PlatformInfoFragment : BackFragment()
 {

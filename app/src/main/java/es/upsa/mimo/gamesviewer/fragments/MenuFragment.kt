@@ -1,8 +1,6 @@
-package es.upsa.mimo.gamesviewer.misc
+package es.upsa.mimo.gamesviewer.fragments
 
 import android.content.Context
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 
 abstract class MenuFragment(val titleId: Int) : TitleFragment()
 {

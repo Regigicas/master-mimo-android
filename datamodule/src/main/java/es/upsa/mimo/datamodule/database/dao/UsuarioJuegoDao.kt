@@ -1,7 +1,7 @@
 package es.upsa.mimo.datamodule.database.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import es.upsa.mimo.datamodule.database.entities.JuegoFav
@@ -16,7 +16,23 @@ interface UsuarioJuegoDao
                ON juegofav.id = usuariosjuegos.juegoId
                WHERE usuariosjuegos.usuarioId = :userId
                """)
+    fun getJuegosFavsByUserIdLive(userId: Int): LiveData<List<JuegoFav>>
+
+    @Query("""
+               SELECT * FROM juegofav
+               INNER JOIN usuariosjuegos
+               ON juegofav.id = usuariosjuegos.juegoId
+               WHERE usuariosjuegos.usuarioId = :userId
+               """)
     suspend fun getJuegosFavsByUserId(userId: Int): List<JuegoFav>
+
+    @Query("""
+               SELECT * FROM juegofav
+               INNER JOIN usuariosjuegos
+               ON juegofav.id = usuariosjuegos.juegoId
+               WHERE usuariosjuegos.usuarioId = :userId AND usuariosJuegos.juegoId = :gameId
+               """)
+    suspend fun getJuegosFavsByUserIdAndGameId(userId: Int, gameId: Int): JuegoFav?
 
     @Insert
     suspend fun insertJuegoFav(userFav: UsuariosJuegos);

@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintGuide_percent="@dimen/bias50"
+        app:layout_constraintGuide_percent="@dimen/bias65"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline

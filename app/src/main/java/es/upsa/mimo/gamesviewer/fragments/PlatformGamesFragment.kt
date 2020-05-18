@@ -47,6 +47,7 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
     private var maxLoadedItems = 100;
     private val saveStateKey = "JuegosStateKey";
     private val saveJuegosKey = "JuegosListKey";
+    private val saveJuegosCurrentPage = "JuegosListCurrentPage";
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -60,6 +61,8 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
             layoutManager.onRestoreInstanceState(savedInstanceState.getParcelable(saveStateKey));
             if (activity != null)
                 ownerFragment = findFragmentByClassName(PlatformInfoFragment::class.java.name, requireActivity().supportFragmentManager); // La vista solo puede ser creada por esta clase
+
+            currentPage = savedInstanceState.getInt(saveJuegosCurrentPage, 1);
         }
 
         maxLoadedItems = PreferencesManager.getMaxElementsInList(requireContext());
@@ -143,10 +146,7 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
     {
         layoutJuegosPlat.isRefreshing = true; // Evitamos que se pueda actualizar
         if (reset)
-        {
-            juegos.clear();
             currentPage = 1;
-        }
         else
             currentPage += 1;
 
@@ -155,6 +155,8 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
                 JuegoNetworkController.getJuegosPlataforma(currentPage, plataforma.id, fragActivity) {
                     loadingMoreData = false;
                     initialCreation = true;
+                    if (reset)
+                        juegos.clear();
                     juegos.addAll(it);
                     adapter.notifyDataSetChanged();
                     layoutJuegosPlat.isRefreshing = false;
@@ -181,5 +183,6 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
         super.onSaveInstanceState(outState);
         outState.putSerializable(saveJuegosKey, juegos as Serializable);
         outState.putParcelable(saveStateKey, layoutManager.onSaveInstanceState());
+        outState.putInt(saveJuegosCurrentPage, currentPage);
     }
 }

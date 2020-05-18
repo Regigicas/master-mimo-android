@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import es.upsa.mimo.datamodule.models.PlatformModel
 import es.upsa.mimo.gamesviewer.R
-import es.upsa.mimo.gamesviewer.misc.MenuFragment
 import es.upsa.mimo.gamesviewer.misc.RLItemClickListener
 import es.upsa.mimo.gamesviewer.adapters.PlatformViewAdapter
 import es.upsa.mimo.gamesviewer.misc.launchChildFragment

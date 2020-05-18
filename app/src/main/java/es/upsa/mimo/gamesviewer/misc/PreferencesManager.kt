@@ -26,5 +26,11 @@ class PreferencesManager
             val preferences = getPreferences(context);
             return preferences.getBoolean(context.getString(key), false);
         }
+
+        fun getStringConfig(context: Context, key: Int): String?
+        {
+            val preferences = getPreferences(context);
+            return preferences.getString(context.getString(key), null);
+        }
     }
 }

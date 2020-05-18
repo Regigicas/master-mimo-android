@@ -20,13 +20,13 @@ class JuegoNetworkController
             val queue = VolleyQueueInstance.getInstance(context);
             val url = context.getString(R.string.juegos_global).addParametersToURL(mapOf(
                 Pair("page_size", context.getString(R.string.max_games_per_request)),
-                Pair("page", "$page"), Pair("ordering", "${order.stringValue()}")));
+                Pair("page", "$page"), Pair("ordering", context.getString(order.stringValue()))));
             val juegoRequest = GSONRequest(url, JuegoModel.ResponseQuery::class.java, null,
                 Response.Listener { response ->
                     callback(response.results);
                 },
                 Response.ErrorListener { response ->
-                    Log.e("response", response.localizedMessage);
+                    response.printStackTrace();
                 });
 
             queue.addToRequestQueue(juegoRequest);
@@ -47,7 +47,7 @@ class JuegoNetworkController
                     callback(response.results);
                 },
                 Response.ErrorListener { response ->
-                    Log.e("response", response.localizedMessage);
+                    response.printStackTrace();
                 });
 
             queue.addToRequestQueue(juegoRequest);
@@ -63,7 +63,7 @@ class JuegoNetworkController
                     callback(response);
                 },
                 Response.ErrorListener { response ->
-                    Log.e("response", response.localizedMessage);
+                    response.printStackTrace();
                 });
 
             queue.addToRequestQueue(juegoRequest);
@@ -84,7 +84,7 @@ class JuegoNetworkController
                     callback(response.results);
                 },
                 Response.ErrorListener { response ->
-                    Log.e("response", response.localizedMessage);
+                    response.printStackTrace();
                 });
 
             queue.addToRequestQueue(juegoRequest);
