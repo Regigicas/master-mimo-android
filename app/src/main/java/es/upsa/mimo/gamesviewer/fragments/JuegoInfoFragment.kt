@@ -13,6 +13,7 @@ import androidx.core.text.HtmlCompat
 import androidx.lifecycle.lifecycleScope
 import es.upsa.mimo.datamodule.controllers.UsuarioController
 import es.upsa.mimo.datamodule.models.JuegoModel
+import es.upsa.mimo.gamesviewer.BuildConfig
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.activities.HomeActivity
 import es.upsa.mimo.gamesviewer.misc.*
@@ -127,12 +128,17 @@ class JuegoInfoFragment : BackFragment()
         else
             updateFavoriteIcon(buttonFavorite);
 
-        buttonQR.setOnClickListener {
-            val bundle = Bundle();
-            bundle.putSerializable(GenerateQRCodeFragment.bundleJuegoInfoKey, juegoInfo);
-            val nextFrag = GenerateQRCodeFragment.newInstance(this, bundle);
-            launchChildFragment(this, nextFrag);
+        if (BuildConfig.FLAVOR == "paid")
+        {
+            buttonQR.setOnClickListener {
+                val bundle = Bundle();
+                bundle.putSerializable(GenerateQRCodeFragment.bundleJuegoInfoKey, juegoInfo);
+                val nextFrag = GenerateQRCodeFragment.newInstance(this, bundle);
+                launchChildFragment(this, nextFrag);
+            }
         }
+        else
+            buttonQR.visibility = View.GONE;
 
         buttonFavorite.setOnClickListener {
             if (blockedUpdate)

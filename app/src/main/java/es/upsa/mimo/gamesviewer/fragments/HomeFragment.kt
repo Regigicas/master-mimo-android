@@ -24,6 +24,7 @@ import es.upsa.mimo.datamodule.controllers.JuegoController
 import es.upsa.mimo.datamodule.enums.JuegoOrderEnum
 import es.upsa.mimo.datamodule.models.JuegoModel
 import es.upsa.mimo.datamodule.models.QRModel
+import es.upsa.mimo.gamesviewer.BuildConfig
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.adapters.GameGridViewAdapter
 import es.upsa.mimo.gamesviewer.misc.PreferencesManager
@@ -170,12 +171,17 @@ class HomeFragment : MenuFragment(R.string.app_home), RLItemClickListener<JuegoM
         }
 
         val buttonScan = view.findViewById<Button>(R.id.buttonQR);
-        buttonScan.setOnClickListener {
-            val integrator = IntentIntegrator(requireActivity())
-            integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
-            integrator.setOrientationLocked(false);
-            integrator.initiateScan();
+        if (BuildConfig.FLAVOR == "paid")
+        {
+            buttonScan.setOnClickListener {
+                val integrator = IntentIntegrator(requireActivity())
+                integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE);
+                integrator.setOrientationLocked(false);
+                integrator.initiateScan();
+            }
         }
+        else
+            buttonScan.visibility = View.GONE;
 
         if (juegosCargados.size > 0)
         {

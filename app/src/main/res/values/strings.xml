@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">GamesViewer</string>
+    <string name="app_name_paid" translatable="false">GamesViewer</string>
     <string name="login_login_msg">Login</string>
     <string name="str_username">Username</string>
     <string name="str_password">Password</string>
@@ -75,4 +75,5 @@
     <string name="password_change_ok">Successful password change, you will be log out for security reasons</string>
     <string name="min_password_length">Password length have a minimun of 8 characters</string>
     <string name="str_password_min">Password. Min 8 characters</string>
+    <string name="app_name_free" translatable="false">GamesViewer Free</string>
 </resources>
