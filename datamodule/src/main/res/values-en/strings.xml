@@ -16,4 +16,6 @@
     <string name="error_invalid_email">The given email is not valid</string>
     <string name="error_user_not_found">There is no account with that username</string>
     <string name="error_pass_mismatch">The password doesn\'t match</string>
+    <string name="error_oldpassword_mismatch">Old password doesn\'t match</string>
+    <string name="error_oldpassword_new_same">Old password must be different from new password</string>
 </resources>

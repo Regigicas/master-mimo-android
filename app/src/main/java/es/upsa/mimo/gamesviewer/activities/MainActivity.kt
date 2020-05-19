@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity()
             {
                 autoLoginOk = true;
                 val intent = Intent(this@MainActivity, HomeActivity::class.java);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK;
                 startActivity(intent);
             }
         }
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity()
                 return@postDelayed;
 
             val intent = Intent(this@MainActivity, LoginActivity::class.java);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK;
             startActivity(intent);
         }, 1000);
     }

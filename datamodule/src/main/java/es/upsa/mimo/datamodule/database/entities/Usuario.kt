@@ -10,7 +10,7 @@ data class Usuario(
     @PrimaryKey(autoGenerate = true)
     val id: Int?,
     var username: String,
-    val email: String,
-    val preferencias: Int,
-    val shaHashPass: String
+    var email: String,
+    var preferencias: Int,
+    var shaHashPass: String
 )

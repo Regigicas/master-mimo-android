@@ -45,6 +45,22 @@ enum class UsuarioResultEnum
         }
     },
 
+    oldPasswordMismatch
+    {
+        override fun stringValue(): Int
+        {
+            return R.string.error_oldpassword_mismatch;
+        }
+    },
+
+    oldNewPasswordSame
+    {
+        override fun stringValue(): Int
+        {
+            return R.string.error_oldpassword_new_same;
+        }
+    },
+
     ok
     {
         override fun stringValue(): Int

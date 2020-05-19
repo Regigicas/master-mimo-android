@@ -3,6 +3,7 @@ package es.upsa.mimo.datamodule.database.dao
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import es.upsa.mimo.datamodule.database.entities.Usuario
 
 @Dao
@@ -19,4 +20,7 @@ interface UsuarioDao
 
     @Insert
     suspend fun insertUsuario(usuario: Usuario);
+
+    @Update
+    suspend fun updateUser(usuario: Usuario);
 }

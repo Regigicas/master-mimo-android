@@ -1,38 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imageViewImgPlataforma"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardPlatformImage"
         android:layout_width="@dimen/width320"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:contentDescription="@string/description_platform_image" />
+        style="@style/CardImagenJuegoPlataforma">
 
-    <ScrollView
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewImgPlataforma"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/description_platform_image"
+            />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardGameText"
         android:layout_width="@dimen/height0"
         android:layout_height="@dimen/height0"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/imageViewImgPlataforma"
         app:layout_constraintBottom_toTopOf="@id/buttonJuegosPlat"
+        app:layout_constraintLeft_toRightOf="@id/cardPlatformImage"
         app:layout_constraintRight_toRightOf="parent"
-        android:fillViewport="true"
-        app:layout_constraintVertical_bias="@dimen/bias10">
+        style="@style/CardImagenJuegoPlataforma">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textPlatformDescription"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/viewPaddingExtra"
-            android:paddingRight="@dimen/viewPaddingExtra"
-            android:textSize="@dimen/textDescription"
-            />
-    </ScrollView>
+            app:layout_constraintTop_toBottomOf="@id/cardPlatformImage"
+            app:layout_constraintBottom_toTopOf="@id/buttonJuegosPlat"
+            android:fillViewport="true">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/textPlatformDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/viewPaddingSmall"
+                android:layout_marginStart="@dimen/width16"
+                android:layout_marginEnd="@dimen/width16"
+                android:textSize="@dimen/textDescription"
+                />
+        </ScrollView>
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonJuegosPlat"
@@ -41,9 +58,8 @@
         android:textAlignment="center"
         android:text="@string/view_platform_games"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/imageViewImgPlataforma"
+        app:layout_constraintLeft_toRightOf="@id/cardPlatformImage"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="@dimen/bias10"
         android:layout_marginBottom="@dimen/viewPaddingExtra"
         style="@style/BotonRedondoColor"
         />

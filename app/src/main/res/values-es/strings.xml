@@ -9,7 +9,7 @@
     <string name="register_email">Correo electrónico:</string>
     <string name="register_email_hint">Introduce el correo electrónico</string>
     <string name="register_password">Contraseña:</string>
-    <string name="register_password_hint">Introduce la contraseña</string>
+    <string name="register_password_hint">Introduce la contraseña Mínimo 8 caracteres</string>
     <string name="register_pwd_dup">Repetir contraseña:</string>
     <string name="register_pwd_dup_hint">Vuelve a introducir la contraseña</string>
     <string name="register_ok_return_login">Registrado correctamente. Volveras a la pantalla de inicio de sesión en breve</string>
@@ -53,4 +53,15 @@
     <string name="page_x_of_y">%d/%d</string>
     <string name="scan_qr">Escanear QR</string>
     <string name="change_default_sorting">Ordenamiento de inicio</string>
+    <string name="change_password">Cambiar contraseña</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="title_app_settings">Configuración de la app</string>
+    <string name="logout_confirm">¿Estás seguro de que desea cerrar la sesión?</string>
+    <string name="logout_yes">Cerrar sesión</string>
+    <string name="logout_no">Cancelar</string>
+    <string name="str_old_password">Vieja contraseña</string>
+    <string name="oldpass_newpass_equal">La nueva contraseña tiene que ser distinta de la vieja</string>
+    <string name="password_change_ok">Cambio de contraseña realizado con exito, se cerrará la sesión por seguridad</string>
+    <string name="min_password_length">La contraseña tiene una longitud mínima de 8 caracteres</string>
+    <string name="str_password_min">Contraseña. Mínimo 8 caracteres</string>
 </resources>

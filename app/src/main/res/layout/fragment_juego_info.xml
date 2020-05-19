@@ -3,142 +3,165 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imageViewJuego"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardGameImage"
         android:layout_width="match_parent"
         android:layout_height="@dimen/width320"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:contentDescription="@string/description_game_image"
-        />
+        style="@style/CardImagenJuegoPlataforma">
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/imageButtonFavorito"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxWidth="@dimen/width80"
-        app:layout_constraintTop_toBottomOf="@id/imageViewJuego"
-        app:layout_constraintRight_toRightOf="parent"
-        android:src="@drawable/icono_favorito_off"
-        android:layout_marginEnd="@dimen/viewPaddingSmall"
-        android:layout_marginTop="@dimen/viewPaddingSmall"
-        android:backgroundTint="@android:color/transparent"
-        android:adjustViewBounds="true"
-        android:scaleType="centerInside"
-        android:contentDescription="@string/description_favorite"
-        />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewJuego"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/description_game_image"
+            />
 
-    <androidx.appcompat.widget.AppCompatImageButton
-        android:id="@+id/imageButtonQRCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:maxWidth="@dimen/width80"
-        app:layout_constraintTop_toBottomOf="@id/imageButtonFavorito"
-        app:layout_constraintRight_toRightOf="parent"
-        android:src="@drawable/icono_qr"
-        android:layout_marginEnd="@dimen/viewPaddingSmall"
-        android:backgroundTint="@android:color/transparent"
-        android:adjustViewBounds="true"
-        android:scaleType="centerInside"
-        android:contentDescription="@string/description_favorite"
-        />
+    </androidx.cardview.widget.CardView>
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewAvailableOn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/available_on"
-        app:layout_constraintTop_toBottomOf="@id/imageViewJuego"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="@dimen/viewPaddingSmall"
-        android:layout_marginStart="@dimen/viewPaddingSmall"
-        android:textStyle="bold"
-        />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewPlatforms"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/placeholder_text"
-        android:maxWidth="@dimen/width400"
-        app:layout_constraintTop_toBottomOf="@id/textViewAvailableOn"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="@dimen/viewPaddingExtra"
-        android:layout_marginStart="@dimen/viewPaddingSmall"
-        />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/game_rating"
-        app:layout_constraintTop_toBottomOf="@id/textViewPlatforms"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="@dimen/viewPaddingExtra"
-        android:layout_marginStart="@dimen/viewPaddingSmall"
-        />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewRatingValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/placeholder_text"
-        app:layout_constraintTop_toTopOf="@id/textViewRating"
-        app:layout_constraintLeft_toRightOf="@id/textViewRating"
-        android:layout_marginStart="@dimen/width2"
-        />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewRelease"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/game_release_date"
-        app:layout_constraintTop_toBottomOf="@id/textViewRating"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="@dimen/viewPaddingExtra"
-        android:layout_marginStart="@dimen/viewPaddingSmall"
-        />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewReleaseValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/placeholder_text"
-        app:layout_constraintTop_toTopOf="@id/textViewRelease"
-        app:layout_constraintLeft_toRightOf="@id/textViewRelease"
-        android:layout_marginStart="@dimen/width2"
-        />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textViewDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/game_description"
-        app:layout_constraintTop_toBottomOf="@id/textViewRelease"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/nestedScrollView"
-        android:layout_marginStart="@dimen/viewPaddingSmall"
-        android:layout_marginTop="@dimen/viewPaddingExtra"
-        />
-
-    <ScrollView
-        android:id="@+id/nestedScrollView"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardGameText"
         android:layout_width="match_parent"
         android:layout_height="@dimen/height0"
-        app:layout_constraintTop_toBottomOf="@id/imageButtonQRCode"
+        app:layout_constraintTop_toBottomOf="@id/cardGameImage"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/width5"
-        app:layout_constraintVertical_bias="@dimen/bias10">
+        style="@style/CardImagenJuegoPlataforma">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewDescriptionValue"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/viewPaddingExtra"
-            android:paddingRight="@dimen/viewPaddingExtra"
-            android:textSize="@dimen/textDescription"
-            />
-    </ScrollView>
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/imageButtonFavorito"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="@dimen/width70"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:src="@drawable/icono_favorito_off"
+                    android:layout_marginEnd="@dimen/viewPaddingSmall"
+                    android:backgroundTint="@android:color/transparent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:contentDescription="@string/description_favorite"
+                    />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/imageButtonQRCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="@dimen/width70"
+                    app:layout_constraintTop_toBottomOf="@id/imageButtonFavorito"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:src="@drawable/icono_qr"
+                    android:layout_marginEnd="@dimen/viewPaddingSmall"
+                    android:backgroundTint="@android:color/transparent"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerInside"
+                    android:contentDescription="@string/description_favorite"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewAvailableOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/available_on"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginTop="@dimen/viewPaddingSmall"
+                    android:layout_marginStart="@dimen/width16"
+                    android:textStyle="bold"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewPlatforms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_text"
+                    android:maxWidth="@dimen/width400"
+                    app:layout_constraintTop_toBottomOf="@id/textViewAvailableOn"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginTop="@dimen/viewPaddingExtra"
+                    android:layout_marginStart="@dimen/width16"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/game_rating"
+                    app:layout_constraintTop_toBottomOf="@id/textViewPlatforms"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginTop="@dimen/viewPaddingExtra"
+                    android:layout_marginStart="@dimen/width16"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewRatingValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_text"
+                    app:layout_constraintTop_toTopOf="@id/textViewRating"
+                    app:layout_constraintLeft_toRightOf="@id/textViewRating"
+                    android:layout_marginStart="@dimen/width2"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewRelease"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/game_release_date"
+                    app:layout_constraintTop_toBottomOf="@id/textViewRating"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginTop="@dimen/viewPaddingExtra"
+                    android:layout_marginStart="@dimen/width16"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewReleaseValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/placeholder_text"
+                    app:layout_constraintTop_toTopOf="@id/textViewRelease"
+                    app:layout_constraintLeft_toRightOf="@id/textViewRelease"
+                    android:layout_marginStart="@dimen/width2"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/game_description"
+                    app:layout_constraintTop_toBottomOf="@id/textViewRelease"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginStart="@dimen/width16"
+                    android:layout_marginTop="@dimen/viewPaddingExtra"
+                    />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewDescriptionValue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/textViewDescription"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginStart="@dimen/width16"
+                    android:layout_marginEnd="@dimen/width16"
+                    android:textSize="@dimen/text14"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

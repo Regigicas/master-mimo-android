@@ -93,7 +93,6 @@ class SearchFragment : MenuFragment(R.string.app_search), RLItemClickListener<Ju
         rvJuegosPlat.setHasFixedSize(true);
         rvJuegosPlat.adapter = adapter;
         rvJuegosPlat.layoutManager = layoutManager;
-        rvJuegosPlat.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL));
 
         rvJuegosPlat.addOnScrollListener(object : RecyclerView.OnScrollListener()
         {

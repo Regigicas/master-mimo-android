@@ -88,7 +88,9 @@ class LoginActivity : AppCompatActivityTopBar(), TextWatcher
 
 
                 pendingLogin = false;
-                startActivity(Intent(this@LoginActivity, HomeActivity::class.java));
+                val intent = Intent(this@LoginActivity, HomeActivity::class.java);
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK;
+                startActivity(intent);
             }
         }
     }

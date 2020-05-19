@@ -2,6 +2,7 @@
 <resources>
     <dimen name="platformViewItemSize" type="">44dp</dimen>
     <dimen name="platformViewItemSizePlus" type="">45dp</dimen>
+    <dimen name="text14" type="">14sp</dimen>
     <dimen name="textDescription" type="">16sp</dimen>
     <dimen name="text18" type="">18sp</dimen>
     <dimen name="viewPaddingSmall" type="">8dp</dimen>
@@ -15,12 +16,15 @@
     <dimen name="width2" type="">2dp</dimen>
     <dimen name="width3" type="">3dp</dimen>
     <dimen name="width2_5" type="">2.5dp</dimen>
+    <dimen name="width4" type="">4dp</dimen>
     <dimen name="width5" type="">5dp</dimen>
     <dimen name="width14" type="">14dp</dimen>
+    <dimen name="width16" type="">16dp</dimen>
     <dimen name="width20" type="">20dp</dimen>
     <dimen name="width28" type="">28dp</dimen>
     <dimen name="width42_5" type="">42.5dp</dimen>
     <dimen name="width50" type="">50dp</dimen>
+    <dimen name="width70" type="">70dp</dimen>
     <dimen name="width80" type="">80dp</dimen>
     <dimen name="width85" type="">85dp</dimen>
     <dimen name="width90" type="">90dp</dimen>
@@ -47,5 +51,4 @@
     <dimen name="radiusCard" type="">40dp</dimen>
     <dimen name="defaultMaxElements" type="">100</dimen>
     <dimen name="shadowDP" type="integer">5</dimen>
-    <dimen name="maxTextLines" type="integer">1</dimen>
 </resources>

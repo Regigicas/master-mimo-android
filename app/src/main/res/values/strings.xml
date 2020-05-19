@@ -9,7 +9,7 @@
     <string name="register_email">Email:</string>
     <string name="register_email_hint">Enter your email</string>
     <string name="register_password">Password:</string>
-    <string name="register_password_hint">Enter your password</string>
+    <string name="register_password_hint">Enter your password. Min 8 characters</string>
     <string name="register_pwd_dup">Re-type password:</string>
     <string name="register_pwd_dup_hint">Re-type password</string>
     <string name="register_ok_return_login">Registration successful. You will return to login screen soon</string>
@@ -62,4 +62,17 @@
     <string name="change_default_sorting">Home screen sorting</string>
     <string name="config_home_sorting" translatable="false">config_home_sorting</string>
     <string name="summary_ordering" translatable="false">%s</string>
+    <string name="change_password">Change password</string>
+    <string name="logout">Logout</string>
+    <string name="title_app_settings">App settings</string>
+    <string name="cat_app_settings" translatable="false">cat_app_settings</string>
+    <string name="user_name_email" translatable="false">%s - %s</string>
+    <string name="logout_confirm">Are you sure you want to logout?</string>
+    <string name="logout_yes">Logout</string>
+    <string name="logout_no">Cancel</string>
+    <string name="str_old_password">Old Password</string>
+    <string name="oldpass_newpass_equal">New password must be different from the old one</string>
+    <string name="password_change_ok">Successful password change, you will be log out for security reasons</string>
+    <string name="min_password_length">Password length have a minimun of 8 characters</string>
+    <string name="str_password_min">Password. Min 8 characters</string>
 </resources>

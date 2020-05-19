@@ -45,7 +45,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonQR"
-            android:layout_width="@dimen/width180"
+            android:layout_width="@dimen/width240"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

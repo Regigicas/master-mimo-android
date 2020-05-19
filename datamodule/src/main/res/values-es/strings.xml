@@ -16,4 +16,6 @@
     <string name="error_invalid_email">El correo electrónico proporcionado no es valido</string>
     <string name="error_user_not_found">No hay ninguna cuenta con el nombre de usuario indicado</string>
     <string name="error_pass_mismatch">La contraseña no coincide</string>
+    <string name="error_oldpassword_mismatch">La vieja contraseña no coincide</string>
+    <string name="error_oldpassword_new_same">La nueva contraseña tiene que ser diferente de la nueva</string>
 </resources>

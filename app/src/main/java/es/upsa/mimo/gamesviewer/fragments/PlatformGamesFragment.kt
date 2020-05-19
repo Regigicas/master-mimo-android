@@ -113,7 +113,6 @@ class PlatformGamesFragment : BackFragment(), RLItemClickListener<JuegoModel>
         rvJuegosPlat.setHasFixedSize(true);
         rvJuegosPlat.adapter = adapter;
         rvJuegosPlat.layoutManager = layoutManager;
-        rvJuegosPlat.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL));
 
         rvJuegosPlat.addOnScrollListener(object : RecyclerView.OnScrollListener()
         {

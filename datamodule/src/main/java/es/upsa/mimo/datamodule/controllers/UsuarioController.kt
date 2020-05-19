@@ -72,8 +72,6 @@ class UsuarioController
 
             val passHash = hashPassword("${username.toUpperCase(Locale.ROOT)}:$password");
 
-            Log.d("info", "$passHash - ${userLogin.shaHashPass}")
-
             if (userLogin.shaHashPass != passHash)
                 return Pair(UsuarioResultEnum.passwordMismatch, null);
 
@@ -231,10 +229,36 @@ class UsuarioController
         }
 
         @JvmStatic
-        suspend fun getFavoritesOfUser(context: Context): List<JuegoFav>
+        fun logoutUser(context: Context)
         {
-            return DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserId(
-                getActiveUserId(context));
+            try
+            {
+                val secureStorage = SecureStorage(context);
+                secureStorage.removeObject(usernameStoreFieldName);
+                secureStorage.removeObject(passwordStoreFieldname);
+                secureStorage.removeObject(activeUserId);
+            }
+            catch (ex: Throwable) {}
+        }
+
+        @JvmStatic
+        suspend fun changePassword(oldPass: String, newPass: String, context: Context): UsuarioResultEnum
+        {
+            val usuario = getActiveUser(context);
+            if (usuario == null)
+                return UsuarioResultEnum.usernameNotFound;
+
+            val oldPassHash = hashPassword("${usuario.username.toUpperCase(Locale.ROOT)}:$oldPass");
+            val newPassHash = hashPassword("${usuario.username.toUpperCase(Locale.ROOT)}:$newPass");
+            if (oldPassHash == newPassHash)
+                return UsuarioResultEnum.oldNewPasswordSame;
+
+            if (oldPassHash != usuario.shaHashPass)
+                return UsuarioResultEnum.oldPasswordMismatch;
+
+            usuario.shaHashPass = newPassHash;
+            DatabaseInstance.getInstance(context).usuarioDao().updateUser(usuario);
+            return UsuarioResultEnum.ok;
         }
     }
 }

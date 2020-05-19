@@ -2,31 +2,41 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreferenceCompat
-        android:key="@string/config_lowdata_key"
-        android:title="@string/dont_load_image"
-        />
+    <PreferenceCategory
+        android:key="@string/cat_app_settings"
+        android:title="@string/title_app_settings"
+        app:iconSpaceReserved="false">
 
-    <SwitchPreferenceCompat
-        android:key="@string/config_autologin_status"
-        android:title="@string/enable_autologin"
-        android:defaultValue="true"
-        />
+        <SwitchPreferenceCompat
+            android:key="@string/config_lowdata_key"
+            android:title="@string/dont_load_image"
+            app:iconSpaceReserved="false"
+            />
 
-    <es.upsa.mimo.gamesviewer.misc.IntegerEditPreference
-        android:key="@string/config_max_elements_in_list"
-        android:title="@string/max_elements_list"
-        android:summary="@string/max_element_list_default"
-        android:defaultValue="@dimen/defaultMaxElements"
-        />
+        <SwitchPreferenceCompat
+            android:key="@string/config_autologin_status"
+            android:title="@string/enable_autologin"
+            android:defaultValue="true"
+            app:iconSpaceReserved="false"
+            />
 
-    <ListPreference
-        android:key="@string/config_home_sorting"
-        android:title="@string/change_default_sorting"
-        android:entries="@array/spinner_values"
-        android:entryValues="@array/spinner_values_ids"
-        app:defaultValue="0"
-        android:summary="@string/order_default"
-        />
+        <es.upsa.mimo.gamesviewer.misc.IntegerEditPreference
+            android:key="@string/config_max_elements_in_list"
+            android:title="@string/max_elements_list"
+            android:summary="@string/max_element_list_default"
+            android:defaultValue="@dimen/defaultMaxElements"
+            app:iconSpaceReserved="false"
+            />
+
+        <ListPreference
+            android:key="@string/config_home_sorting"
+            android:title="@string/change_default_sorting"
+            android:entries="@array/spinner_values"
+            android:entryValues="@array/spinner_values_ids"
+            app:defaultValue="0"
+            android:summary="@string/order_default"
+            app:iconSpaceReserved="false"
+            />
+    </PreferenceCategory>
 
 </PreferenceScreen>

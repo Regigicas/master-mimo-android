@@ -65,7 +65,7 @@
         app:layout_constraintRight_toRightOf="@id/textLogin"
         android:layout_marginTop="@dimen/width5"
         android:hint="@string/str_username"
-        android:maxLines="@dimen/maxTextLines"
+        android:maxLines="@integer/maxTextLines"
         android:nextFocusDown="@id/textEditPassword"
         android:imeOptions="actionNext"
         android:inputType="textNoSuggestions"
@@ -80,7 +80,7 @@
         android:layout_marginTop="@dimen/width5"
         app:layout_constraintRight_toRightOf="@id/textEditUsername"
         app:layout_constraintLeft_toLeftOf="@id/textEditUsername"
-        android:maxLines="@dimen/maxTextLines"
+        android:maxLines="@integer/maxTextLines"
         android:inputType="textPassword"
         android:imeOptions="actionDone"
         />

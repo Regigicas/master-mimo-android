@@ -47,4 +47,24 @@
         <item name="android:shadowRadius">@dimen/shadowDP</item>
     </style>
 
+    <style name="CardImagenGeneral">
+        <item name="cardCornerRadius">@dimen/viewPaddingSmall</item>
+        <item name="cardElevation">@dimen/width14</item>
+    </style>
+
+    <style name="CardImagenJuegoPlataforma">
+        <item name="android:layout_margin">@dimen/viewPaddingSmall</item>
+        <item name="cardCornerRadius">@dimen/viewPaddingSmall</item>
+        <item name="cardElevation">@dimen/width14</item>
+    </style>
+
+    <style name="CardImagenSearch">
+        <item name="android:layout_marginTop">@dimen/width4</item>
+        <item name="android:layout_marginBottom">@dimen/width4</item>
+        <item name="android:layout_marginStart">@dimen/viewPaddingSmall</item>
+        <item name="android:layout_marginEnd">@dimen/viewPaddingSmall</item>
+        <item name="cardCornerRadius">@dimen/viewPaddingSmall</item>
+        <item name="cardElevation">@dimen/width14</item>
+    </style>
+
 </resources>

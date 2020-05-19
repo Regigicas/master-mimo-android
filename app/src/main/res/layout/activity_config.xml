@@ -4,12 +4,70 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingStart="@dimen/width20"
+        android:paddingEnd="@dimen/height0"
+        android:paddingTop="@dimen/viewPaddingExtra"
+        android:text="@string/user_name_email"
+        android:textSize="@dimen/text18"
+        />
+
+    <View
+        android:id="@+id/separator1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width1"
+        android:background="@android:color/darker_gray"
+        android:layout_marginStart="@dimen/width20"
+        android:layout_marginEnd="@dimen/width20"
+        android:layout_marginTop="@dimen/viewPaddingExtra"
+        app:layout_constraintTop_toBottomOf="@id/textViewUserName"
+        />
+
     <FrameLayout
         android:id="@+id/configView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/separator1"
+        />
+
+    <View
+        android:id="@+id/separator2"
+        android:layout_marginTop="@dimen/width5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/width1"
+        android:background="@android:color/darker_gray"
+        android:layout_marginStart="@dimen/width20"
+        android:layout_marginEnd="@dimen/width20"
+        app:layout_constraintTop_toBottomOf="@id/configView"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonChangePassword"
+        android:layout_width="@dimen/width240"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/separator2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/change_password"
+        android:layout_marginTop="@dimen/width20"
+        style="@style/BotonRedondoColor"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/buttonLogout"
+        android:layout_width="@dimen/width240"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/buttonChangePassword"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/logout"
+        style="@style/BotonRedondoColor"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:layout_marginTop="@dimen/width5"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

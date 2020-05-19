@@ -57,7 +57,6 @@ class PlatformsFragment : MenuFragment(R.string.app_platforms), RLItemClickListe
         recyclerView.setHasFixedSize(true);
         recyclerView.adapter = adapter;
         recyclerView.layoutManager = layoutManager;
-        recyclerView.addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL));
         val progressLoad = view.findViewById<ProgressBar>(R.id.progressLoad);
 
         if (plataformas.size > 0)

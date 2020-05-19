@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/register_username_hint"
-        android:maxLines="@dimen/maxTextLines"
+        android:maxLines="@integer/maxTextLines"
         android:imeOptions="actionNext"
         android:inputType="textNoSuggestions"
         android:nextFocusDown="@id/textEditEmail"
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/register_email_hint"
-        android:maxLines="@dimen/maxTextLines"
+        android:maxLines="@integer/maxTextLines"
         android:imeOptions="actionNext"
         android:inputType="textEmailAddress"
         android:nextFocusDown="@id/textEditPassword"
@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/register_password_hint"
-        android:maxLines="@dimen/maxTextLines"
+        android:maxLines="@integer/maxTextLines"
         android:imeOptions="actionNext"
         android:inputType="textPassword"
         android:nextFocusDown="@id/textEditPasswordRepeat"
@@ -71,14 +71,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/register_pwd_dup_hint"
-        android:maxLines="@dimen/maxTextLines"
+        android:maxLines="@integer/maxTextLines"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
         />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonRegister"
-        android:layout_width="@dimen/width250"
+        android:layout_width="@dimen/width240"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/width5"
         android:text="@string/str_register"
@@ -86,4 +86,4 @@
         android:layout_gravity="center_horizontal"
         style="@style/BotonRedondoColor"
         />
-</LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

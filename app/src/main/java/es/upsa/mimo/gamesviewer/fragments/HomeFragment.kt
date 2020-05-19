@@ -116,7 +116,7 @@ class HomeFragment : MenuFragment(R.string.app_home), RLItemClickListener<JuegoM
             override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State)
             {
                 super.getItemOffsets(outRect, view, parent, state);
-                outRect.set(90, 50, 50, 50);
+                outRect.set(90, 30, 50, 30);
             }
         });
 

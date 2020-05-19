@@ -45,7 +45,8 @@ class RegisterActivity : AppCompatActivityTopBar(), TextWatcher
         textEditPwdRpt.setOnEditorActionListener { _, i, _ ->
             if (i == EditorInfo.IME_ACTION_DONE)
             {
-                registerUser();
+                if (validateAllFields())
+                    registerUser();
                 true
             }
             else
@@ -88,7 +89,7 @@ class RegisterActivity : AppCompatActivityTopBar(), TextWatcher
         if (TextUtils.isEmpty(textEditUsername.text) || textEditUsername.text.length < 5)
             return false;
 
-        if (TextUtils.isEmpty(textEditEmail.text) || UsuarioController.validateEmail(textEditEmail.text.toString()) == false)
+        if (TextUtils.isEmpty(textEditEmail.text) || !UsuarioController.validateEmail(textEditEmail.text.toString()))
             return false;
 
         if (TextUtils.isEmpty(textEditPassword.text) || textEditPassword.text.length < 8)

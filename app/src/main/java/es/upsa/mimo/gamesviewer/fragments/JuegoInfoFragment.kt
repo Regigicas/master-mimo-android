@@ -102,6 +102,7 @@ class JuegoInfoFragment : BackFragment()
         val buttonQR = view.findViewById<ImageButton>(R.id.imageButtonQRCode);
         val buttonFavorite = view.findViewById<ImageButton>(R.id.imageButtonFavorito);
 
+        imagenJuego.clipToOutline = true;
         if (juegoInfo.background_image != null)
             imagenJuego.loadFromURL(juegoInfo.background_image!!);
         if (!TextUtils.isEmpty(juegoInfo.description))
@@ -118,11 +119,13 @@ class JuegoInfoFragment : BackFragment()
             lifecycleScope.launch {
                 activity?.let {
                     esFavorito = UsuarioController.hasFavorite(juegoId, it);
+                    updateFavoriteIcon(buttonFavorite);
                 }
-                updateFavoriteIcon(buttonFavorite);
                 blockedUpdate = false;
             }
         }
+        else
+            updateFavoriteIcon(buttonFavorite);
 
         buttonQR.setOnClickListener {
             val bundle = Bundle();

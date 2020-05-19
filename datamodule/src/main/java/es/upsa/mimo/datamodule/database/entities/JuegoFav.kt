@@ -10,7 +10,7 @@ import java.sql.Date
 data class JuegoFav(
     @PrimaryKey()
     val id: Int,
-    val name: String,
-    val backgroundImage: String,
-    val releaseDate: Date
+    var name: String,
+    var backgroundImage: String,
+    var releaseDate: Date
 ) : Serializable
