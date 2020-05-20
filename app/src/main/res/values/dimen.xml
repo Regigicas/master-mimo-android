@@ -19,8 +19,10 @@
     <dimen name="width4" type="">4dp</dimen>
     <dimen name="width5" type="">5dp</dimen>
     <dimen name="width14" type="">14dp</dimen>
+    <dimen name="width15" type="">15dp</dimen>
     <dimen name="width16" type="">16dp</dimen>
     <dimen name="width20" type="">20dp</dimen>
+    <dimen name="width24" type="">24dp</dimen>
     <dimen name="width28" type="">28dp</dimen>
     <dimen name="width42_5" type="">42.5dp</dimen>
     <dimen name="width50" type="">50dp</dimen>
@@ -29,6 +31,7 @@
     <dimen name="width85" type="">85dp</dimen>
     <dimen name="width90" type="">90dp</dimen>
     <dimen name="width100" type="">100dp</dimen>
+    <dimen name="width120" type="">120dp</dimen>
     <dimen name="width180" type="">180dp</dimen>
     <dimen name="width200" type="">200dp</dimen>
     <dimen name="width220" type="">220dp</dimen>
@@ -49,6 +52,6 @@
     <dimen name="bias70" type="">0.7</dimen>
     <dimen name="bias90" type="">0.9</dimen>
     <dimen name="radiusCard" type="">40dp</dimen>
-    <dimen name="defaultMaxElements" type="">100</dimen>
+    <dimen name="defaultMaxElements" type="integer">100</dimen>
     <dimen name="shadowDP" type="integer">5</dimen>
 </resources>

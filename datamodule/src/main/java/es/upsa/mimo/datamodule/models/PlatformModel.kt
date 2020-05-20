@@ -11,12 +11,12 @@ class PlatformModel : Serializable
     var image_background: String? = null;
     var description: String? = null;
 
-    class PlatformsResponse : Serializable
+    inner class PlatformsResponse : Serializable
     {
         lateinit var platform: PlatformModel;
     }
 
-    class AllPlatformsResponse
+    inner class AllPlatformsResponse
     {
         lateinit var results: List<PlatformModel>;
     }

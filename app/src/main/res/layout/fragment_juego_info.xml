@@ -20,6 +20,17 @@
             android:contentDescription="@string/description_game_image"
             />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonClip"
+            android:layout_width="@dimen/width100"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:text="@string/view_clip"
+            style="@style/BotonRedondoColorClip"
+            android:layout_marginEnd="@dimen/viewPaddingSmall"
+            android:layout_marginBottom="@dimen/viewPaddingSmall"
+            />
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView

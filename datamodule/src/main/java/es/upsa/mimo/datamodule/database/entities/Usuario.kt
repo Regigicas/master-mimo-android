@@ -12,5 +12,6 @@ data class Usuario(
     var username: String,
     var email: String,
     var preferencias: Int,
-    var shaHashPass: String
+    var shaHashPass: String,
+    var favoriteNotification: Boolean
 )

@@ -28,7 +28,7 @@ import es.upsa.mimo.gamesviewer.misc.Utils;
 
 public class GenerateQRCodeFragment extends BackFragment
 {
-    public static final String bundleJuegoInfoKey = "JuegoInfoFragmentJuegoInfo";
+    public static final String bundleJuegoInfoKey = "JuegoQRFragmentJuegoInfo";
     private static final String saveJuegoQRInfoKey = "JuegoQRInfoKey";
     private JuegoModel juegoInfo;
 

@@ -3,6 +3,7 @@ package es.upsa.mimo.datamodule.controllers
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.room.Database
 import com.jcloquell.androidsecurestorage.SecureStorage
 import es.upsa.mimo.datamodule.database.DatabaseInstance
 import es.upsa.mimo.datamodule.database.entities.JuegoFav
@@ -28,7 +29,7 @@ class UsuarioController
                 return UsuarioResultEnum.invalidEmail;
 
             val passHash = hashPassword("${username.toUpperCase(Locale.ROOT)}:$password");
-            val usuario = Usuario(null, username, email, 0, passHash);
+            val usuario = Usuario(null, username, email, 0, passHash, false);
 
             try
             {
@@ -222,6 +223,16 @@ class UsuarioController
         }
 
         @JvmStatic
+        suspend fun getFavoriteList(context: Context): List<JuegoFav>
+        {
+            val usuario = getActiveUser(context);
+            if (usuario == null)
+                return listOf();
+
+            return DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserId(usuario.id!!);
+        }
+
+        @JvmStatic
         fun getObservableOfFavorites(context: Context): LiveData<List<JuegoFav>>
         {
             return DatabaseInstance.getInstance(context).usuarioJuegoFavDao()
@@ -259,6 +270,24 @@ class UsuarioController
             usuario.shaHashPass = newPassHash;
             DatabaseInstance.getInstance(context).usuarioDao().updateUser(usuario);
             return UsuarioResultEnum.ok;
+        }
+
+        @JvmStatic
+        suspend fun hasNotifyFavRelease(context: Context): Boolean
+        {
+            val usuario = getActiveUser(context);
+            return usuario?.favoriteNotification ?: false;
+        }
+
+        @JvmStatic
+        suspend fun setUserNotifyFavRelease(context: Context, status: Boolean)
+        {
+            val usuario = getActiveUser(context);
+            if (usuario == null)
+                return;
+
+            usuario.favoriteNotification = status;
+            DatabaseInstance.getInstance(context).usuarioDao().updateUser(usuario);
         }
     }
 }

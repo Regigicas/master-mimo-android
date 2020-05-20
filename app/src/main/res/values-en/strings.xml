@@ -64,4 +64,8 @@
     <string name="password_change_ok">Successful password change, you will be log out for security reasons</string>
     <string name="min_password_length">Password length have a minimun of 8 characters</string>
     <string name="str_password_min">Password. Min 8 characters</string>
+    <string name="view_clip">View clip</string>
+    <string name="game_release_today">A game that you have on favorite is releasing today</string>
+    <string name="game_release_name">%s is releasing today</string>
+    <string name="eneable_receive_fav_noti">Notify me when a favorite game is releasing</string>
 </resources>

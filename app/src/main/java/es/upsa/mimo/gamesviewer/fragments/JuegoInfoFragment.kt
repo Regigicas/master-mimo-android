@@ -6,6 +6,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -102,6 +103,7 @@ class JuegoInfoFragment : BackFragment()
         val textoDescripcion = view.findViewById<TextView>(R.id.textViewDescriptionValue);
         val buttonQR = view.findViewById<ImageButton>(R.id.imageButtonQRCode);
         val buttonFavorite = view.findViewById<ImageButton>(R.id.imageButtonFavorito);
+        val buttonClip = view.findViewById<Button>(R.id. buttonClip);
 
         imagenJuego.clipToOutline = true;
         if (juegoInfo.background_image != null)
@@ -139,6 +141,13 @@ class JuegoInfoFragment : BackFragment()
         }
         else
             buttonQR.visibility = View.GONE;
+
+        buttonClip.setOnClickListener {
+            val bundle = Bundle();
+            bundle.putSerializable(ClipFragment.bundleJuegoInfoKey, juegoInfo);
+            val nextFrag = ClipFragment.newInstance(this, bundle);
+            launchChildFragment(this, nextFrag);
+        }
 
         buttonFavorite.setOnClickListener {
             if (blockedUpdate)

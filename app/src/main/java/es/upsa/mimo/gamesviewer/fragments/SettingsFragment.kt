@@ -35,7 +35,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
         val maxElementPref = findPreference<IntegerEditPreference>(getString(R.string.config_max_elements_in_list));
         if (maxElementPref != null && activity != null)
         {
-            val currentValue = PreferencesManager.getMaxElementsInList(requireActivity());
+            var currentValue = PreferencesManager.getMaxElementsInList(requireActivity());
+            if (currentValue == -1)
+                currentValue = resources.getInteger(R.integer.defaultMaxElements);
             maxElementPref.summary = getString(R.string.max_element_list_override, currentValue);
         }
     }

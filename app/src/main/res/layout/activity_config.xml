@@ -9,11 +9,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:paddingStart="@dimen/width20"
+        android:paddingStart="@dimen/width16"
         android:paddingEnd="@dimen/height0"
         android:paddingTop="@dimen/viewPaddingExtra"
         android:text="@string/user_name_email"
         android:textSize="@dimen/text18"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewFavNoti"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textViewUserName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/eneable_receive_fav_noti"
+        android:layout_marginTop="@dimen/width16"
+        android:paddingStart="@dimen/width16"
+        android:paddingEnd="@dimen/height0"
+        android:textSize="@dimen/textDescription"
+        />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchFavNoti"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textViewFavNoti"
+        android:layout_marginEnd="@dimen/width15"
         />
 
     <View
@@ -21,10 +43,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/width1"
         android:background="@android:color/darker_gray"
-        android:layout_marginStart="@dimen/width20"
-        android:layout_marginEnd="@dimen/width20"
-        android:layout_marginTop="@dimen/viewPaddingExtra"
-        app:layout_constraintTop_toBottomOf="@id/textViewUserName"
+        android:layout_marginStart="@dimen/width16"
+        android:layout_marginEnd="@dimen/width16"
+        android:layout_marginTop="@dimen/width24"
+        app:layout_constraintTop_toBottomOf="@id/textViewFavNoti"
         />
 
     <FrameLayout
@@ -40,8 +62,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/width1"
         android:background="@android:color/darker_gray"
-        android:layout_marginStart="@dimen/width20"
-        android:layout_marginEnd="@dimen/width20"
+        android:layout_marginStart="@dimen/width16"
+        android:layout_marginEnd="@dimen/width16"
         app:layout_constraintTop_toBottomOf="@id/configView"
         />
 

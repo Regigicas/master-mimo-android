@@ -27,6 +27,12 @@ class PreferencesManager
             return preferences.getBoolean(context.getString(key), false);
         }
 
+        fun isAutoLoginEnable(context: Context): Boolean
+        {
+            val preferences = getPreferences(context);
+            return preferences.getBoolean(context.getString(R.string.config_autologin_status), true);
+        }
+
         fun getStringConfig(context: Context, key: Int): String?
         {
             val preferences = getPreferences(context);

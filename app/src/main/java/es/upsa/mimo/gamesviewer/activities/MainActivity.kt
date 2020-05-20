@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity()
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading);
+        supportActionBar?.title = getString(R.string.title_loading);
 
         if (savedInstanceState != null)
             wasInitialized = savedInstanceState.getBoolean(saveWasInitializedKey);
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity()
         wasInitialized = true;
         var autoLoginOk = false;
         MainScope().launch {
-            if (PreferencesManager.getBooleanConfig(this@MainActivity, R.string.config_autologin_status) &&
+            if (PreferencesManager.isAutoLoginEnable(this@MainActivity) &&
                 UsuarioController.tryAutoLogin(this@MainActivity))
             {
                 autoLoginOk = true;

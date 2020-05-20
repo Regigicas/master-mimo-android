@@ -64,4 +64,8 @@
     <string name="password_change_ok">Cambio de contraseña realizado con exito, se cerrará la sesión por seguridad</string>
     <string name="min_password_length">La contraseña tiene una longitud mínima de 8 caracteres</string>
     <string name="str_password_min">Contraseña. Mínimo 8 caracteres</string>
+    <string name="view_clip">Ver clip</string>
+    <string name="game_release_today">Un juego que tienes en favoritos sale hoy</string>
+    <string name="game_release_name">%s sale hoy</string>
+    <string name="eneable_receive_fav_noti">Notificar cuando va a salir un juego favorito</string>
 </resources>

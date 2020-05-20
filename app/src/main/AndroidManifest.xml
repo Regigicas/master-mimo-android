@@ -8,10 +8,11 @@
         android:label="${appName}"
         android:roundIcon="@mipmap/ic_launcher_icon_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name=".ApplicationExtend">
 
         <activity android:name=".activities.MainActivity"
-            android:label="@string/title_loading">
+            android:label="${appName}">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -36,6 +37,10 @@
             android:label="@string/title_config"/>
 
         <activity android:name=".activities.LoginActivity"/>
+
+        <service android:name=".services.ClipService"/>
+
+        <receiver android:name=".misc.NotificationPublisher"/>
 
     </application>
 

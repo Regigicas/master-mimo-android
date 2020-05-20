@@ -1,5 +1,6 @@
 package es.upsa.mimo.datamodule.models
 
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 class JuegoModel : Serializable
@@ -11,6 +12,8 @@ class JuegoModel : Serializable
     var background_image: String? = null;
     var rating: Float? = null;
     private var platforms: List<PlatformModel.PlatformsResponse>? = null;
+    var clip: ClipModel? = null;
+
     var plataformas: List<PlatformModel>?
         get()
         {
@@ -24,9 +27,23 @@ class JuegoModel : Serializable
         }
         set(_) {}
 
-    class ResponseQuery
+    inner class ResponseQuery
     {
         lateinit var results: List<JuegoModel>;
+    }
+
+    inner class ClipModel : Serializable
+    {
+        var clips: ClipsModel? = null;
+
+        inner class ClipsModel : Serializable
+        {
+            @SerializedName("320")
+            var p320: String? = null;
+            @SerializedName("640")
+            var p640: String? = null;
+            var full: String? = null;
+        }
     }
 
     fun getBackgroundString(): String
