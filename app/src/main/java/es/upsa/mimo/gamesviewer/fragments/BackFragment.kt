@@ -12,31 +12,31 @@ import es.upsa.mimo.gamesviewer.activities.HomeActivity
 abstract class BackFragment : TitleFragment()
 {
     @JvmField
-    var ownerFragment: TitleFragment? = null;
+    var ownerFragment: TitleFragment? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
         if (ownerFragment == null)
-            throw AssertionError(getString(R.string.assert_needed_data_not_present));
+            throw AssertionError(getString(R.string.assert_needed_data_not_present))
 
-        val homeActivity = activity as? HomeActivity;
-        homeActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(true);
-        setHasOptionsMenu(true);
-        return onCreateChildView(inflater, container, savedInstanceState);
+        val homeActivity = activity as? HomeActivity
+        homeActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setHasOptionsMenu(true)
+        return onCreateChildView(inflater, container, savedInstanceState)
     }
 
-    abstract fun onCreateChildView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?;
+    abstract fun onCreateChildView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
 
     override fun onDestroyView()
     {
         if (!(ownerFragment is BackFragment))
         {
-            val homeActivity = activity as? HomeActivity;
-            homeActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(false);
-            setHasOptionsMenu(false);
+            val homeActivity = activity as? HomeActivity
+            homeActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            setHasOptionsMenu(false)
         }
 
-        super.onDestroyView();
+        super.onDestroyView()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean
@@ -45,18 +45,18 @@ abstract class BackFragment : TitleFragment()
         {
             android.R.id.home ->
             {
-                onFragmentBack();
+                onFragmentBack()
                 true
             }
-            else -> super.onOptionsItemSelected(item);
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
     fun onFragmentBack()
     {
-        val homeActivity = activity as? HomeActivity;
+        val homeActivity = activity as? HomeActivity
         homeActivity?.supportActionBar?.title =
-            ownerFragment?.requireContext()?.let { ownerFragment?.getFragmentTitle(it) };
+            ownerFragment?.requireContext()?.let { ownerFragment?.getFragmentTitle(it) }
 
         if (activity != null && ownerFragment != null)
         {
@@ -66,7 +66,7 @@ abstract class BackFragment : TitleFragment()
                 .show(ownerFragment!!)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .addToBackStack(null)
-                .commit();
+                .commit()
         }
     }
 }

@@ -13,15 +13,15 @@ class ImageTextView(context: Context, attrs: AttributeSet) : LinearLayout(contex
 {
     init
     {
-        inflate(context, R.layout.view_logo_view, this);
+        inflate(context, R.layout.view_logo_view, this)
 
-        val textView: TextView = findViewById(R.id.textViewDescription);
-        val imageView: ImageView = findViewById(R.id.imageViewLogo);
-        val attributes = context.obtainStyledAttributes(attrs, R.styleable.ImageTextView);
-        textView.text = attributes.getString(R.styleable.ImageTextView_text);
-        imageView.setImageDrawable(attributes.getDrawable(R.styleable.ImageTextView_imgSrc));
-        imageView.contentDescription = attributes.getString(R.styleable.ImageTextView_imgDecription);
+        val textView: TextView = findViewById(R.id.textViewDescription)
+        val imageView: ImageView = findViewById(R.id.imageViewLogo)
+        val attributes = context.obtainStyledAttributes(attrs, R.styleable.ImageTextView)
+        textView.text = attributes.getString(R.styleable.ImageTextView_text)
+        imageView.setImageDrawable(attributes.getDrawable(R.styleable.ImageTextView_imgSrc))
+        imageView.contentDescription = attributes.getString(R.styleable.ImageTextView_imgDecription)
 
-        attributes.recycle();
+        attributes.recycle()
     }
 }

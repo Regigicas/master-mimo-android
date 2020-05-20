@@ -18,65 +18,65 @@ class UsuarioController
 {
     companion object
     {
-        private val usernameStoreFieldName = "acc_login_username";
-        private val passwordStoreFieldname = "acc_login_password";
-        private val activeUserId = "acc_active_user_id";
+        private val usernameStoreFieldName = "acc_login_username"
+        private val passwordStoreFieldname = "acc_login_password"
+        private val activeUserId = "acc_active_user_id"
 
         @JvmStatic
         suspend fun registrarUsuario(username: String, email: String, password: String, context: Context): UsuarioResultEnum
         {
             if (!validateEmail(email))
-                return UsuarioResultEnum.invalidEmail;
+                return UsuarioResultEnum.invalidEmail
 
-            val passHash = hashPassword("${username.toUpperCase(Locale.ROOT)}:$password");
-            val usuario = Usuario(null, username, email, 0, passHash, false);
+            val passHash = hashPassword("${username.toUpperCase(Locale.ROOT)}:$password")
+            val usuario = Usuario(null, username, email, 0, passHash, false)
 
             try
             {
-                DatabaseInstance.getInstance(context).usuarioDao().insertUsuario(usuario);
+                DatabaseInstance.getInstance(context).usuarioDao().insertUsuario(usuario)
             }
             catch (ex: Throwable)
             {
-                Log.e("error", ex.localizedMessage);
+                Log.e("error", ex.localizedMessage)
 
                 if (ex.localizedMessage.contains("Usuario.username"))
-                    return UsuarioResultEnum.existingUser;
+                    return UsuarioResultEnum.existingUser
 
                 if (ex.localizedMessage.contains("Usuario.email"))
-                    return UsuarioResultEnum.existingEmail;
+                    return UsuarioResultEnum.existingEmail
             }
 
-            return UsuarioResultEnum.ok;
+            return UsuarioResultEnum.ok
         }
 
         @JvmStatic
         fun validateEmail(email: String): Boolean
         {
-            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
         }
 
         @JvmStatic
         fun hashPassword(password: String): String
         {
-            val bytes = password.toString().toByteArray();
-            val md = MessageDigest.getInstance("SHA-256");
-            val digest = md.digest(bytes);
-            return digest.fold("", { str, it -> str + "%02x".format(it) });
+            val bytes = password.toString().toByteArray()
+            val md = MessageDigest.getInstance("SHA-256")
+            val digest = md.digest(bytes)
+            return digest.fold("", { str, it -> str + "%02x".format(it) })
         }
 
         @JvmStatic
         suspend fun tryLogin(username: String, password: String, context: Context): Pair<UsuarioResultEnum, Usuario?>
         {
-            val userLogin = DatabaseInstance.getInstance(context).usuarioDao().getUsuarioByUsername(username);
+            val userLogin = DatabaseInstance.getInstance(context).usuarioDao().getUsuarioByUsername(username)
             if (userLogin == null)
-                return Pair(UsuarioResultEnum.usernameNotFound, null);
+                return Pair(UsuarioResultEnum.usernameNotFound, null)
 
-            val passHash = hashPassword("${username.toUpperCase(Locale.ROOT)}:$password");
+            val passHash = hashPassword("${username.toUpperCase(Locale.ROOT)}:$password")
 
             if (userLogin.shaHashPass != passHash)
-                return Pair(UsuarioResultEnum.passwordMismatch, null);
+                return Pair(UsuarioResultEnum.passwordMismatch, null)
 
-            return Pair(UsuarioResultEnum.ok, userLogin);
+            return Pair(UsuarioResultEnum.ok, userLogin)
         }
 
         @JvmStatic
@@ -84,16 +84,16 @@ class UsuarioController
         {
             try
             {
-                val secureStorage = SecureStorage(context);
-                secureStorage.storeObject(usernameStoreFieldName, username);
-                secureStorage.storeObject(passwordStoreFieldname, password);
+                val secureStorage = SecureStorage(context)
+                secureStorage.storeObject(usernameStoreFieldName, username)
+                secureStorage.storeObject(passwordStoreFieldname, password)
             }
             catch (ex: Throwable)
             {
-                return false;
+                return false
             }
 
-            return true;
+            return true
         }
 
         @JvmStatic
@@ -101,8 +101,8 @@ class UsuarioController
         {
             try
             {
-                val secureStorage = SecureStorage(context);
-                secureStorage.storeObject(activeUserId, id);
+                val secureStorage = SecureStorage(context)
+                secureStorage.storeObject(activeUserId, id)
             }
             catch (ex: Throwable) {}
         }
@@ -110,19 +110,19 @@ class UsuarioController
         @JvmStatic
         fun getActiveUserId(context: Context): Int
         {
-            val secureStorage = SecureStorage(context);
-            val userId = secureStorage.getObject(activeUserId, Int::class.java);
-            return userId ?: -1;
+            val secureStorage = SecureStorage(context)
+            val userId = secureStorage.getObject(activeUserId, Int::class.java)
+            return userId ?: -1
         }
 
         @JvmStatic
         suspend fun getActiveUser(context: Context): Usuario?
         {
-            val userId = getActiveUserId(context);
+            val userId = getActiveUserId(context)
             if (userId == -1)
-                return null;
+                return null
 
-            return DatabaseInstance.getInstance(context).usuarioDao().getUsuario(userId);
+            return DatabaseInstance.getInstance(context).usuarioDao().getUsuario(userId)
         }
 
         @JvmStatic
@@ -130,113 +130,113 @@ class UsuarioController
         {
             try
             {
-                val secureStorage = SecureStorage(context);
-                val username = secureStorage.getObject(usernameStoreFieldName, String::class.java);
-                val password = secureStorage.getObject(passwordStoreFieldname, String::class.java);
+                val secureStorage = SecureStorage(context)
+                val username = secureStorage.getObject(usernameStoreFieldName, String::class.java)
+                val password = secureStorage.getObject(passwordStoreFieldname, String::class.java)
                 if (username != null && password != null)
                 {
-                    val (result, usuario) = tryLogin(username, password, context);
+                    val (result, usuario) = tryLogin(username, password, context)
                     if (result == UsuarioResultEnum.ok)
                     {
                         if (usuario != null)
                             saveActiveUserId(usuario.id!!, context)
-                        return true;
+                        return true
                     }
                 }
             }
             catch (ex: Throwable)
             {
-                return false;
+                return false
             }
 
-            return false;
+            return false
         }
 
         @JvmStatic
         suspend fun addJuegoFavorito(juegoModel: JuegoModel, context: Context): Boolean
         {
-            val usuario = getActiveUser(context);
+            val usuario = getActiveUser(context)
             if (usuario == null)
-                return false;
+                return false
 
-            val favorito = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserIdAndGameId(usuario.id!!, juegoModel.id);
+            val favorito = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserIdAndGameId(usuario.id!!, juegoModel.id)
             if (favorito != null)
-                return false;
+                return false
 
             // Si no tiene el juego en favorito miramos si lo tenemos ya registrado en la DB
-            var juegoFav = DatabaseInstance.getInstance(context).juegoFavDao().getJuegoFav(juegoModel.id);
+            var juegoFav = DatabaseInstance.getInstance(context).juegoFavDao().getJuegoFav(juegoModel.id)
             if (juegoFav == null)
-                juegoFav = JuegoController.insertNewGameFav(juegoModel, context);
+                juegoFav = JuegoController.insertNewGameFav(juegoModel, context)
             if (juegoFav == null) // Si tampoco se ha creado en DB retornamos ya false
-                return false;
+                return false
 
-            val userFav = UsuariosJuegos(usuario.id, juegoFav.id);
+            val userFav = UsuariosJuegos(usuario.id, juegoFav.id)
             try
             {
-                DatabaseInstance.getInstance(context).usuarioJuegoFavDao().insertJuegoFav(userFav);
-                return true;
+                DatabaseInstance.getInstance(context).usuarioJuegoFavDao().insertJuegoFav(userFav)
+                return true
             }
             catch (ex: Throwable)
             {
-                Log.e("error", ex.localizedMessage);
+                Log.e("error", ex.localizedMessage)
             }
 
-            return false;
+            return false
         }
 
         @JvmStatic
         suspend fun removeJuegoFavorito(juegoId: Int, context: Context): Boolean
         {
-            val usuario = getActiveUser(context);
+            val usuario = getActiveUser(context)
             if (usuario == null)
-                return false;
+                return false
 
-            val favorito = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserIdAndGameId(usuario.id!!, juegoId);
+            val favorito = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserIdAndGameId(usuario.id!!, juegoId)
             if (favorito == null)
-                return false;
+                return false
 
             try
             {
-                DatabaseInstance.getInstance(context).usuarioJuegoFavDao().deleteByUserIdAndGameId(usuario.id, juegoId);
-                return true;
+                DatabaseInstance.getInstance(context).usuarioJuegoFavDao().deleteByUserIdAndGameId(usuario.id, juegoId)
+                return true
             }
             catch (ex: Throwable)
             {
-                Log.e("error", ex.localizedMessage);
+                Log.e("error", ex.localizedMessage)
             }
 
-            return false;
+            return false
         }
 
         @JvmStatic
         suspend fun hasFavorite(juegoId: Int, context: Context): Boolean
         {
-            val usuario = getActiveUser(context);
+            val usuario = getActiveUser(context)
             if (usuario == null)
-                return false;
+                return false
 
-            val favorito = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserIdAndGameId(usuario.id!!, juegoId);
+            val favorito = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserIdAndGameId(usuario.id!!, juegoId)
             if (favorito == null)
-                return false;
+                return false
 
-            return true;
+            return true
         }
 
         @JvmStatic
         suspend fun getFavoriteList(context: Context): List<JuegoFav>
         {
-            val usuario = getActiveUser(context);
+            val usuario = getActiveUser(context)
             if (usuario == null)
-                return listOf();
+                return listOf()
 
-            return DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserId(usuario.id!!);
+            return DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserId(usuario.id!!)
         }
 
         @JvmStatic
         fun getObservableOfFavorites(context: Context): LiveData<List<JuegoFav>>
         {
             return DatabaseInstance.getInstance(context).usuarioJuegoFavDao()
-                .getJuegosFavsByUserIdLive(getActiveUserId(context));
+                .getJuegosFavsByUserIdLive(getActiveUserId(context))
         }
 
         @JvmStatic
@@ -244,10 +244,10 @@ class UsuarioController
         {
             try
             {
-                val secureStorage = SecureStorage(context);
-                secureStorage.removeObject(usernameStoreFieldName);
-                secureStorage.removeObject(passwordStoreFieldname);
-                secureStorage.removeObject(activeUserId);
+                val secureStorage = SecureStorage(context)
+                secureStorage.removeObject(usernameStoreFieldName)
+                secureStorage.removeObject(passwordStoreFieldname)
+                secureStorage.removeObject(activeUserId)
             }
             catch (ex: Throwable) {}
         }
@@ -255,39 +255,39 @@ class UsuarioController
         @JvmStatic
         suspend fun changePassword(oldPass: String, newPass: String, context: Context): UsuarioResultEnum
         {
-            val usuario = getActiveUser(context);
+            val usuario = getActiveUser(context)
             if (usuario == null)
-                return UsuarioResultEnum.usernameNotFound;
+                return UsuarioResultEnum.usernameNotFound
 
-            val oldPassHash = hashPassword("${usuario.username.toUpperCase(Locale.ROOT)}:$oldPass");
-            val newPassHash = hashPassword("${usuario.username.toUpperCase(Locale.ROOT)}:$newPass");
+            val oldPassHash = hashPassword("${usuario.username.toUpperCase(Locale.ROOT)}:$oldPass")
+            val newPassHash = hashPassword("${usuario.username.toUpperCase(Locale.ROOT)}:$newPass")
             if (oldPassHash == newPassHash)
-                return UsuarioResultEnum.oldNewPasswordSame;
+                return UsuarioResultEnum.oldNewPasswordSame
 
             if (oldPassHash != usuario.shaHashPass)
-                return UsuarioResultEnum.oldPasswordMismatch;
+                return UsuarioResultEnum.oldPasswordMismatch
 
-            usuario.shaHashPass = newPassHash;
-            DatabaseInstance.getInstance(context).usuarioDao().updateUser(usuario);
-            return UsuarioResultEnum.ok;
+            usuario.shaHashPass = newPassHash
+            DatabaseInstance.getInstance(context).usuarioDao().updateUser(usuario)
+            return UsuarioResultEnum.ok
         }
 
         @JvmStatic
         suspend fun hasNotifyFavRelease(context: Context): Boolean
         {
-            val usuario = getActiveUser(context);
-            return usuario?.favoriteNotification ?: false;
+            val usuario = getActiveUser(context)
+            return usuario?.favoriteNotification ?: false
         }
 
         @JvmStatic
         suspend fun setUserNotifyFavRelease(context: Context, status: Boolean)
         {
-            val usuario = getActiveUser(context);
+            val usuario = getActiveUser(context)
             if (usuario == null)
-                return;
+                return
 
-            usuario.favoriteNotification = status;
-            DatabaseInstance.getInstance(context).usuarioDao().updateUser(usuario);
+            usuario.favoriteNotification = status
+            DatabaseInstance.getInstance(context).usuarioDao().updateUser(usuario)
         }
     }
 }

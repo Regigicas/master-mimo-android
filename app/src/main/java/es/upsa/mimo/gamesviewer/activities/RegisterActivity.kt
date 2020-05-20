@@ -19,23 +19,23 @@ import kotlinx.coroutines.launch
 
 class RegisterActivity : AppCompatActivityTopBar(), TextWatcher
 {
-    private lateinit var textEditUsername: EditText;
-    private lateinit var textEditEmail: EditText;
-    private lateinit var textEditPassword: EditText;
-    private lateinit var textEditPwdRpt: EditText;
-    private lateinit var buttonRegister: Button;
+    private lateinit var textEditUsername: EditText
+    private lateinit var textEditEmail: EditText
+    private lateinit var textEditPassword: EditText
+    private lateinit var textEditPwdRpt: EditText
+    private lateinit var buttonRegister: Button
     private var pendingInsert: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_register)
 
-        textEditUsername = findViewById(R.id.textEditUsername);
-        textEditEmail = findViewById(R.id.textEditEmail);
-        textEditPassword = findViewById(R.id.textEditPassword);
-        textEditPwdRpt = findViewById(R.id.textEditPasswordRepeat);
-        buttonRegister = findViewById(R.id.buttonRegister);
+        textEditUsername = findViewById(R.id.textEditUsername)
+        textEditEmail = findViewById(R.id.textEditEmail)
+        textEditPassword = findViewById(R.id.textEditPassword)
+        textEditPwdRpt = findViewById(R.id.textEditPasswordRepeat)
+        buttonRegister = findViewById(R.id.buttonRegister)
 
         textEditUsername.addTextChangedListener(this)
         textEditEmail.addTextChangedListener(this)
@@ -46,7 +46,7 @@ class RegisterActivity : AppCompatActivityTopBar(), TextWatcher
             if (i == EditorInfo.IME_ACTION_DONE)
             {
                 if (validateAllFields())
-                    registerUser();
+                    registerUser()
                 true
             }
             else
@@ -54,56 +54,56 @@ class RegisterActivity : AppCompatActivityTopBar(), TextWatcher
         }
 
         buttonRegister.setOnClickListener {
-            registerUser();
+            registerUser()
         }
     }
 
     fun registerUser()
     {
-        hideKeyBoard();
+        hideKeyBoard()
         if (pendingInsert)
-            return;
+            return
 
         lifecycleScope.launch {
             val result = UsuarioController.registrarUsuario(textEditUsername.text.toString().trim(),
-                textEditEmail.text.toString().trim(), textEditPassword.text.toString().trim(), this@RegisterActivity);
+                textEditEmail.text.toString().trim(), textEditPassword.text.toString().trim(), this@RegisterActivity)
 
-            val toastText = if (result == UsuarioResultEnum.ok) getString(R.string.register_ok_return_login) else getString(result.stringValue());
+            val toastText = if (result == UsuarioResultEnum.ok) getString(R.string.register_ok_return_login) else getString(result.stringValue())
             Toast.makeText(this@RegisterActivity, toastText,
-                Toast.LENGTH_SHORT).show();
+                Toast.LENGTH_SHORT).show()
 
             if (result == UsuarioResultEnum.ok)
             {
-                buttonRegister.isEnabled = false;
+                buttonRegister.isEnabled = false
                 Handler().postDelayed({
-                    finish();
-                }, 2000);
+                    finish()
+                }, 2000)
             }
             else
-                pendingInsert = false;
+                pendingInsert = false
         }
     }
 
     fun validateAllFields(): Boolean
     {
         if (TextUtils.isEmpty(textEditUsername.text) || textEditUsername.text.length < 5)
-            return false;
+            return false
 
         if (TextUtils.isEmpty(textEditEmail.text) || !UsuarioController.validateEmail(textEditEmail.text.toString()))
-            return false;
+            return false
 
         if (TextUtils.isEmpty(textEditPassword.text) || textEditPassword.text.length < 8)
-            return false;
+            return false
 
         if (TextUtils.isEmpty(textEditPwdRpt.text) || textEditPassword.text.toString() != textEditPwdRpt.text.toString())
-            return false;
+            return false
 
-        return true;
+        return true
     }
 
     override fun afterTextChanged(p0: Editable?)
     {
-        buttonRegister.isEnabled = validateAllFields();
+        buttonRegister.isEnabled = validateAllFields()
     }
 
     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}

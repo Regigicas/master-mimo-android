@@ -16,33 +16,33 @@ class GameGridViewAdapter(private val dataSet: List<JuegoModel>, private val lis
 {
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view)
     {
-        val imageViewJuego = view.findViewById<ImageView>(R.id.imageViewJuego);
-        val textViewNombreJuego = view.findViewById<TextView>(R.id.textViewNombreJuego);
+        val imageViewJuego = view.findViewById<ImageView>(R.id.imageViewJuego)
+        val textViewNombreJuego = view.findViewById<TextView>(R.id.textViewNombreJuego)
 
         fun bind(juegoInfo: JuegoModel)
         {
-            imageViewJuego.loadFromURL(juegoInfo.getBackgroundString());
-            imageViewJuego.clipToOutline = true;
-            textViewNombreJuego.text = juegoInfo.name;
+            imageViewJuego.loadFromURL(juegoInfo.getBackgroundString())
+            imageViewJuego.clipToOutline = true
+            textViewNombreJuego.text = juegoInfo.name
             view.setOnClickListener {
-                listener.onItemClick(juegoInfo);
+                listener.onItemClick(juegoInfo)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
     {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_grid_game, parent, false));
+        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_grid_game, parent, false))
     }
 
     override fun getItemCount(): Int
     {
-        return dataSet.size;
+        return dataSet.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int)
     {
-        val juegoInfo = dataSet.get(position);
-        holder.bind(juegoInfo);
-    };
+        val juegoInfo = dataSet.get(position)
+        holder.bind(juegoInfo)
+    }
 }

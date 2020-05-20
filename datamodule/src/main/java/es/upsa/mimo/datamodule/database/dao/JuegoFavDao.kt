@@ -9,11 +9,11 @@ import es.upsa.mimo.datamodule.database.entities.JuegoFav
 interface JuegoFavDao
 {
     @Query("SELECT * FROM juegofav WHERE id = :id")
-    suspend fun getJuegoFav(id: Int): JuegoFav?;
+    suspend fun getJuegoFav(id: Int): JuegoFav?
 
     @Query("SELECT * FROM juegofav WHERE UPPER(name) = UPPER(:name)")
-    suspend fun getJuegoFavByName(name: String): JuegoFav?;
+    suspend fun getJuegoFavByName(name: String): JuegoFav?
 
     @Insert
-    suspend fun insertJuegoFav(juegofav: JuegoFav);
+    suspend fun insertJuegoFav(juegofav: JuegoFav)
 }

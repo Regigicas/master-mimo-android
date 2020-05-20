@@ -16,38 +16,38 @@ class ChangePasswordFragment : DialogFragment()
         @JvmStatic
         fun newInstance() : ChangePasswordFragment
         {
-            return ChangePasswordFragment();
+            return ChangePasswordFragment()
         }
     }
 
-    private lateinit var owner: ConfigActivity;
+    private lateinit var owner: ConfigActivity
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState)
         if (savedInstanceState != null)
-            owner = activity as ConfigActivity; // La vista solo puede ser creada por esta clase
+            owner = activity as ConfigActivity // La vista solo puede ser creada por esta clase
     }
 
     @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog
     {
         return activity?.let { it ->
-            val builder = AlertDialog.Builder(it);
-            val inflater = requireActivity().layoutInflater;
+            val builder = AlertDialog.Builder(it)
+            val inflater = requireActivity().layoutInflater
 
             builder.setView(inflater.inflate(R.layout.fragment_change_password, null))
                 .setPositiveButton(R.string.change_password) { _, _ ->
                     dialog?.let { diag ->
-                        val textEditOldPassword = diag.findViewById<TextView>(R.id.textEditOldPassword);
-                        val textEditPassword = diag.findViewById<TextView>(R.id.textEditPassword);
-                        val textEditPasswordRepeat = diag.findViewById<TextView>(R.id.textEditPasswordRepeat);
+                        val textEditOldPassword = diag.findViewById<TextView>(R.id.textEditOldPassword)
+                        val textEditPassword = diag.findViewById<TextView>(R.id.textEditPassword)
+                        val textEditPasswordRepeat = diag.findViewById<TextView>(R.id.textEditPasswordRepeat)
                         owner.doChangePassword(textEditOldPassword.text.toString(), textEditPassword.text.toString(),
-                            textEditPasswordRepeat.text.toString());
+                            textEditPasswordRepeat.text.toString())
                     }
                 }
-                .setNegativeButton(R.string.logout_no) { _, _ -> };
-            builder.create();
-        } ?: throw IllegalStateException(getString(R.string.assert_needed_data_not_present));
+                .setNegativeButton(R.string.logout_no) { _, _ -> }
+            builder.create()
+        } ?: throw IllegalStateException(getString(R.string.assert_needed_data_not_present))
     }
 }

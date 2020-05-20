@@ -35,8 +35,8 @@ interface UsuarioJuegoDao
     suspend fun getJuegosFavsByUserIdAndGameId(userId: Int, gameId: Int): JuegoFav?
 
     @Insert
-    suspend fun insertJuegoFav(userFav: UsuariosJuegos);
+    suspend fun insertJuegoFav(userFav: UsuariosJuegos)
 
     @Query("DELETE FROM usuariosjuegos WHERE usuarioId = :userId AND juegoId = :gameId")
-    suspend fun deleteByUserIdAndGameId(userId: Int, gameId: Int);
+    suspend fun deleteByUserIdAndGameId(userId: Int, gameId: Int)
 }

@@ -30,7 +30,7 @@ abstract class DatabaseInstance : RoomDatabase()
         }
     }
 
-    abstract fun usuarioDao(): UsuarioDao;
-    abstract fun juegoFavDao(): JuegoFavDao;
-    abstract fun usuarioJuegoFavDao(): UsuarioJuegoDao;
+    abstract fun usuarioDao(): UsuarioDao
+    abstract fun juegoFavDao(): JuegoFavDao
+    abstract fun usuarioJuegoFavDao(): UsuarioJuegoDao
 }

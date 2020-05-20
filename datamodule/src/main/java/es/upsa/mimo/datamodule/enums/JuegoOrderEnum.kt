@@ -8,12 +8,12 @@ enum class JuegoOrderEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.api_default;
+            return R.string.api_default
         }
 
         override fun stringPicker(): Int
         {
-            return R.string.order_default;
+            return R.string.order_default
         }
     },
 
@@ -21,12 +21,12 @@ enum class JuegoOrderEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.api_name;
+            return R.string.api_name
         }
 
         override fun stringPicker(): Int
         {
-            return R.string.order_name;
+            return R.string.order_name
         }
     },
 
@@ -34,12 +34,12 @@ enum class JuegoOrderEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.api_name_inverse;
+            return R.string.api_name_inverse
         }
 
         override fun stringPicker(): Int
         {
-            return R.string.order_name_inverse;
+            return R.string.order_name_inverse
         }
     },
 
@@ -47,12 +47,12 @@ enum class JuegoOrderEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.api_released;
+            return R.string.api_released
         }
 
         override fun stringPicker(): Int
         {
-            return R.string.order_released;
+            return R.string.order_released
         }
     },
 
@@ -60,12 +60,12 @@ enum class JuegoOrderEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.api_released_inverse;
+            return R.string.api_released_inverse
         }
 
         override fun stringPicker(): Int
         {
-            return R.string.order_released_inverse;
+            return R.string.order_released_inverse
         }
     },
 
@@ -73,12 +73,12 @@ enum class JuegoOrderEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.api_added;
+            return R.string.api_added
         }
 
         override fun stringPicker(): Int
         {
-            return R.string.order_added;
+            return R.string.order_added
         }
     },
 
@@ -86,12 +86,12 @@ enum class JuegoOrderEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.api_added_inverse;
+            return R.string.api_added_inverse
         }
 
         override fun stringPicker(): Int
         {
-            return R.string.order_added_inverse;
+            return R.string.order_added_inverse
         }
     },
 
@@ -99,12 +99,12 @@ enum class JuegoOrderEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.api_created;
+            return R.string.api_created
         }
 
         override fun stringPicker(): Int
         {
-            return R.string.order_created;
+            return R.string.order_created
         }
     },
 
@@ -112,12 +112,12 @@ enum class JuegoOrderEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.api_created_inverse;
+            return R.string.api_created_inverse
         }
 
         override fun stringPicker(): Int
         {
-            return R.string.order_created_inverse;
+            return R.string.order_created_inverse
         }
     },
 
@@ -125,12 +125,12 @@ enum class JuegoOrderEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.api_rating;
+            return R.string.api_rating
         }
 
         override fun stringPicker(): Int
         {
-            return R.string.order_rating;
+            return R.string.order_rating
         }
     },
 
@@ -138,15 +138,15 @@ enum class JuegoOrderEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.api_rating_inverse;
+            return R.string.api_rating_inverse
         }
 
         override fun stringPicker(): Int
         {
-            return R.string.order_rating_inverse;
+            return R.string.order_rating_inverse
         }
     };
 
-    abstract fun stringValue(): Int;
-    abstract fun stringPicker(): Int;
+    abstract fun stringValue(): Int
+    abstract fun stringPicker(): Int
 }

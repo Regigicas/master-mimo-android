@@ -11,32 +11,32 @@ class PreferencesManager
     {
         fun getPreferences(context: Context): SharedPreferences
         {
-            return PreferenceManager.getDefaultSharedPreferences(context);
+            return PreferenceManager.getDefaultSharedPreferences(context)
         }
 
         fun getMaxElementsInList(context: Context): Int
         {
-            val preferences = getPreferences(context);
-            val default = context.getString(R.string.max_elements_num_default).toInt();
-            return preferences.getInt(context.getString(R.string.config_max_elements_in_list), default);
+            val preferences = getPreferences(context)
+            val default = context.getString(R.string.max_elements_num_default).toInt()
+            return preferences.getInt(context.getString(R.string.config_max_elements_in_list), default)
         }
 
         fun getBooleanConfig(context: Context, key: Int): Boolean
         {
-            val preferences = getPreferences(context);
-            return preferences.getBoolean(context.getString(key), false);
+            val preferences = getPreferences(context)
+            return preferences.getBoolean(context.getString(key), false)
         }
 
         fun isAutoLoginEnable(context: Context): Boolean
         {
-            val preferences = getPreferences(context);
-            return preferences.getBoolean(context.getString(R.string.config_autologin_status), true);
+            val preferences = getPreferences(context)
+            return preferences.getBoolean(context.getString(R.string.config_autologin_status), true)
         }
 
         fun getStringConfig(context: Context, key: Int): String?
         {
-            val preferences = getPreferences(context);
-            return preferences.getString(context.getString(key), null);
+            val preferences = getPreferences(context)
+            return preferences.getString(context.getString(key), null)
         }
     }
 }

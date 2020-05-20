@@ -6,13 +6,13 @@ import androidx.preference.EditTextPreference
 
 class IntegerEditPreference : EditTextPreference
 {
-    constructor(context: Context?) : super(context);
-    constructor(context: Context?, attrs: AttributeSet) : super(context, attrs);
-    constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle);
+    constructor(context: Context?) : super(context)
+    constructor(context: Context?, attrs: AttributeSet) : super(context, attrs)
+    constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(context, attrs, defStyle)
 
     override fun getPersistedString(defaultReturnValue: String?): String
     {
-        return getPersistedInt(-1).toString();
+        return getPersistedInt(-1).toString()
     }
 
     override fun persistString(value: String?): Boolean
@@ -20,14 +20,14 @@ class IntegerEditPreference : EditTextPreference
         value?.let {
             try
             {
-                return persistInt(Integer.valueOf(it));
+                return persistInt(Integer.valueOf(it))
             }
             catch (ex: Throwable)
             {
-                return false;
+                return false
             }
         }
 
-        return false;
+        return false
     }
 }

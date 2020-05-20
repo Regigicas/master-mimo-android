@@ -8,7 +8,7 @@ enum class UsuarioResultEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.error_existing_username;
+            return R.string.error_existing_username
         }
     },
 
@@ -16,7 +16,7 @@ enum class UsuarioResultEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.error_existing_email;
+            return R.string.error_existing_email
         }
 
     },
@@ -25,7 +25,7 @@ enum class UsuarioResultEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.error_invalid_email;
+            return R.string.error_invalid_email
         }
     },
 
@@ -33,7 +33,7 @@ enum class UsuarioResultEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.error_user_not_found;
+            return R.string.error_user_not_found
         }
     },
 
@@ -41,7 +41,7 @@ enum class UsuarioResultEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.error_pass_mismatch;
+            return R.string.error_pass_mismatch
         }
     },
 
@@ -49,7 +49,7 @@ enum class UsuarioResultEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.error_oldpassword_mismatch;
+            return R.string.error_oldpassword_mismatch
         }
     },
 
@@ -57,7 +57,7 @@ enum class UsuarioResultEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.error_oldpassword_new_same;
+            return R.string.error_oldpassword_new_same
         }
     },
 
@@ -65,9 +65,9 @@ enum class UsuarioResultEnum
     {
         override fun stringValue(): Int
         {
-            return R.string.user_insert_ok;
+            return R.string.user_insert_ok
         }
     };
 
-    abstract fun stringValue(): Int;
+    abstract fun stringValue(): Int
 }

@@ -21,61 +21,61 @@ import java.io.Serializable
 
 class PlatformsFragment : MenuFragment(R.string.app_platforms), RLItemClickListener<PlatformModel>
 {
-    private val plataformas: MutableList<PlatformModel> = mutableListOf();
-    private var initialCreation = false;
-    private val savePlatformsKey = "PlatformsLoadedData";
-    private val saveStateKey = "PlatformsStateKey";
-    private val layoutManager = LinearLayoutManager(activity);
+    private val plataformas: MutableList<PlatformModel> = mutableListOf()
+    private var initialCreation = false
+    private val savePlatformsKey = "PlatformsLoadedData"
+    private val saveStateKey = "PlatformsStateKey"
+    private val layoutManager = LinearLayoutManager(activity)
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState)
         if (savedInstanceState != null)
         {
-            val platformGuardadas = savedInstanceState.getSerializable(savePlatformsKey) as MutableList<*>;
+            val platformGuardadas = savedInstanceState.getSerializable(savePlatformsKey) as MutableList<*>
             for (plat in platformGuardadas)
-                plataformas.add(plat as PlatformModel);
+                plataformas.add(plat as PlatformModel)
 
-            layoutManager.onRestoreInstanceState(savedInstanceState.getParcelable(saveStateKey));
+            layoutManager.onRestoreInstanceState(savedInstanceState.getParcelable(saveStateKey))
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
-        return inflater.inflate(R.layout.fragment_platforms, container, false);
+        return inflater.inflate(R.layout.fragment_platforms, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
-        super.onViewCreated(view, savedInstanceState);
+        super.onViewCreated(view, savedInstanceState)
 
         if (initialCreation) // Las plataformas no son algo que cambie, asi que las dejamos siempre cargadas
-            return;
+            return
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rvPlataformas);
-        val adapter = PlatformViewAdapter(plataformas, this);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.adapter = adapter;
-        recyclerView.layoutManager = layoutManager;
-        val progressLoad = view.findViewById<ProgressBar>(R.id.progressLoad);
+        val recyclerView = view.findViewById<RecyclerView>(R.id.rvPlataformas)
+        val adapter = PlatformViewAdapter(plataformas, this)
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = layoutManager
+        val progressLoad = view.findViewById<ProgressBar>(R.id.progressLoad)
 
         if (plataformas.size > 0)
         {
-            initialCreation = false;
-            progressLoad.visibility = View.GONE;
-            return;
+            initialCreation = false
+            progressLoad.visibility = View.GONE
+            return
         }
 
         lifecycleScope.launch {
             activity?.let {fragActivity ->
                 PlataformaNetworkController.getListadoPlataformas(fragActivity) {
                     if (initialCreation) // Evitamos que se pueda llamar varias veces si falla la conexion
-                        return@getListadoPlataformas;
+                        return@getListadoPlataformas
 
-                    initialCreation = true;
-                    plataformas.addAll(it);
-                    adapter.notifyDataSetChanged();
-                    progressLoad.visibility = View.GONE;
+                    initialCreation = true
+                    plataformas.addAll(it)
+                    adapter.notifyDataSetChanged()
+                    progressLoad.visibility = View.GONE
                 }
             }
         }
@@ -83,16 +83,16 @@ class PlatformsFragment : MenuFragment(R.string.app_platforms), RLItemClickListe
 
     override fun onItemClick(item: PlatformModel)
     {
-        val bundle = Bundle();
-        bundle.putInt(PlatformInfoFragment.bundlePlatformInfoKey, item.id);
-        val nextFrag = PlatformInfoFragment.newInstance(this, bundle);
-        launchChildFragment(this, nextFrag);
+        val bundle = Bundle()
+        bundle.putInt(PlatformInfoFragment.bundlePlatformInfoKey, item.id)
+        val nextFrag = PlatformInfoFragment.newInstance(this, bundle)
+        launchChildFragment(this, nextFrag)
     }
 
     override fun onSaveInstanceState(outState: Bundle)
     {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable(savePlatformsKey, plataformas as Serializable);
-        outState.putParcelable(saveStateKey, layoutManager.onSaveInstanceState());
+        super.onSaveInstanceState(outState)
+        outState.putSerializable(savePlatformsKey, plataformas as Serializable)
+        outState.putParcelable(saveStateKey, layoutManager.onSaveInstanceState())
     }
 }

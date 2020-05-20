@@ -22,7 +22,7 @@ fun Fragment.launchChildFragment(parentFragment: Fragment, fragment: BackFragmen
             .add(R.id.fragmentFrame, fragment)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             .addToBackStack(null)
-            .commit();
+            .commit()
     }
 }
 
@@ -30,26 +30,26 @@ fun Fragment.findFragmentByClassName(name: String, fragmentManager: FragmentMana
 {
     for (oldFragment in fragmentManager.fragments)
         if (oldFragment::class.java.name == name)
-            return oldFragment as TitleFragment;
+            return oldFragment as TitleFragment
 
-    return null;
+    return null
 }
 
 fun Activity.hideKeyBoard()
 {
-    val inputMethodManager: InputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager;
-    inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0);
+    val inputMethodManager: InputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
 }
 
 fun ImageView.loadFromURL(url: String)
 {
     if (PreferencesManager.getBooleanConfig(context, R.string.config_lowdata_key))
-        setImageDrawable(context.getDrawable(R.drawable.ic_gamepad_purple_200dp));
+        setImageDrawable(context.getDrawable(R.drawable.ic_gamepad_purple_200dp))
     else
     {
         Picasso.get().load(url)
             .placeholder(R.drawable.ic_gamepad_purple_200dp)
             .error(R.drawable.ic_gamepad_purple_200dp)
-            .fit().centerCrop().into(this);
+            .fit().centerCrop().into(this)
     }
 }

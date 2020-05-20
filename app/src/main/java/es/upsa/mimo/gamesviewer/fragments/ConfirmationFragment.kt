@@ -14,7 +14,7 @@ class ConfirmationFragment : DialogFragment()
         @JvmStatic
         fun newInstance() : ConfirmationFragment
         {
-            return ConfirmationFragment();
+            return ConfirmationFragment()
         }
     }
 
@@ -22,21 +22,21 @@ class ConfirmationFragment : DialogFragment()
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState)
         if (savedInstanceState != null)
-            owner = activity as ConfigActivity; // La vista solo puede ser creada por esta clase
+            owner = activity as ConfigActivity // La vista solo puede ser creada por esta clase
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog
     {
         return activity?.let {
-            val builder = AlertDialog.Builder(it);
+            val builder = AlertDialog.Builder(it)
             builder.setMessage(R.string.logout_confirm)
                 .setPositiveButton(R.string.logout_yes) { _, _ ->
-                    owner.doLogout();
+                    owner.doLogout()
                 }
-                .setNegativeButton(R.string.logout_no) { _, _ -> };
-            builder.create();
-        } ?: throw IllegalStateException(getString(R.string.assert_needed_data_not_present));
+                .setNegativeButton(R.string.logout_no) { _, _ -> }
+            builder.create()
+        } ?: throw IllegalStateException(getString(R.string.assert_needed_data_not_present))
     }
 }

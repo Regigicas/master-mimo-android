@@ -2,5 +2,5 @@ package es.upsa.mimo.gamesviewer.misc
 
 interface RLItemClickListener<T>
 {
-    fun onItemClick(item: T);
+    fun onItemClick(item: T)
 }

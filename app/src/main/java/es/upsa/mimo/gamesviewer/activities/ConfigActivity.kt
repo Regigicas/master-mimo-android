@@ -27,72 +27,72 @@ class ConfigActivity : AppCompatActivityTopBar()
 {
     override fun onCreate(savedInstanceState: Bundle?)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_config);
-        supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_config)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.configView, SettingsFragment())
             .commit()
 
-        val buttonLogout = findViewById<Button>(R.id.buttonLogout);
+        val buttonLogout = findViewById<Button>(R.id.buttonLogout)
         buttonLogout.setOnClickListener {
-            ConfirmationFragment().show(supportFragmentManager, null);
+            ConfirmationFragment().show(supportFragmentManager, null)
         }
 
-        val buttonChangePassword = findViewById<Button>(R.id.buttonChangePassword);
+        val buttonChangePassword = findViewById<Button>(R.id.buttonChangePassword)
         buttonChangePassword.setOnClickListener {
-            ChangePasswordFragment().show(supportFragmentManager, null);
+            ChangePasswordFragment().show(supportFragmentManager, null)
         }
 
-        var canFireListener = false;
-        val switchFavNoti = findViewById<SwitchCompat>(R.id.switchFavNoti);
+        var canFireListener = false
+        val switchFavNoti = findViewById<SwitchCompat>(R.id.switchFavNoti)
         lifecycleScope.launch {
-            switchFavNoti.isChecked = UsuarioController.hasNotifyFavRelease(this@ConfigActivity);
-            canFireListener = true;
+            switchFavNoti.isChecked = UsuarioController.hasNotifyFavRelease(this@ConfigActivity)
+            canFireListener = true
         }
 
         switchFavNoti.setOnCheckedChangeListener { compoundButton, b ->
             if (!canFireListener)
-                return@setOnCheckedChangeListener;
+                return@setOnCheckedChangeListener
 
             lifecycleScope.launch {
-                UsuarioController.setUserNotifyFavRelease(this@ConfigActivity, b);
+                UsuarioController.setUserNotifyFavRelease(this@ConfigActivity, b)
 
                 if (b)
                 {
-                    val favs = UsuarioController.getFavoriteList(this@ConfigActivity);
-                    val currentTime = Calendar.getInstance().getTime();
-                    val notMgr = NotificationMgr(this@ConfigActivity);
+                    val favs = UsuarioController.getFavoriteList(this@ConfigActivity)
+                    val currentTime = Calendar.getInstance().getTime()
+                    val notMgr = NotificationMgr(this@ConfigActivity)
                     for (fav in favs)
                     {
                         if (fav.releaseDate.after(currentTime))
                         {
-                            val msDiff = (fav.releaseDate.time - currentTime.time);
-                            notMgr.sendNotification(fav, msDiff);
+                            val msDiff = (fav.releaseDate.time - currentTime.time)
+                            notMgr.sendNotification(fav, msDiff)
                         }
                     }
                 }
                 else
-                    NotificationMgr(this@ConfigActivity).cancelAllNotifications();
+                    NotificationMgr(this@ConfigActivity).cancelAllNotifications()
             }
         }
 
-        val textViewUserName = findViewById<TextView>(R.id.textViewUserName);
+        val textViewUserName = findViewById<TextView>(R.id.textViewUserName)
         lifecycleScope.launch {
-            val userInfo = UsuarioController.getActiveUser(this@ConfigActivity);
+            val userInfo = UsuarioController.getActiveUser(this@ConfigActivity)
             if (userInfo == null)
             {
-                textViewUserName.visibility = View.GONE;
-                buttonLogout.visibility = View.GONE;
-                buttonChangePassword.visibility = View.GONE;
-                val separator1 = findViewById<View>(R.id.separator1);
-                separator1.visibility = View.GONE;
-                val separator2 = findViewById<View>(R.id.separator2);
-                separator2.visibility = View.GONE;
+                textViewUserName.visibility = View.GONE
+                buttonLogout.visibility = View.GONE
+                buttonChangePassword.visibility = View.GONE
+                val separator1 = findViewById<View>(R.id.separator1)
+                separator1.visibility = View.GONE
+                val separator2 = findViewById<View>(R.id.separator2)
+                separator2.visibility = View.GONE
             }
             else
-                textViewUserName.text = getString(R.string.user_name_email, userInfo.username, userInfo.email);
+                textViewUserName.text = getString(R.string.user_name_email, userInfo.username, userInfo.email)
         }
     }
 
@@ -104,50 +104,50 @@ class ConfigActivity : AppCompatActivityTopBar()
             {
                 android.R.id.home ->
                 {
-                    finish();
-                    return true;
+                    finish()
+                    return true
                 }
                 else -> {}
             }
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
 
     fun doLogout()
     {
-        UsuarioController.logoutUser(this);
-        val intent = Intent(this@ConfigActivity, LoginActivity::class.java);
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK;
-        startActivity(intent);
+        UsuarioController.logoutUser(this)
+        val intent = Intent(this@ConfigActivity, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
     fun doChangePassword(oldPass: String, newPass: String, newPassRetype: String)
     {
-        var errorMsg = R.string.password_change_ok;
+        var errorMsg = R.string.password_change_ok
         if (oldPass == newPass)
-            errorMsg = R.string.oldpass_newpass_equal;
+            errorMsg = R.string.oldpass_newpass_equal
         else if (newPass != newPassRetype)
-            errorMsg = R.string.error_pass_mismatch;
+            errorMsg = R.string.error_pass_mismatch
         else if (newPass.length < 8)
-            errorMsg = R.string.min_password_length;
+            errorMsg = R.string.min_password_length
 
         if (errorMsg != R.string.password_change_ok)
         {
-            Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show();
-            return;
+            Toast.makeText(this, errorMsg, Toast.LENGTH_LONG).show()
+            return
         }
 
         lifecycleScope.launch {
-            val result = UsuarioController.changePassword(oldPass, newPass, this@ConfigActivity);
-            var msg = result.stringValue();
+            val result = UsuarioController.changePassword(oldPass, newPass, this@ConfigActivity)
+            var msg = result.stringValue()
             if (result == UsuarioResultEnum.ok)
             {
-                doLogout();
-                msg = R.string.password_change_ok;
+                doLogout()
+                msg = R.string.password_change_ok
             }
 
-            Toast.makeText(this@ConfigActivity, msg, Toast.LENGTH_LONG).show();
+            Toast.makeText(this@ConfigActivity, msg, Toast.LENGTH_LONG).show()
         }
     }
 }

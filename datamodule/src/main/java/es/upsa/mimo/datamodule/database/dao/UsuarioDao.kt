@@ -10,17 +10,17 @@ import es.upsa.mimo.datamodule.database.entities.Usuario
 interface UsuarioDao
 {
     @Query("SELECT * FROM usuario WHERE id = :id")
-    suspend fun getUsuario(id: Int): Usuario?;
+    suspend fun getUsuario(id: Int): Usuario?
 
     @Query("SELECT * FROM usuario WHERE UPPER(username) = UPPER(:username)")
-    suspend fun getUsuarioByUsername(username: String): Usuario?;
+    suspend fun getUsuarioByUsername(username: String): Usuario?
 
     @Query("SELECT * FROM usuario WHERE UPPER(email) = UPPER(:email)")
-    suspend fun getUsuarioByEmail(email: String): Usuario?;
+    suspend fun getUsuarioByEmail(email: String): Usuario?
 
     @Insert
-    suspend fun insertUsuario(usuario: Usuario);
+    suspend fun insertUsuario(usuario: Usuario)
 
     @Update
-    suspend fun updateUser(usuario: Usuario);
+    suspend fun updateUser(usuario: Usuario)
 }

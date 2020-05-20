@@ -20,97 +20,97 @@ class PlatformInfoFragment : BackFragment()
 {
     companion object
     {
-        val bundlePlatformInfoKey = "PlatformInfoFragmentPlatformId";
+        val bundlePlatformInfoKey = "PlatformInfoFragmentPlatformId"
 
         @JvmStatic
         fun newInstance(owner: PlatformsFragment, bundle: Bundle?): PlatformInfoFragment
         {
-            val nuevoFrag = PlatformInfoFragment();
-            nuevoFrag.arguments = bundle;
-            nuevoFrag.ownerFragment = owner;
-            return nuevoFrag;
+            val nuevoFrag = PlatformInfoFragment()
+            nuevoFrag.arguments = bundle
+            nuevoFrag.ownerFragment = owner
+            return nuevoFrag
         }
     }
 
-    private var platformId: Int = -1;
-    private lateinit var platformInfo: PlatformModel;
-    private val savePlatformIdKey = "PlatformIdKey";
-    private val savePlatformInfoKey = "PlatformInfoKey";
+    private var platformId: Int = -1
+    private lateinit var platformInfo: PlatformModel
+    private val savePlatformIdKey = "PlatformIdKey"
+    private val savePlatformInfoKey = "PlatformInfoKey"
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState)
         if (savedInstanceState != null)
         {
-            val savedPlatId = savedInstanceState.getInt(savePlatformIdKey, -1);
+            val savedPlatId = savedInstanceState.getInt(savePlatformIdKey, -1)
             if (savedPlatId >= 0)
-                platformId = savedPlatId;
-            platformInfo = savedInstanceState.getSerializable(savePlatformInfoKey) as PlatformModel;
+                platformId = savedPlatId
+            platformInfo = savedInstanceState.getSerializable(savePlatformInfoKey) as PlatformModel
             if (activity != null)
-                ownerFragment = findFragmentByClassName(PlatformsFragment::class.java.name, requireActivity().supportFragmentManager); // La vista solo puede ser creada por esta clase
+                ownerFragment = findFragmentByClassName(PlatformsFragment::class.java.name, requireActivity().supportFragmentManager) // La vista solo puede ser creada por esta clase
         }
     }
 
     override fun onCreateChildView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
         if (platformId == -1)
-            platformId = arguments?.getInt(bundlePlatformInfoKey, -1) ?: -1;
+            platformId = arguments?.getInt(bundlePlatformInfoKey, -1) ?: -1
         if (platformId == -1)
-            throw AssertionError(R.string.assert_needed_data_not_present);
+            throw AssertionError(R.string.assert_needed_data_not_present)
 
-        return inflater.inflate(R.layout.fragment_platform_info, container, false);
+        return inflater.inflate(R.layout.fragment_platform_info, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
-        super.onViewCreated(view, savedInstanceState);
+        super.onViewCreated(view, savedInstanceState)
 
         if (this::platformInfo.isInitialized)
         {
-            setupView(view);
-            return;
+            setupView(view)
+            return
         }
 
         activity?.let {
             PlataformaNetworkController.getPlataformaInfo(platformId, it) { fetchedInfo ->
-                platformInfo = fetchedInfo;
-                setupView(view);
-            };
-        };
+                platformInfo = fetchedInfo
+                setupView(view)
+            }
+        }
     }
 
     private fun setupView(view: View)
     {
-        val imagenPlataforma = view.findViewById<ImageView>(R.id.imageViewImgPlataforma);
-        val textPlataforma = view.findViewById<TextView>(R.id.textPlatformDescription);
-        val button = view.findViewById<Button>(R.id.buttonJuegosPlat);
+        val imagenPlataforma = view.findViewById<ImageView>(R.id.imageViewImgPlataforma)
+        val textPlataforma = view.findViewById<TextView>(R.id.textPlatformDescription)
+        val button = view.findViewById<Button>(R.id.buttonJuegosPlat)
 
-        val homeActivity = activity as? HomeActivity;
-        homeActivity?.supportActionBar?.title = getString(R.string.platform_title_name, platformInfo.name);
+        val homeActivity = activity as? HomeActivity
+        homeActivity?.supportActionBar?.title = getString(R.string.platform_title_name, platformInfo.name)
 
         if (platformInfo.image_background != null)
-            imagenPlataforma.loadFromURL(platformInfo.image_background!!);
+            imagenPlataforma.loadFromURL(platformInfo.image_background!!)
         if (!TextUtils.isEmpty(platformInfo.description))
-            textPlataforma.text = HtmlCompat.fromHtml(platformInfo.description!!, HtmlCompat.FROM_HTML_MODE_LEGACY);
+            textPlataforma.text = HtmlCompat.fromHtml(platformInfo.description!!, HtmlCompat.FROM_HTML_MODE_LEGACY)
         else
-            textPlataforma.text = getString(R.string.text_description_not_found);
+            textPlataforma.text = getString(R.string.text_description_not_found)
         button.setOnClickListener {
-            val bundle = Bundle();
-            bundle.putSerializable(PlatformGamesFragment.bundlePlatformGamesKey, platformInfo);
-            val nextFrag = PlatformGamesFragment.newInstance(this, bundle);
-            launchChildFragment(this, nextFrag);
+            val bundle = Bundle()
+            bundle.putSerializable(PlatformGamesFragment.bundlePlatformGamesKey, platformInfo)
+            val nextFrag = PlatformGamesFragment.newInstance(this, bundle)
+            launchChildFragment(this, nextFrag)
         }
     }
 
     override fun getFragmentTitle(context: Context): String
     {
-        return getString(R.string.platform_title_name, platformInfo.name);
+        return getString(R.string.platform_title_name, platformInfo.name)
     }
 
     override fun onSaveInstanceState(outState: Bundle)
     {
-        super.onSaveInstanceState(outState);
-        outState.putInt(savePlatformIdKey, platformId);
-        outState.putSerializable(savePlatformInfoKey, platformInfo);
+        super.onSaveInstanceState(outState)
+        outState.putInt(savePlatformIdKey, platformId)
+        outState.putSerializable(savePlatformInfoKey, platformInfo)
     }
 }

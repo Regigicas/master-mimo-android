@@ -24,123 +24,123 @@ import java.io.Serializable
 
 class SearchFragment : MenuFragment(R.string.app_search), RLItemClickListener<JuegoModel>
 {
-    private val juegosCargados: MutableList<JuegoModel> = mutableListOf();
-    private val layoutManager = LinearLayoutManager(activity);
-    private val saveJuegosCargadosKey = "JuegosSearchLoadedData";
-    private val saveStateKey = "JuegosSearchStateKey";
-    private val saveSearchQueryKey = "JuegosSearchQueryKey";
-    private val saveSearchQueryCurrentPage = "JuegoSearchCurrentPageKey";
-    private var loadingData = false;
-    private lateinit var swipeRefreshSearch: SwipeRefreshLayout;
-    private var maxLoadedItems = 100;
-    private var currentPage = 1;
-    private var lastSearchTerm = "";
-    private val adapter = GameSearchViewAdapter(juegosCargados, this);
+    private val juegosCargados: MutableList<JuegoModel> = mutableListOf()
+    private val layoutManager = LinearLayoutManager(activity)
+    private val saveJuegosCargadosKey = "JuegosSearchLoadedData"
+    private val saveStateKey = "JuegosSearchStateKey"
+    private val saveSearchQueryKey = "JuegosSearchQueryKey"
+    private val saveSearchQueryCurrentPage = "JuegoSearchCurrentPageKey"
+    private var loadingData = false
+    private lateinit var swipeRefreshSearch: SwipeRefreshLayout
+    private var maxLoadedItems = 100
+    private var currentPage = 1
+    private var lastSearchTerm = ""
+    private val adapter = GameSearchViewAdapter(juegosCargados, this)
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState)
         if (savedInstanceState != null)
         {
-            val juegosGuardados = savedInstanceState.getSerializable(saveJuegosCargadosKey) as MutableList<*>;
+            val juegosGuardados = savedInstanceState.getSerializable(saveJuegosCargadosKey) as MutableList<*>
             for (juego in juegosGuardados)
-                juegosCargados.add(juego as JuegoModel);
+                juegosCargados.add(juego as JuegoModel)
 
-            layoutManager.onRestoreInstanceState(savedInstanceState.getParcelable(saveStateKey));
-            lastSearchTerm = savedInstanceState.getString(saveSearchQueryKey, "");
-            currentPage = savedInstanceState.getInt(saveSearchQueryCurrentPage, 1);
+            layoutManager.onRestoreInstanceState(savedInstanceState.getParcelable(saveStateKey))
+            lastSearchTerm = savedInstanceState.getString(saveSearchQueryKey, "")
+            currentPage = savedInstanceState.getInt(saveSearchQueryCurrentPage, 1)
         }
 
-        maxLoadedItems = PreferencesManager.getMaxElementsInList(requireContext());
+        maxLoadedItems = PreferencesManager.getMaxElementsInList(requireContext())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        return inflater.inflate(R.layout.fragment_search, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
-        super.onViewCreated(view, savedInstanceState);
-        setupView(view);
+        super.onViewCreated(view, savedInstanceState)
+        setupView(view)
     }
 
     private fun setupView(view: View)
     {
-        val searchBar = view.findViewById<SearchView>(R.id.searchViewGames);
+        val searchBar = view.findViewById<SearchView>(R.id.searchViewGames)
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener
         {
             override fun onQueryTextSubmit(p0: String?): Boolean
             {
                 if (p0 != null)
-                    clickSubmit(p0);
-                searchBar.clearFocus();
-                return true;
+                    clickSubmit(p0)
+                searchBar.clearFocus()
+                return true
             }
 
             override fun onQueryTextChange(p0: String?): Boolean
             {
-                return false;
+                return false
             }
-        });
+        })
 
-        swipeRefreshSearch = view.findViewById(R.id.swipeRefreshSearch);
+        swipeRefreshSearch = view.findViewById(R.id.swipeRefreshSearch)
         swipeRefreshSearch.setOnRefreshListener {
-            fetchGameData(true);
+            fetchGameData(true)
         }
 
-        val rvJuegosPlat = view.findViewById<RecyclerView>(R.id.rvJuegosSearch);
-        rvJuegosPlat.setHasFixedSize(true);
-        rvJuegosPlat.adapter = adapter;
-        rvJuegosPlat.layoutManager = layoutManager;
+        val rvJuegosPlat = view.findViewById<RecyclerView>(R.id.rvJuegosSearch)
+        rvJuegosPlat.setHasFixedSize(true)
+        rvJuegosPlat.adapter = adapter
+        rvJuegosPlat.layoutManager = layoutManager
 
         rvJuegosPlat.addOnScrollListener(object : RecyclerView.OnScrollListener()
         {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int)
             {
-                super.onScrolled(recyclerView, dx, dy);
+                super.onScrolled(recyclerView, dx, dy)
 
                 if (loadingData)
-                    return;
+                    return
 
                 if (dy > 0)
                 {
-                    searchBar.clearFocus();
+                    searchBar.clearFocus()
 
-                    val visibleItemCount = layoutManager.getChildCount();
-                    val totalItemCount = layoutManager.getItemCount();
+                    val visibleItemCount = layoutManager.getChildCount()
+                    val totalItemCount = layoutManager.getItemCount()
                     if (totalItemCount >= maxLoadedItems)
-                        return;
+                        return
 
-                    val pastVisiblesItems = layoutManager.findFirstVisibleItemPosition();
+                    val pastVisiblesItems = layoutManager.findFirstVisibleItemPosition()
                     if ((visibleItemCount + pastVisiblesItems) >= totalItemCount)
                     {
-                        loadingData = true;
-                        fetchGameData(false);
+                        loadingData = true
+                        fetchGameData(false)
                     }
                 }
             }
-        });
+        })
     }
 
     private fun fetchGameData(reset: Boolean)
     {
         if (reset)
-            currentPage = 1;
+            currentPage = 1
         else
-            currentPage += 1;
+            currentPage += 1
 
         lifecycleScope.launch {
             activity?.let {fragActivity ->
                 JuegoNetworkController.getJuegosQuery(currentPage, lastSearchTerm, fragActivity) {
-                    loadingData = false;
+                    loadingData = false
                     if (it.size > 0)
                     {
                         if (reset)
-                            juegosCargados.clear();
-                        juegosCargados.addAll(it);
-                        adapter.notifyDataSetChanged();
-                        swipeRefreshSearch.isRefreshing = false;
+                            juegosCargados.clear()
+                        juegosCargados.addAll(it)
+                        adapter.notifyDataSetChanged()
+                        swipeRefreshSearch.isRefreshing = false
                     }
                 }
             }
@@ -150,30 +150,30 @@ class SearchFragment : MenuFragment(R.string.app_search), RLItemClickListener<Ju
     private fun clickSubmit(nombre: String)
     {
         if (loadingData)
-            return;
+            return
 
-        lastSearchTerm = nombre;
+        lastSearchTerm = nombre
         if (TextUtils.isEmpty(nombre))
-            return;
+            return
 
-        loadingData = true;
-        fetchGameData(true);
+        loadingData = true
+        fetchGameData(true)
     }
 
     override fun onSaveInstanceState(outState: Bundle)
     {
-        super.onSaveInstanceState(outState);
-        outState.putSerializable(saveJuegosCargadosKey, juegosCargados as Serializable);
-        outState.putParcelable(saveStateKey, layoutManager.onSaveInstanceState());
-        outState.putString(saveSearchQueryKey, lastSearchTerm);
-        outState.putInt(saveSearchQueryCurrentPage, currentPage);
+        super.onSaveInstanceState(outState)
+        outState.putSerializable(saveJuegosCargadosKey, juegosCargados as Serializable)
+        outState.putParcelable(saveStateKey, layoutManager.onSaveInstanceState())
+        outState.putString(saveSearchQueryKey, lastSearchTerm)
+        outState.putInt(saveSearchQueryCurrentPage, currentPage)
     }
 
     override fun onItemClick(item: JuegoModel)
     {
-        val bundle = Bundle();
-        bundle.putInt(JuegoInfoFragment.bundleJuegoInfoKey, item.id);
-        val nextFrag = JuegoInfoFragment.newInstance(this, bundle);
-        launchChildFragment(this, nextFrag);
+        val bundle = Bundle()
+        bundle.putInt(JuegoInfoFragment.bundleJuegoInfoKey, item.id)
+        val nextFrag = JuegoInfoFragment.newInstance(this, bundle)
+        launchChildFragment(this, nextFrag)
     }
 }

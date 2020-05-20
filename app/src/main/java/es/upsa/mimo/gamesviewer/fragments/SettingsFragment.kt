@@ -12,11 +12,11 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
 {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?)
     {
-        setPreferencesFromResource(R.xml.app_preferences, rootKey);
-        updateSummaryMaxElements();
-        updateSummaryOrdering();
-        val prefManager = PreferencesManager.getPreferences(requireActivity());
-        prefManager.registerOnSharedPreferenceChangeListener(this);
+        setPreferencesFromResource(R.xml.app_preferences, rootKey)
+        updateSummaryMaxElements()
+        updateSummaryOrdering()
+        val prefManager = PreferencesManager.getPreferences(requireActivity())
+        prefManager.registerOnSharedPreferenceChangeListener(this)
     }
 
     override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?)
@@ -24,34 +24,34 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
         if (context != null)
         {
             if (p1 == requireContext().getString(R.string.config_max_elements_in_list))
-                updateSummaryMaxElements();
+                updateSummaryMaxElements()
             else if (p1 == requireContext().getString(R.string.config_home_sorting))
-                updateSummaryOrdering();
+                updateSummaryOrdering()
         }
     }
 
     private fun updateSummaryMaxElements()
     {
-        val maxElementPref = findPreference<IntegerEditPreference>(getString(R.string.config_max_elements_in_list));
+        val maxElementPref = findPreference<IntegerEditPreference>(getString(R.string.config_max_elements_in_list))
         if (maxElementPref != null && activity != null)
         {
-            var currentValue = PreferencesManager.getMaxElementsInList(requireActivity());
+            var currentValue = PreferencesManager.getMaxElementsInList(requireActivity())
             if (currentValue == -1)
-                currentValue = resources.getInteger(R.integer.defaultMaxElements);
-            maxElementPref.summary = getString(R.string.max_element_list_override, currentValue);
+                currentValue = resources.getInteger(R.integer.defaultMaxElements)
+            maxElementPref.summary = getString(R.string.max_element_list_override, currentValue)
         }
     }
 
     private fun updateSummaryOrdering()
     {
-        val selectedOrdering = findPreference<ListPreference>(getString(R.string.config_home_sorting));
+        val selectedOrdering = findPreference<ListPreference>(getString(R.string.config_home_sorting))
         if (selectedOrdering != null && activity != null)
         {
             val currentValue =
                 PreferencesManager.getStringConfig(requireContext(), R.string.config_home_sorting)
-                    ?.toInt() ?: 0;
-            val values = resources.getStringArray(R.array.spinner_values);
-            selectedOrdering.summary = getString(R.string.summary_ordering, values.get(currentValue));
+                    ?.toInt() ?: 0
+            val values = resources.getStringArray(R.array.spinner_values)
+            selectedOrdering.summary = getString(R.string.summary_ordering, values.get(currentValue))
         }
     }
 }

@@ -29,7 +29,7 @@ class VolleyQueueInstance constructor(context: Context)
     fun <T> addToRequestQueue(req: Request<T>)
     {
         req.retryPolicy = DefaultRetryPolicy(8000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         requestQueue.add(req)
     }
 }

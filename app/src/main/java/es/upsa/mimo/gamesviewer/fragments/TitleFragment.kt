@@ -5,5 +5,5 @@ import androidx.fragment.app.Fragment
 
 abstract class TitleFragment : Fragment()
 {
-    abstract fun getFragmentTitle(context: Context): String;
+    abstract fun getFragmentTitle(context: Context): String
 }

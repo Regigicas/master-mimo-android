@@ -22,24 +22,24 @@ import kotlinx.coroutines.withContext
 
 class FavoriteFragment : MenuFragment(R.string.app_favorites), RLItemClickListener<JuegoFav>
 {
-    private var favs: MutableList<JuegoFav> = mutableListOf();
-    private lateinit var adapter: FavoriteViewAdapter;
-    private lateinit var viewPager: ViewPager;
-    private lateinit var textView: TextView;
+    private var favs: MutableList<JuegoFav> = mutableListOf()
+    private lateinit var adapter: FavoriteViewAdapter
+    private lateinit var viewPager: ViewPager
+    private lateinit var textView: TextView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View
     {
-        return inflater.inflate(R.layout.fragment_favorite, container, false);
+        return inflater.inflate(R.layout.fragment_favorite, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
-        super.onViewCreated(view, savedInstanceState);
+        super.onViewCreated(view, savedInstanceState)
 
-        adapter = FavoriteViewAdapter(favs, this, childFragmentManager);
+        adapter = FavoriteViewAdapter(favs, this, childFragmentManager)
 
-        viewPager = view.findViewById(R.id.favViewPager);
-        viewPager.adapter = adapter;
+        viewPager = view.findViewById(R.id.favViewPager)
+        viewPager.adapter = adapter
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener
         {
             override fun onPageScrollStateChanged(state: Int) {}
@@ -47,12 +47,12 @@ class FavoriteFragment : MenuFragment(R.string.app_favorites), RLItemClickListen
 
             override fun onPageSelected(position: Int)
             {
-                updateCurrentPage(position + 1, favs.size);
+                updateCurrentPage(position + 1, favs.size)
             }
-        });
+        })
 
-        textView = view.findViewById(R.id.favActualPage);
-        updateCurrentPage(0, 0);
+        textView = view.findViewById(R.id.favActualPage)
+        updateCurrentPage(0, 0)
 
         lifecycleScope.launch {
             UsuarioController.getObservableOfFavorites(requireContext())
@@ -61,34 +61,34 @@ class FavoriteFragment : MenuFragment(R.string.app_favorites), RLItemClickListen
                     {
                         if (t != null)
                         {
-                            favs.clear();
-                            favs.addAll(t);
-                            adapter.notifyDataSetChanged();
-                            updateCurrentPage(viewPager.currentItem + 1, favs.size);
+                            favs.clear()
+                            favs.addAll(t)
+                            adapter.notifyDataSetChanged()
+                            updateCurrentPage(viewPager.currentItem + 1, favs.size)
                         }
                     }
-                });
+                })
         }
     }
 
     private fun updateCurrentPage(x: Int, y: Int)
     {
-        textView.text = getString(R.string.page_x_of_y, x, y);
+        textView.text = getString(R.string.page_x_of_y, x, y)
     }
 
     fun fragmentBackPressed()
     {
         if (viewPager.currentItem == 0)
-            requireActivity().moveTaskToBack(false);
+            requireActivity().moveTaskToBack(false)
         else
             viewPager.currentItem = viewPager.currentItem - 1
     }
 
     override fun onItemClick(item: JuegoFav)
     {
-        val bundle = Bundle();
-        bundle.putInt(JuegoInfoFragment.bundleJuegoInfoKey, item.id);
-        val nextFrag = JuegoInfoFragment.newInstance(this, bundle);
-        launchChildFragment(this, nextFrag);
+        val bundle = Bundle()
+        bundle.putInt(JuegoInfoFragment.bundleJuegoInfoKey, item.id)
+        val nextFrag = JuegoInfoFragment.newInstance(this, bundle)
+        launchChildFragment(this, nextFrag)
     }
 }

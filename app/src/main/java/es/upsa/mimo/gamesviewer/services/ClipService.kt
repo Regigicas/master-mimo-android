@@ -17,46 +17,46 @@ class ClipService : Service()
 {
     companion object
     {
-        val clipServiceURL = "clipServiceURL";
+        val clipServiceURL = "clipServiceURL"
 
         fun newIntent(url: String, context: Context): Intent
         {
-            val intent = Intent(context, ClipService::class.java);
-            intent.putExtra(clipServiceURL, url);
-            return intent;
+            val intent = Intent(context, ClipService::class.java)
+            intent.putExtra(clipServiceURL, url)
+            return intent
         }
     }
 
-    private lateinit var exoPlayer: SimpleExoPlayer;
+    private lateinit var exoPlayer: SimpleExoPlayer
 
     override fun onCreate()
     {
-        super.onCreate();
-        exoPlayer = SimpleExoPlayer.Builder(this).build();
+        super.onCreate()
+        exoPlayer = SimpleExoPlayer.Builder(this).build()
     }
 
     override fun onBind(p0: Intent): IBinder
     {
-        exoPlayer.playWhenReady = true;
-        val url = p0.extras?.getString(clipServiceURL);
+        exoPlayer.playWhenReady = true
+        val url = p0.extras?.getString(clipServiceURL)
         if (url != null)
-            initializePlayer(url);
-        return ClipServiceBinder();
+            initializePlayer(url)
+        return ClipServiceBinder()
     }
 
     inner class ClipServiceBinder : Binder()
     {
-        fun getExoPlayer() = exoPlayer;
+        fun getExoPlayer() = exoPlayer
     }
 
     private fun initializePlayer(url: String)
     {
-        val userAgent = Util.getUserAgent(this, getString(R.string.app_name));
+        val userAgent = Util.getUserAgent(this, getString(R.string.app_name))
         val mediaSource = ProgressiveMediaSource
             .Factory(DefaultDataSourceFactory(this, userAgent), DefaultExtractorsFactory())
-            .createMediaSource(Uri.parse(url));
+            .createMediaSource(Uri.parse(url))
 
-        exoPlayer.prepare(mediaSource, true, false);
-        exoPlayer.playWhenReady = true;
+        exoPlayer.prepare(mediaSource, true, false)
+        exoPlayer.playWhenReady = true
     }
 }

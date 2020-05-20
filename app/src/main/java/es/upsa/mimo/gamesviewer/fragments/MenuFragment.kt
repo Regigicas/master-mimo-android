@@ -6,11 +6,11 @@ abstract class MenuFragment(val titleId: Int) : TitleFragment()
 {
     companion object
     {
-        val BackStackFragmentName = "MenuFragment";
+        val BackStackFragmentName = "MenuFragment"
     }
 
     override fun getFragmentTitle(context: Context): String
     {
-        return context.getString(titleId);
+        return context.getString(titleId)
     }
 }

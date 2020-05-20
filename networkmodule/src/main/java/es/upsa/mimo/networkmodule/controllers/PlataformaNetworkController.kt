@@ -15,37 +15,37 @@ class PlataformaNetworkController
         @JvmStatic
         fun getListadoPlataformas(context: Context, callback: (juegos: List<PlatformModel>) -> Unit)
         {
-            val queue = VolleyQueueInstance.getInstance(context);
-            val url = context.getString(R.string.plataformas_global);
+            val queue = VolleyQueueInstance.getInstance(context)
+            val url = context.getString(R.string.plataformas_global)
             val juegoRequest = GSONRequest(url,
                 PlatformModel.AllPlatformsResponse::class.java,
                 null,
                 Response.Listener { response ->
-                    callback(response.results);
+                    callback(response.results)
                 },
                 Response.ErrorListener { response ->
-                    response.printStackTrace();
-                });
+                    response.printStackTrace()
+                })
 
-            queue.addToRequestQueue(juegoRequest);
+            queue.addToRequestQueue(juegoRequest)
         }
 
         @JvmStatic
         fun getPlataformaInfo(id: Int, context: Context, callback: (juegos: PlatformModel) -> Unit)
         {
-            val queue = VolleyQueueInstance.getInstance(context);
-            val url = context.getString(R.string.plataformas_id, id);
+            val queue = VolleyQueueInstance.getInstance(context)
+            val url = context.getString(R.string.plataformas_id, id)
             val juegoRequest = GSONRequest(url,
                 PlatformModel::class.java,
                 null,
                 Response.Listener { response ->
-                    callback(response);
+                    callback(response)
                 },
                 Response.ErrorListener { response ->
-                    response.printStackTrace();
-                });
+                    response.printStackTrace()
+                })
 
-            queue.addToRequestQueue(juegoRequest);
+            queue.addToRequestQueue(juegoRequest)
         }
     }
 }

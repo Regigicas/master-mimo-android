@@ -14,15 +14,15 @@ class PlatformViewAdapter(private val dataSet: List<PlatformModel>, private val 
 {
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view)
     {
-        val imageView = view.findViewById<ImageView>(R.id.imageViewLogo);
-        val textView = view.findViewById<TextView>(R.id.textViewPlatformName);
+        val imageView = view.findViewById<ImageView>(R.id.imageViewLogo)
+        val textView = view.findViewById<TextView>(R.id.textViewPlatformName)
 
         fun bind(platformInfo: PlatformModel)
         {
-            textView.text = platformInfo.name;
-            imageView.setImageResource(platformInfo.getImgFile(true));
+            textView.text = platformInfo.name
+            imageView.setImageResource(platformInfo.getImgFile(true))
             view.setOnClickListener {
-                listener.onItemClick(platformInfo);
+                listener.onItemClick(platformInfo)
             }
         }
     }
@@ -30,17 +30,17 @@ class PlatformViewAdapter(private val dataSet: List<PlatformModel>, private val 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
     {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_platform,
-            parent, false));
+            parent, false))
     }
 
     override fun getItemCount(): Int
     {
-        return dataSet.size;
+        return dataSet.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int)
     {
-        val platformInfo = dataSet.get(position);
-        holder.bind(platformInfo);
-    };
+        val platformInfo = dataSet.get(position)
+        holder.bind(platformInfo)
+    }
 }

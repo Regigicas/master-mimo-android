@@ -23,30 +23,30 @@ class ClipFragment : BackFragment()
 
         fun newInstance(owner: JuegoInfoFragment?, bundle: Bundle?): ClipFragment
         {
-            val nuevoFrag = ClipFragment();
-            nuevoFrag.arguments = bundle;
-            nuevoFrag.ownerFragment = owner;
-            return nuevoFrag;
+            val nuevoFrag = ClipFragment()
+            nuevoFrag.arguments = bundle
+            nuevoFrag.ownerFragment = owner
+            return nuevoFrag
         }
     }
 
     private val saveJuegoClipInfoKey = "JuegoClipsInfoKey"
-    private lateinit var juegoInfo: JuegoModel;
-    private lateinit var playerView: PlayerView;
-    private var exoIntent: Intent? = null;
-    private var isBinded = false;
+    private lateinit var juegoInfo: JuegoModel
+    private lateinit var playerView: PlayerView
+    private var exoIntent: Intent? = null
+    private var isBinded = false
 
     private val connection = object : ServiceConnection
     {
         override fun onServiceDisconnected(name: ComponentName?)
         {
-            playerView.player?.release();
+            playerView.player?.release()
         }
 
         override fun onServiceConnected(name: ComponentName?, service: IBinder?)
         {
             if (service is ClipService.ClipServiceBinder)
-                playerView.player = service.getExoPlayer();
+                playerView.player = service.getExoPlayer()
         }
     }
 
@@ -66,35 +66,35 @@ class ClipFragment : BackFragment()
         if (!this::juegoInfo.isInitialized && arguments != null)
             juegoInfo = requireArguments().getSerializable(bundleJuegoInfoKey) as JuegoModel
         if (!this::juegoInfo.isInitialized)
-            throw AssertionError(R.string.assert_needed_data_not_present);
-        return inflater.inflate(R.layout.fragment_clip, container, false);
+            throw AssertionError(R.string.assert_needed_data_not_present)
+        return inflater.inflate(R.layout.fragment_clip, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?)
     {
-        super.onViewCreated(view, savedInstanceState);
-        playerView = view.findViewById(R.id.clipPlayerView);
-        exoIntent = juegoInfo.clip?.clips?.p640?.let { ClipService.newIntent(it, requireContext()); }
+        super.onViewCreated(view, savedInstanceState)
+        playerView = view.findViewById(R.id.clipPlayerView)
+        exoIntent = juegoInfo.clip?.clips?.p640?.let { ClipService.newIntent(it, requireContext()) }
         if (exoIntent != null)
         {
-            isBinded = true;
-            requireActivity().bindService(exoIntent, connection, Context.BIND_AUTO_CREATE);
+            isBinded = true
+            requireActivity().bindService(exoIntent, connection, Context.BIND_AUTO_CREATE)
         }
     }
 
     override fun onStop()
     {
-        super.onStop();
+        super.onStop()
         if (exoIntent != null && isBinded)
         {
-            isBinded = false;
-            requireActivity().unbindService(connection);
+            isBinded = false
+            requireActivity().unbindService(connection)
         }
     }
 
     override fun getFragmentTitle(context: Context): String
     {
-        return juegoInfo.name;
+        return juegoInfo.name
     }
 
     override fun onSaveInstanceState(outState: Bundle)

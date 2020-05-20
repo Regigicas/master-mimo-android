@@ -18,21 +18,21 @@ class GameSearchViewAdapter(private val dataSet: List<JuegoModel>, private val l
 {
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view)
     {
-        val imageView = view.findViewById<CircleImageView>(R.id.imageViewJuego);
-        val textViewNombre = view.findViewById<TextView>(R.id.textViewNombreJuego);
-        val textViewFecha = view.findViewById<TextView>(R.id.textViewFechaSalida);
-        val ratingBar = view.findViewById<RatingBar>(R.id.ratingBar);
+        val imageView = view.findViewById<CircleImageView>(R.id.imageViewJuego)
+        val textViewNombre = view.findViewById<TextView>(R.id.textViewNombreJuego)
+        val textViewFecha = view.findViewById<TextView>(R.id.textViewFechaSalida)
+        val ratingBar = view.findViewById<RatingBar>(R.id.ratingBar)
 
         fun bind(juegoInfo: JuegoModel)
         {
-            imageView.loadFromURL(juegoInfo.getBackgroundString());
-            textViewNombre.text = juegoInfo.name;
-            textViewFecha.text = juegoInfo.released;
+            imageView.loadFromURL(juegoInfo.getBackgroundString())
+            textViewNombre.text = juegoInfo.name
+            textViewFecha.text = juegoInfo.released
             juegoInfo.rating?.let {
-                ratingBar.rating = it;
+                ratingBar.rating = it
             }
             view.setOnClickListener {
-                listener.onItemClick(juegoInfo);
+                listener.onItemClick(juegoInfo)
             }
         }
     }
@@ -40,17 +40,17 @@ class GameSearchViewAdapter(private val dataSet: List<JuegoModel>, private val l
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder
     {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.view_search_game,
-                parent, false));
+                parent, false))
     }
 
     override fun getItemCount(): Int
     {
-        return dataSet.size;
+        return dataSet.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int)
     {
-        val juegoInfo = dataSet.get(position);
-        holder.bind(juegoInfo);
-    };
+        val juegoInfo = dataSet.get(position)
+        holder.bind(juegoInfo)
+    }
 }

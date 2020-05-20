@@ -19,29 +19,29 @@ import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivityTopBar(), TextWatcher
 {
-    private lateinit var textEditUsername: EditText;
-    private lateinit var textEditPassword: EditText;
-    private lateinit var buttonLogin: Button;
-    private var pendingLogin: Boolean = false;
+    private lateinit var textEditUsername: EditText
+    private lateinit var textEditPassword: EditText
+    private lateinit var buttonLogin: Button
+    private var pendingLogin: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
 
-        textEditUsername = findViewById(R.id.textEditUsername);
-        textEditPassword = findViewById(R.id.textEditPassword);
-        buttonLogin = findViewById(R.id.buttonLogin);
+        textEditUsername = findViewById(R.id.textEditUsername)
+        textEditPassword = findViewById(R.id.textEditPassword)
+        buttonLogin = findViewById(R.id.buttonLogin)
 
-        val registerButton = findViewById<Button>(R.id.buttonRegister);
+        val registerButton = findViewById<Button>(R.id.buttonRegister)
         registerButton.setOnClickListener {
-            startActivity(Intent(this, RegisterActivity::class.java));
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
 
         textEditPassword.setOnEditorActionListener { _, i, _ ->
             if (i == EditorInfo.IME_ACTION_DONE)
             {
-                tryLogin();
+                tryLogin()
                 true
             }
             else
@@ -52,52 +52,52 @@ class LoginActivity : AppCompatActivityTopBar(), TextWatcher
         textEditPassword.addTextChangedListener(this)
 
         buttonLogin.setOnClickListener {
-            tryLogin();
+            tryLogin()
         }
     }
 
     fun tryLogin()
     {
-        hideKeyBoard();
+        hideKeyBoard()
         if (pendingLogin)
-            return;
+            return
 
-        pendingLogin = true;
+        pendingLogin = true
         lifecycleScope.launch {
             val result = UsuarioController.tryLogin(textEditUsername.text.toString().trim(),
-                textEditPassword.text.toString().trim(), this@LoginActivity);
+                textEditPassword.text.toString().trim(), this@LoginActivity)
 
             if (result.first != UsuarioResultEnum.ok)
             {
-                pendingLogin = false;
+                pendingLogin = false
                 Toast.makeText(this@LoginActivity, getString(result.first.stringValue()),
-                    Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_SHORT).show()
             }
             else
             {
                 val storeResult = UsuarioController.saveUserLoginData(textEditUsername.text.toString().trim(),
-                    textEditPassword.text.toString().trim(), this@LoginActivity);
+                    textEditPassword.text.toString().trim(), this@LoginActivity)
 
                 if (!storeResult)
                 {
                     Toast.makeText(this@LoginActivity, getString(R.string.error_no_autologin),
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_LONG).show()
                 }
                 else
-                    result.second!!.id?.let { UsuarioController.saveActiveUserId(it, this@LoginActivity) };
+                    result.second!!.id?.let { UsuarioController.saveActiveUserId(it, this@LoginActivity) }
 
 
-                pendingLogin = false;
-                val intent = Intent(this@LoginActivity, HomeActivity::class.java);
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK;
-                startActivity(intent);
+                pendingLogin = false
+                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
             }
         }
     }
 
     override fun afterTextChanged(p0: Editable?)
     {
-        buttonLogin.isEnabled = validateAllFields();
+        buttonLogin.isEnabled = validateAllFields()
     }
 
     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -106,11 +106,11 @@ class LoginActivity : AppCompatActivityTopBar(), TextWatcher
     fun validateAllFields(): Boolean
     {
         if (TextUtils.isEmpty(textEditUsername.text) || textEditUsername.text.length < 5)
-            return false;
+            return false
 
         if (TextUtils.isEmpty(textEditPassword.text) || textEditPassword.text.length < 8)
-            return false;
+            return false
 
-        return true;
+        return true
     }
 }
