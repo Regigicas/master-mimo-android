@@ -22,12 +22,12 @@
     <string name="assert_invalid_bottombar_item">Selected invalid BottomBar item</string>
     <string name="placeholder_text" translatable="false">Placeholder</string>
     <string name="description_logo_platform">Platform logo</string>
-    <string name="platform_title_name">Platform %s</string>
+    <string name="platform_title_name">Platform %1$s</string>
     <string name="assert_needed_data_not_present">Missing needed data to build the view</string>
     <string name="view_platform_games">View platform games</string>
     <string name="description_platform_image">Platform game image</string>
     <string name="description_game_image">Game image</string>
-    <string name="platform_games_title">Games %s</string>
+    <string name="platform_games_title">Games %1$s</string>
     <string name="available_on">Available on:</string>
     <string name="description_favorite">Is favorite</string>
     <string name="game_rating">Rating:</string>
@@ -55,18 +55,18 @@
     <string name="config_max_elements_in_list" translatable="false">config_max_elements_in_list</string>
     <string name="max_elements_list">Max elements to load in lists</string>
     <string name="max_element_list_default">Lists can have 100 loaded elements</string>
-    <string name="max_element_list_override">List can have %d loaded elements. Min of 20</string>
+    <string name="max_element_list_override">List can have %1$d loaded elements. Min of 20</string>
     <string name="max_elements_num_default" translatable="false">100</string>
-    <string name="page_x_of_y">%d/%d</string>
+    <string name="page_x_of_y" translatable="false">%1$d/%2$d</string>
     <string name="scan_qr">Scan QR</string>
     <string name="change_default_sorting">Home screen sorting</string>
     <string name="config_home_sorting" translatable="false">config_home_sorting</string>
-    <string name="summary_ordering" translatable="false">%s</string>
+    <string name="summary_ordering" translatable="false">%1$s</string>
     <string name="change_password">Change password</string>
     <string name="logout">Logout</string>
     <string name="title_app_settings">App settings</string>
     <string name="cat_app_settings" translatable="false">cat_app_settings</string>
-    <string name="user_name_email" translatable="false">%s - %s</string>
+    <string name="user_name_email" translatable="false">%1$s - %2$s</string>
     <string name="logout_confirm">Are you sure you want to logout?</string>
     <string name="logout_yes">Logout</string>
     <string name="logout_no">Cancel</string>
@@ -82,6 +82,6 @@
     <string name="channel_description" translatable="false">GamesViewer Notifications</string>
     <string name="channel_id" translatable="false">GamesViewer_ChannelId</string>
     <string name="game_release_today">A game that you have on favorite is releasing today</string>
-    <string name="game_release_name">%s is releasing today</string>
+    <string name="game_release_name">%1$s is releasing today</string>
     <string name="eneable_receive_fav_noti">Notify when a favorite game is releasing</string>
 </resources>

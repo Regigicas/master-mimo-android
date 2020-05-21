@@ -52,7 +52,7 @@ class ConfigActivity : AppCompatActivityTopBar()
             canFireListener = true
         }
 
-        switchFavNoti.setOnCheckedChangeListener { compoundButton, b ->
+        switchFavNoti.setOnCheckedChangeListener { _, b ->
             if (!canFireListener)
                 return@setOnCheckedChangeListener
 

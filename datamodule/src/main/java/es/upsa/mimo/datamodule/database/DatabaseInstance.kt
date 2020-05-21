@@ -12,7 +12,7 @@ import es.upsa.mimo.datamodule.database.entities.JuegoFav
 import es.upsa.mimo.datamodule.database.entities.Usuario
 import es.upsa.mimo.datamodule.database.entities.UsuariosJuegos
 
-@Database(entities = arrayOf(Usuario::class, JuegoFav::class, UsuariosJuegos::class), version = 1)
+@Database(entities = arrayOf(Usuario::class, JuegoFav::class, UsuariosJuegos::class), version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class DatabaseInstance : RoomDatabase()
 {

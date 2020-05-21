@@ -11,7 +11,7 @@ import es.upsa.mimo.datamodule.database.entities.UsuariosJuegos
 interface UsuarioJuegoDao
 {
     @Query("""
-               SELECT * FROM juegofav
+               SELECT id, name, backgroundImage, releaseDate FROM juegofav
                INNER JOIN usuariosjuegos
                ON juegofav.id = usuariosjuegos.juegoId
                WHERE usuariosjuegos.usuarioId = :userId
@@ -19,7 +19,7 @@ interface UsuarioJuegoDao
     fun getJuegosFavsByUserIdLive(userId: Int): LiveData<List<JuegoFav>>
 
     @Query("""
-               SELECT * FROM juegofav
+               SELECT id, name, backgroundImage, releaseDate FROM juegofav
                INNER JOIN usuariosjuegos
                ON juegofav.id = usuariosjuegos.juegoId
                WHERE usuariosjuegos.usuarioId = :userId
@@ -27,7 +27,7 @@ interface UsuarioJuegoDao
     suspend fun getJuegosFavsByUserId(userId: Int): List<JuegoFav>
 
     @Query("""
-               SELECT * FROM juegofav
+               SELECT id, name, backgroundImage, releaseDate FROM juegofav
                INNER JOIN usuariosjuegos
                ON juegofav.id = usuariosjuegos.juegoId
                WHERE usuariosjuegos.usuarioId = :userId AND usuariosJuegos.juegoId = :gameId
