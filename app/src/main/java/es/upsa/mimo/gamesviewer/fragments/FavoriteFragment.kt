@@ -59,7 +59,7 @@ class FavoriteFragment : MenuFragment(R.string.app_favorites), RLItemClickListen
                 .observe(viewLifecycleOwner, object : Observer<List<JuegoFav>> {
                     override fun onChanged(t: List<JuegoFav>?)
                     {
-                        if (t != null)
+                        if (t != null && !t.isEmpty())
                         {
                             favs.clear()
                             favs.addAll(t)
