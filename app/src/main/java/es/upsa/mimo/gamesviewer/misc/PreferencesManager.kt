@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import es.upsa.mimo.gamesviewer.R
+import kotlin.math.max
 
 class PreferencesManager
 {
@@ -18,7 +19,10 @@ class PreferencesManager
         {
             val preferences = getPreferences(context)
             val default = context.getString(R.string.max_elements_num_default).toInt()
-            return preferences.getInt(context.getString(R.string.config_max_elements_in_list), default)
+            var stored = preferences.getInt(context.getString(R.string.config_max_elements_in_list), default)
+            if (stored == -1)
+                stored = default // Si el guardado es -1, solo pasa al crear la primera vez, ponemos a default
+            return max(20, stored);
         }
 
         fun getBooleanConfig(context: Context, key: Int): Boolean
