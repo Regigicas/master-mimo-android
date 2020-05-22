@@ -18,10 +18,12 @@
     <dimen name="width2_5" type="">2.5dp</dimen>
     <dimen name="width4" type="">4dp</dimen>
     <dimen name="width5" type="">5dp</dimen>
+    <dimen name="width6" type="">6dp</dimen>
     <dimen name="width14" type="">14dp</dimen>
     <dimen name="width15" type="">15dp</dimen>
     <dimen name="width16" type="">16dp</dimen>
     <dimen name="width20" type="">20dp</dimen>
+    <dimen name="width22" type="">22dp</dimen>
     <dimen name="width24" type="">24dp</dimen>
     <dimen name="width28" type="">28dp</dimen>
     <dimen name="width42_5" type="">42.5dp</dimen>
@@ -37,6 +39,7 @@
     <dimen name="width220" type="">220dp</dimen>
     <dimen name="width240" type="">240dp</dimen>
     <dimen name="width250" type="">250dp</dimen>
+    <dimen name="width280" type="">280dp</dimen>
     <dimen name="width320" type="">320dp</dimen>
     <dimen name="width400" type="">400dp</dimen>
     <dimen name="bias07" type="">0.07</dimen>

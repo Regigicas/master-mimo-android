@@ -107,6 +107,7 @@
         app:layout_constraintRight_toRightOf="@id/buttonLogin"
         android:text="@string/str_register"
         android:textColor="@color/colorGrayDarker"
+        android:layout_marginTop="@dimen/width5"
         style="@style/BotonTransparente"
         />
 

@@ -25,8 +25,7 @@ class ChangePasswordFragment : DialogFragment()
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState != null)
-            owner = activity as ConfigActivity // La vista solo puede ser creada por esta clase
+        owner = activity as ConfigActivity // La vista solo puede ser creada por esta clase
     }
 
     @SuppressLint("InflateParams")

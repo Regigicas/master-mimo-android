@@ -9,6 +9,7 @@ import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import es.upsa.mimo.datamodule.controllers.UsuarioController
 import es.upsa.mimo.datamodule.enums.UsuarioResultEnum
@@ -79,11 +80,12 @@ class ConfigActivity : AppCompatActivityTopBar()
         }
 
         val textViewUserName = findViewById<TextView>(R.id.textViewUserName)
+        val viewLoggedUser = findViewById<ConstraintLayout>(R.id.viewLoggedUser)
         lifecycleScope.launch {
             val userInfo = UsuarioController.getActiveUser(this@ConfigActivity)
             if (userInfo == null)
             {
-                textViewUserName.visibility = View.GONE
+                viewLoggedUser.visibility = View.GONE
                 buttonLogout.visibility = View.GONE
                 buttonChangePassword.visibility = View.GONE
                 val separator1 = findViewById<View>(R.id.separator1)

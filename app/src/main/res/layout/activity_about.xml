@@ -30,7 +30,7 @@
         app:layout_constraintRight_toRightOf="@id/guideLine2"
         app:text="@string/text_github"
         app:imgSrc="@drawable/logo_redondo"
-        android:contentDescription="@string/click_me"
+        android:contentDescription="@string/text_github"
         android:paddingEnd="@dimen/width5"
         android:paddingStart="@dimen/height0"
         />

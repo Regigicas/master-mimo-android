@@ -5,11 +5,13 @@
         android:title=""
         app:showAsAction="ifRoom"
         android:icon="@drawable/ic_info_white_24dp"
+        android:contentDescription="@string/title_about"
         />
 
     <item android:id="@+id/actBarConfig"
         android:title=""
         app:showAsAction="always"
         android:icon="@drawable/ic_settings_white_24dp"
+        android:contentDescription="@string/title_config"
         />
 </menu>

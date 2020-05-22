@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="maxTextLines">1</integer>
+    <integer name="linesTwo">2</integer>
     <integer name="defaultMaxElements">100</integer>
 </resources>

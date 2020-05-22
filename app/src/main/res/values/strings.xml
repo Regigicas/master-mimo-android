@@ -84,4 +84,5 @@
     <string name="game_release_today">A game that you have on favorite is releasing today</string>
     <string name="game_release_name">%1$s is releasing today</string>
     <string name="eneable_receive_fav_noti">Notify when a favorite game is releasing</string>
+    <string name="desc_fav_noti">Favorite notification switch</string>
 </resources>
