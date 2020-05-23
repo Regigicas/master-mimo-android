@@ -61,10 +61,7 @@ class ConfigActivity : AppCompatActivityTopBar()
                 {
                     val favs = UsuarioController.getFavoriteList(this@ConfigActivity)
                     val currentTime = Calendar.getInstance().getTime()
-                    val notMgr =
-                        NotificationMgr(
-                            this@ConfigActivity
-                        )
+                    val notMgr = NotificationMgr(this@ConfigActivity)
                     for (fav in favs)
                     {
                         if (fav.releaseDate.after(currentTime))
@@ -75,8 +72,7 @@ class ConfigActivity : AppCompatActivityTopBar()
                     }
                 }
                 else
-                    NotificationMgr(this@ConfigActivity)
-                        .cancelAllNotifications()
+                    NotificationMgr(this@ConfigActivity).cancelAllNotifications()
             }
         }
 

@@ -132,7 +132,7 @@ class HomeActivity : AppCompatActivityTopBar()
                         .addToBackStack(null)
                         .commit()
                 } else
-                    finish();
+                    finish()
             }
         }
     }
