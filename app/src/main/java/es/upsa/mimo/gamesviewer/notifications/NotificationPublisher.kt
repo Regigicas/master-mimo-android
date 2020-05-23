@@ -1,4 +1,4 @@
-package es.upsa.mimo.gamesviewer.misc
+package es.upsa.mimo.gamesviewer.notifications
 
 import android.app.Notification
 

@@ -4,18 +4,21 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import es.upsa.mimo.datamodule.controllers.UsuarioController
 import es.upsa.mimo.gamesviewer.R
-import es.upsa.mimo.gamesviewer.fragments.FavoriteFragment
-import es.upsa.mimo.gamesviewer.fragments.HomeFragment
-import es.upsa.mimo.gamesviewer.fragments.PlatformsFragment
-import es.upsa.mimo.gamesviewer.fragments.SearchFragment
+import es.upsa.mimo.gamesviewer.fragments.*
 import es.upsa.mimo.gamesviewer.misc.AppCompatActivityTopBar
-import es.upsa.mimo.gamesviewer.fragments.BackFragment
-import es.upsa.mimo.gamesviewer.fragments.MenuFragment
+import kotlinx.coroutines.launch
 
 class HomeActivity : AppCompatActivityTopBar()
 {
+    companion object
+    {
+        val intentKeyJuegoId = "intentKeyJuegoId";
+    }
+
     private lateinit var homeFragment: HomeFragment
     private lateinit var platformsFragment: PlatformsFragment
     private lateinit var searchFragment: SearchFragment
@@ -109,6 +112,28 @@ class HomeActivity : AppCompatActivityTopBar()
             activeFragment = showFragment
             bottomBar.selectedItemId = selected
             supportActionBar?.title = showFragment.getFragmentTitle(this)
+        }
+
+        lifecycleScope.launch {
+            val notIntentId = intent.getIntExtra(intentKeyJuegoId, -1);
+            if (notIntentId > -1)
+            {
+                if (UsuarioController.getActiveUser(this@HomeActivity) != null)
+                {
+                    val bundle = Bundle()
+                    bundle.putInt(JuegoInfoFragment.bundleJuegoInfoKey, notIntentId)
+                    val nextFrag =
+                        JuegoInfoFragment.newInstance(activeFragment as TitleFragment, bundle)
+                    supportFragmentManager
+                        .beginTransaction()
+                        .hide(activeFragment)
+                        .add(R.id.fragmentFrame, nextFrag)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(null)
+                        .commit()
+                } else
+                    finish();
+            }
         }
     }
 

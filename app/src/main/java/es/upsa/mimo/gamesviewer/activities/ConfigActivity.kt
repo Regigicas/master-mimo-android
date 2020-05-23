@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
-import android.widget.Switch
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
@@ -18,10 +17,8 @@ import es.upsa.mimo.gamesviewer.fragments.ChangePasswordFragment
 import es.upsa.mimo.gamesviewer.fragments.ConfirmationFragment
 import es.upsa.mimo.gamesviewer.fragments.SettingsFragment
 import es.upsa.mimo.gamesviewer.misc.AppCompatActivityTopBar
-import es.upsa.mimo.gamesviewer.misc.NotificationMgr
+import es.upsa.mimo.gamesviewer.notifications.NotificationMgr
 import kotlinx.coroutines.launch
-import java.sql.Date
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ConfigActivity : AppCompatActivityTopBar()
@@ -64,7 +61,10 @@ class ConfigActivity : AppCompatActivityTopBar()
                 {
                     val favs = UsuarioController.getFavoriteList(this@ConfigActivity)
                     val currentTime = Calendar.getInstance().getTime()
-                    val notMgr = NotificationMgr(this@ConfigActivity)
+                    val notMgr =
+                        NotificationMgr(
+                            this@ConfigActivity
+                        )
                     for (fav in favs)
                     {
                         if (fav.releaseDate.after(currentTime))
@@ -75,7 +75,8 @@ class ConfigActivity : AppCompatActivityTopBar()
                     }
                 }
                 else
-                    NotificationMgr(this@ConfigActivity).cancelAllNotifications()
+                    NotificationMgr(this@ConfigActivity)
+                        .cancelAllNotifications()
             }
         }
 

@@ -40,7 +40,7 @@
 
         <service android:name=".services.ClipService"/>
 
-        <receiver android:name=".misc.NotificationPublisher"/>
+        <receiver android:name=".notifications.NotificationPublisher"/>
 
     </application>
 
