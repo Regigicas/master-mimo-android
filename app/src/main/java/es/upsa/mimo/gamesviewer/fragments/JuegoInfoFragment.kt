@@ -44,7 +44,7 @@ class JuegoInfoFragment : BackFragment()
     private val saveParentFragmentIdKey = "FragmentParentPlatformKey"
     private val saveEsFavoritoKey = "EsFavoritoKey"
     private var esFavorito = false
-    private var blockedUpdate = false
+    private var blockedUpdate = true
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -86,6 +86,7 @@ class JuegoInfoFragment : BackFragment()
         activity?.let {
             JuegoNetworkController.getJuegoInfo(juegoId, it) { info ->
                 juegoInfo = info
+                blockedUpdate = false
                 setupView(view)
             }
         }
@@ -121,7 +122,7 @@ class JuegoInfoFragment : BackFragment()
             blockedUpdate = true
             lifecycleScope.launch {
                 activity?.let {
-                    esFavorito = UsuarioController.hasFavorite(juegoId, it)
+                    esFavorito = UsuarioController.hasFavorite(juegoId, null, it)
                     updateFavoriteIcon(buttonFavorite)
                 }
                 blockedUpdate = false

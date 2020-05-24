@@ -1,11 +1,12 @@
 package es.upsa.mimo.networkmodule.controllers
 
 import android.content.Context
-import android.util.Log
 import com.android.volley.Response
 import es.upsa.mimo.datamodule.enums.JuegoOrderEnum
 import es.upsa.mimo.datamodule.models.JuegoModel
 import es.upsa.mimo.networkmodule.*
+import es.upsa.mimo.networkmodule.requests.GSONRequest
+import es.upsa.mimo.networkmodule.requests.VolleyQueueInstance
 
 class JuegoNetworkController
 {
@@ -21,7 +22,8 @@ class JuegoNetworkController
             val url = context.getString(R.string.juegos_global).addParametersToURL(mapOf(
                 Pair("page_size", context.getString(R.string.max_games_per_request)),
                 Pair("page", "$page"), Pair("ordering", context.getString(order.stringValue()))))
-            val juegoRequest = GSONRequest(url, JuegoModel.ResponseQuery::class.java, null,
+            val juegoRequest = GSONRequest(url, JuegoModel.ResponseQuery::class.java,
+                null,
                 Response.Listener { response ->
                     callback(response.results)
                 },
@@ -42,7 +44,8 @@ class JuegoNetworkController
             val url = context.getString(R.string.juegos_global).addParametersToURL(mutableMapOf(
                 Pair("page_size", context.getString(R.string.max_games_per_request)),
                 Pair("page", "$page"), Pair("platforms", "$platId")))
-            val juegoRequest = GSONRequest(url, JuegoModel.ResponseQuery::class.java, null,
+            val juegoRequest = GSONRequest(url, JuegoModel.ResponseQuery::class.java,
+                null,
                 Response.Listener { response ->
                     callback(response.results)
                 },
@@ -58,7 +61,8 @@ class JuegoNetworkController
         {
             val queue = VolleyQueueInstance.getInstance(context)
             val url = context.getString(R.string.juego_id, juegoId)
-            val juegoRequest = GSONRequest(url, JuegoModel::class.java, null,
+            val juegoRequest = GSONRequest(url, JuegoModel::class.java,
+                null,
                 Response.Listener { response ->
                     callback(response)
                 },
@@ -79,7 +83,8 @@ class JuegoNetworkController
             val url = context.getString(R.string.juegos_global).addParametersToURL(mutableMapOf(
                 Pair("page_size", context.getString(R.string.max_games_per_request)),
                 Pair("page", "$page"), Pair("search", query)))
-            val juegoRequest = GSONRequest(url, JuegoModel.ResponseQuery::class.java, null,
+            val juegoRequest = GSONRequest(url, JuegoModel.ResponseQuery::class.java,
+                null,
                 Response.Listener { response ->
                     callback(response.results)
                 },

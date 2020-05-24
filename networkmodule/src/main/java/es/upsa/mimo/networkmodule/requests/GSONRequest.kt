@@ -1,9 +1,8 @@
-package es.upsa.mimo.networkmodule
+package es.upsa.mimo.networkmodule.requests
 
-import com.android.volley.NetworkResponse
-import com.android.volley.ParseError
-import com.android.volley.Request
-import com.android.volley.Response
+import android.content.Context
+import android.widget.Toast
+import com.android.volley.*
 import com.android.volley.toolbox.HttpHeaderParser
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
@@ -26,6 +25,11 @@ class GSONRequest<T>(url: String, private val clazz: Class<T>, private val heade
             val json = String(response?.data ?: ByteArray(0), Charset.forName(HttpHeaderParser.parseCharset(response?.headers)))
             Response.success(gson.fromJson(json, clazz), HttpHeaderParser.parseCacheHeaders(response))
         }
+        catch (e: ServerError)
+        {
+            retryPolicy.retry(e)
+            Response.error(ParseError(e))
+        }
         catch (e: UnsupportedEncodingException)
         {
             Response.error(ParseError(e))
@@ -34,5 +38,12 @@ class GSONRequest<T>(url: String, private val clazz: Class<T>, private val heade
         {
             Response.error(ParseError(e))
         }
+    }
+
+    override fun deliverError(error: VolleyError?)
+    {
+        super.deliverError(error)
+        if (error is ServerError)
+            Response.error<ServerError>(ParseError(error))
     }
 }

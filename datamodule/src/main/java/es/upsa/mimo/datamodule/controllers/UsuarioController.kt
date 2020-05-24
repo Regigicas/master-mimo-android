@@ -1,10 +1,12 @@
 package es.upsa.mimo.datamodule.controllers
 
 import android.content.Context
+import android.preference.PreferenceManager
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.Database
 import com.jcloquell.androidsecurestorage.SecureStorage
+import es.upsa.mimo.datamodule.R
 import es.upsa.mimo.datamodule.database.DatabaseInstance
 import es.upsa.mimo.datamodule.database.entities.JuegoFav
 import es.upsa.mimo.datamodule.database.entities.Usuario
@@ -29,7 +31,7 @@ class UsuarioController
                 return UsuarioResultEnum.invalidEmail
 
             val passHash = hashPassword("${username.toUpperCase(Locale.ROOT)}:$password")
-            val usuario = Usuario(null, username, email, 0, passHash, false)
+            val usuario = Usuario(null, username, email, passHash, false)
 
             try
             {
@@ -99,20 +101,15 @@ class UsuarioController
         @JvmStatic
         fun saveActiveUserId(id: Int, context: Context)
         {
-            try
-            {
-                val secureStorage = SecureStorage(context)
-                secureStorage.storeObject(activeUserId, id)
-            }
-            catch (ex: Throwable) {}
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            preferences.edit().putInt(activeUserId, id).apply()
         }
 
         @JvmStatic
         fun getActiveUserId(context: Context): Int
         {
-            val secureStorage = SecureStorage(context)
-            val userId = secureStorage.getObject(activeUserId, Int::class.java)
-            return userId ?: -1
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            return preferences.getInt(activeUserId, -1)
         }
 
         @JvmStatic
@@ -159,18 +156,17 @@ class UsuarioController
             if (usuario == null)
                 return false
 
-            val favorito = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserIdAndGameId(usuario.id!!, juegoModel.id)
-            if (favorito != null)
+            if (hasFavorite(juegoModel.id, usuario, context)) // Si lo tiene en favoritos no hay nada mas que hacer
                 return false
 
             // Si no tiene el juego en favorito miramos si lo tenemos ya registrado en la DB
-            var juegoFav = DatabaseInstance.getInstance(context).juegoFavDao().getJuegoFav(juegoModel.id)
+            var juegoFav = JuegoController.getGameFav(juegoModel.id, context)
             if (juegoFav == null)
                 juegoFav = JuegoController.insertNewGameFav(juegoModel, context)
             if (juegoFav == null) // Si tampoco se ha creado en DB retornamos ya false
                 return false
 
-            val userFav = UsuariosJuegos(usuario.id, juegoFav.id)
+            val userFav = UsuariosJuegos(usuario.id!!, juegoFav.id)
             try
             {
                 DatabaseInstance.getInstance(context).usuarioJuegoFavDao().insertJuegoFav(userFav)
@@ -191,13 +187,12 @@ class UsuarioController
             if (usuario == null)
                 return false
 
-            val favorito = DatabaseInstance.getInstance(context).usuarioJuegoFavDao().getJuegosFavsByUserIdAndGameId(usuario.id!!, juegoId)
-            if (favorito == null)
+            if (!hasFavorite(juegoId, usuario, context)) // Si no lo tiene en favoritos no hay nada mas que hacer
                 return false
 
             try
             {
-                DatabaseInstance.getInstance(context).usuarioJuegoFavDao().deleteByUserIdAndGameId(usuario.id, juegoId)
+                DatabaseInstance.getInstance(context).usuarioJuegoFavDao().deleteByUserIdAndGameId(usuario.id!!, juegoId)
                 return true
             }
             catch (ex: Throwable)
@@ -209,9 +204,9 @@ class UsuarioController
         }
 
         @JvmStatic
-        suspend fun hasFavorite(juegoId: Int, context: Context): Boolean
+        suspend fun hasFavorite(juegoId: Int, usuarioActivo: Usuario?, context: Context): Boolean
         {
-            val usuario = getActiveUser(context)
+            val usuario = usuarioActivo ?: getActiveUser(context)
             if (usuario == null)
                 return false
 

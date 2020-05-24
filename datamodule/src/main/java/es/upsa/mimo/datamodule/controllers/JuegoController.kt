@@ -31,7 +31,13 @@ class JuegoController
                 Log.e("error", ex.localizedMessage)
             }
 
-            return  null
+            return null
+        }
+
+        @JvmStatic
+        suspend fun getGameFav(id: Int, context: Context): JuegoFav?
+        {
+            return DatabaseInstance.getInstance(context).juegoFavDao().getJuegoFav(id)
         }
     }
 }

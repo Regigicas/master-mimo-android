@@ -11,7 +11,6 @@ data class Usuario(
     val id: Int?,
     var username: String,
     var email: String,
-    var preferencias: Int,
     var shaHashPass: String,
     var favoriteNotification: Boolean
 )

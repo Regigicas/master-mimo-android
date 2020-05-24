@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="assert_invalid_page">El número de la página tiene que ser mayor que 0</string>
+    <string name="internal_server_error">Error interno del servidor, por favor intentalo de nuevo</string>
 </resources>

@@ -41,6 +41,7 @@
     <dimen name="width250" type="">250dp</dimen>
     <dimen name="width280" type="">280dp</dimen>
     <dimen name="width320" type="">320dp</dimen>
+    <dimen name="width380" type="">380dp</dimen>
     <dimen name="width400" type="">400dp</dimen>
     <dimen name="bias07" type="">0.07</dimen>
     <dimen name="bias10" type="">0.1</dimen>

@@ -29,14 +29,16 @@ class MainActivity : AppCompatActivity()
 
         wasInitialized = true
         var autoLoginOk = false
-        MainScope().launch {
-            if (PreferencesManager.isAutoLoginEnable(this@MainActivity) &&
-                UsuarioController.tryAutoLogin(this@MainActivity))
-            {
-                autoLoginOk = true
-                val intent = Intent(this@MainActivity, HomeActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK
-                startActivity(intent)
+        if (PreferencesManager.isAutoLoginEnable(this@MainActivity))
+        {
+            MainScope().launch {
+                if (UsuarioController.tryAutoLogin(this@MainActivity))
+                {
+                    autoLoginOk = true
+                    val intent = Intent(this@MainActivity, HomeActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK + Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                }
             }
         }
 
