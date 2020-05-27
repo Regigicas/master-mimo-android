@@ -112,14 +112,6 @@ class HomeFragment : MenuFragment(R.string.app_home), RLItemClickListener<JuegoM
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = layoutManager
-        recyclerView.addItemDecoration(object : ItemDecoration()
-        {
-            override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State)
-            {
-                super.getItemOffsets(outRect, view, parent, state)
-                outRect.set(90, 30, 50, 30)
-            }
-        })
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener()
         {

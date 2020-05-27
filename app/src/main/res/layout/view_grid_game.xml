@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/width180"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/width180"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/CardImagenGeneral">
+    style="@style/CardImagenGeneral"
+    android:layout_margin="@dimen/width20">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:background="@color/colorGrayLighter">
+        android:background="@color/colorGrayLighter"
+        android:layout_gravity="center">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageViewJuego"
