@@ -1,7 +1,10 @@
 package es.upsa.mimo.gamesviewer.activities
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
@@ -131,7 +134,8 @@ class HomeActivity : AppCompatActivityTopBar()
                         .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                         .addToBackStack(null)
                         .commit()
-                } else
+                }
+                else
                     finish()
             }
         }

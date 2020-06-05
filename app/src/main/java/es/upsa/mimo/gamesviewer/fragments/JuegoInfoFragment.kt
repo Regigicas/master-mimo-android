@@ -1,15 +1,17 @@
 package es.upsa.mimo.gamesviewer.fragments
 
+import android.Manifest
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
 import androidx.lifecycle.lifecycleScope
 import es.upsa.mimo.datamodule.controllers.UsuarioController
@@ -45,6 +47,7 @@ class JuegoInfoFragment : BackFragment()
     private val saveEsFavoritoKey = "EsFavoritoKey"
     private var esFavorito = false
     private var blockedUpdate = true
+    private lateinit var imagenJuego: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -57,7 +60,7 @@ class JuegoInfoFragment : BackFragment()
             juegoInfo = savedInstanceState.getSerializable(saveJuegoInfoKey) as JuegoModel
             val savedFragmentName = savedInstanceState.getString(saveParentFragmentIdKey)
             if (activity != null && savedFragmentName != null)
-                ownerFragment = findFragmentByClassName(savedFragmentName, requireActivity() .supportFragmentManager) // La vista solo puede ser creada por esta clase
+                ownerFragment = findFragmentByClassName(savedFragmentName, requireActivity().supportFragmentManager) // La vista solo puede ser creada por esta clase
             if (savedInstanceState.containsKey(saveEsFavoritoKey))
                 esFavorito = savedInstanceState.getBoolean(saveEsFavoritoKey)
         }
@@ -97,7 +100,7 @@ class JuegoInfoFragment : BackFragment()
         val homeActivity = activity as? HomeActivity
         homeActivity?.supportActionBar?.title = juegoInfo.name
 
-        val imagenJuego = view.findViewById<ImageView>(R.id.imageViewJuego)
+        imagenJuego = view.findViewById(R.id.imageViewJuego)
         val textoPlataformas = view.findViewById<TextView>(R.id.textViewPlatforms)
         val textoValoracion = view.findViewById<TextView>(R.id.textViewRatingValue)
         val textoFechaSalida = view.findViewById<TextView>(R.id.textViewReleaseValue)
@@ -166,6 +169,24 @@ class JuegoInfoFragment : BackFragment()
                 updateFavoriteIcon(buttonFavorite)
             }
         }
+
+        if (BuildConfig.FLAVOR == "paid")
+        {
+            imagenJuego.setOnClickListener {
+                if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED)
+                    saveImageToGallery()
+                else
+                {
+                    if (!ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE))
+                        requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PlatformInfoFragment.permissionWriteExternalStorageId)
+                    else
+                    {
+                        val permissionDialog = PermissionDialogFragment.newInstance(this)
+                        permissionDialog.show(requireActivity().supportFragmentManager, null)
+                    }
+                }
+            }
+        }
     }
 
     private fun updateFavoriteIcon(buttonFavorite: ImageButton)
@@ -189,5 +210,33 @@ class JuegoInfoFragment : BackFragment()
         if (ownerFragment != null)
             outState.putString(saveParentFragmentIdKey, ownerFragment!!::class.java.name)
         outState.putBoolean(saveEsFavoritoKey, esFavorito)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == PlatformInfoFragment.permissionWriteExternalStorageId && grantResults.isNotEmpty())
+        {
+            if (grantResults.get(0) != PackageManager.PERMISSION_GRANTED)
+                Toast.makeText(requireContext(), R.string.no_write_permission, Toast.LENGTH_LONG).show()
+            else
+                saveImageToGallery()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?)
+    {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PermissionDialogFragment.requestCode && resultCode == PermissionDialogFragment.requestCodeOk)
+            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), PlatformInfoFragment.permissionWriteExternalStorageId)
+        else if (requestCode == SaveConfirmationFragment.requestCode && resultCode == SaveConfirmationFragment.requestCodeOk)
+            imagenJuego.saveToGallery(juegoId.toString(), juegoInfo.name)
+    }
+
+    private fun saveImageToGallery()
+    {
+        val confirmDialog = SaveConfirmationFragment.newInstance(this)
+        confirmDialog.show(requireActivity().supportFragmentManager, null)
     }
 }

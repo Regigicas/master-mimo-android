@@ -85,4 +85,8 @@
     <string name="game_release_name">%1$s is releasing today</string>
     <string name="eneable_receive_fav_noti">Notify when a favorite game is releasing</string>
     <string name="desc_fav_noti">Favorite notification switch</string>
+    <string name="notification_disabled">Notifications are disable, you won\'t be notify when a game release</string>
+    <string name="no_write_permission">Write permission is not enable, you cannot save the image</string>
+    <string name="store_perm_desc">We need the file store permission to save the image to the gallery. If you click Accept below, you will be prompt to give us permission</string>
+    <string name="save_img_confirm">Are you sure you want to save the image?</string>
 </resources>

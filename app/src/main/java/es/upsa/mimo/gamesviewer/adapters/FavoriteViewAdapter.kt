@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
 import es.upsa.mimo.datamodule.database.entities.JuegoFav
-import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.fragments.FavoriteItemFragment
 import es.upsa.mimo.gamesviewer.misc.RLItemClickListener
 

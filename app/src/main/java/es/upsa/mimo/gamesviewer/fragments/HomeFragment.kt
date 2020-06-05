@@ -166,7 +166,7 @@ class HomeFragment : MenuFragment(R.string.app_home), RLItemClickListener<JuegoM
         if (BuildConfig.FLAVOR == "paid")
         {
             buttonScan.setOnClickListener {
-                val integrator = IntentIntegrator(requireActivity())
+                val integrator = IntentIntegrator.forSupportFragment(this)
                 integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
                 integrator.setOrientationLocked(false)
                 integrator.initiateScan()
@@ -257,10 +257,9 @@ class HomeFragment : MenuFragment(R.string.app_home), RLItemClickListener<JuegoM
                 if (qrModel != null)
                     launchGameInfoFragment(qrModel.id)
             }
-        } else
-        {
-            super.onActivityResult(requestCode, resultCode, data)
         }
+        else
+            super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun updateSelectedOrdering(id: Int)

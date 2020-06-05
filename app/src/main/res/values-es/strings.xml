@@ -68,4 +68,8 @@
     <string name="game_release_name">%1$s sale hoy</string>
     <string name="eneable_receive_fav_noti">Notificar cuando va a salir un juego favorito</string>
     <string name="desc_fav_noti">Notificaciones de favoritos switch</string>
+    <string name="notification_disabled">Las notificaciones están deshabilitadas, no se te notificará cuando salga un juego</string>
+    <string name="no_write_permission">El permiso de escritura no está habilitado, no puedes guardar la imagen</string>
+    <string name="store_perm_desc">Necesitamos el permiso de guardar ficheros para guardar la imagen en la galería. Si hace clic en Aceptar más abajo se te pedirá que nos des permiso</string>
+    <string name="save_img_confirm">¿Estás seguro de que quieres guardar la imagen?</string>
 </resources>

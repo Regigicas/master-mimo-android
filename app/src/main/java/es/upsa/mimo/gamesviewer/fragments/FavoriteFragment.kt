@@ -56,16 +56,14 @@ class FavoriteFragment : MenuFragment(R.string.app_favorites), RLItemClickListen
 
         lifecycleScope.launch {
             UsuarioController.getObservableOfFavorites(requireContext())
-                .observe(viewLifecycleOwner, object : Observer<List<JuegoFav>> {
-                    override fun onChanged(t: List<JuegoFav>?)
+                .observe(viewLifecycleOwner, Observer { t ->
+                    if (t != null && t.isNotEmpty())
                     {
-                        if (t != null && !t.isEmpty())
-                        {
-                            favs.clear()
-                            favs.addAll(t)
-                            adapter.notifyDataSetChanged()
-                            updateCurrentPage(viewPager.currentItem + 1, favs.size)
-                        }
+                        favs.clear()
+                        favs.addAll(t)
+                        adapter.notifyDataSetChanged()
+                        viewPager.invalidate()
+                        updateCurrentPage(viewPager.currentItem + 1, favs.size)
                     }
                 })
         }

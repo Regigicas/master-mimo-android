@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.SystemClock
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.app.TaskStackBuilder
 import es.upsa.mimo.datamodule.database.entities.JuegoFav
 import es.upsa.mimo.gamesviewer.R
@@ -15,6 +16,11 @@ import es.upsa.mimo.gamesviewer.activities.HomeActivity
 
 class NotificationMgr(private val context: Context)
 {
+    fun areNotificationsEnabled(): Boolean
+    {
+        return NotificationManagerCompat.from(context).areNotificationsEnabled();
+    }
+
     fun sendNotification(juegoFav: JuegoFav, msTime: Long)
     {
         val clickIntent = Intent(context, HomeActivity::class.java)

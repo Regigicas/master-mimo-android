@@ -14,7 +14,7 @@ import es.upsa.mimo.datamodule.controllers.UsuarioController
 import es.upsa.mimo.datamodule.enums.UsuarioResultEnum
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.fragments.ChangePasswordFragment
-import es.upsa.mimo.gamesviewer.fragments.ConfirmationFragment
+import es.upsa.mimo.gamesviewer.fragments.LogoutConfirmationFragment
 import es.upsa.mimo.gamesviewer.fragments.SettingsFragment
 import es.upsa.mimo.gamesviewer.misc.AppCompatActivityTopBar
 import es.upsa.mimo.gamesviewer.notifications.NotificationMgr
@@ -35,7 +35,7 @@ class ConfigActivity : AppCompatActivityTopBar()
 
         val buttonLogout = findViewById<Button>(R.id.buttonLogout)
         buttonLogout.setOnClickListener {
-            ConfirmationFragment().show(supportFragmentManager, null)
+            LogoutConfirmationFragment().show(supportFragmentManager, null)
         }
 
         val buttonChangePassword = findViewById<Button>(R.id.buttonChangePassword)
@@ -53,6 +53,12 @@ class ConfigActivity : AppCompatActivityTopBar()
         switchFavNoti.setOnCheckedChangeListener { _, b ->
             if (!canFireListener)
                 return@setOnCheckedChangeListener
+
+            if (!NotificationMgr(this).areNotificationsEnabled())
+            {
+                Toast.makeText(this, R.string.notification_disabled, Toast.LENGTH_LONG).show()
+                return@setOnCheckedChangeListener
+            }
 
             lifecycleScope.launch {
                 UsuarioController.setUserNotifyFavRelease(this@ConfigActivity, b)

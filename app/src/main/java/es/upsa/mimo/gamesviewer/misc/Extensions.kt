@@ -2,8 +2,10 @@
 package es.upsa.mimo.gamesviewer.misc
 
 import android.app.Activity
+import android.provider.MediaStore
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -11,6 +13,7 @@ import com.squareup.picasso.Picasso
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.fragments.BackFragment
 import es.upsa.mimo.gamesviewer.fragments.TitleFragment
+
 
 fun Fragment.launchChildFragment(parentFragment: Fragment, fragment: BackFragment)
 {
@@ -52,4 +55,10 @@ fun ImageView.loadFromURL(url: String)
             .error(R.drawable.ic_gamepad_purple_200dp)
             .fit().centerCrop().into(this)
     }
+}
+
+fun ImageView.saveToGallery(title: String, desc: String)
+{
+    val bitMap = drawable.toBitmap()
+    MediaStore.Images.Media.insertImage(context.contentResolver, bitMap, title, desc)
 }

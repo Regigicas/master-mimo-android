@@ -102,3 +102,6 @@ keystore.properties
 .externalNativeBuild
 .cxx
 
+app/free
+app/paid
+

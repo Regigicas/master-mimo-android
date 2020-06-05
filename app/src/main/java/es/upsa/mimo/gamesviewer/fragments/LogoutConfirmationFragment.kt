@@ -7,14 +7,14 @@ import androidx.fragment.app.DialogFragment
 import es.upsa.mimo.gamesviewer.R
 import es.upsa.mimo.gamesviewer.activities.ConfigActivity
 
-class ConfirmationFragment : DialogFragment()
+class LogoutConfirmationFragment : DialogFragment()
 {
     companion object
     {
         @JvmStatic
-        fun newInstance() : ConfirmationFragment
+        fun newInstance() : LogoutConfirmationFragment
         {
-            return ConfirmationFragment()
+            return LogoutConfirmationFragment()
         }
     }
 
