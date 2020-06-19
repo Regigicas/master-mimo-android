@@ -79,13 +79,9 @@ class LoginActivity : AppCompatActivityTopBar(), TextWatcher
                     textEditPassword.text.toString().trim(), this@LoginActivity)
 
                 if (!storeResult)
-                {
                     Toast.makeText(this@LoginActivity, getString(R.string.error_no_autologin),
                         Toast.LENGTH_LONG).show()
-                }
-                else
-                    result.second!!.id?.let { UsuarioController.saveActiveUserId(it, this@LoginActivity) }
-
+                result.second!!.id?.let { UsuarioController.saveActiveUserId(it, this@LoginActivity) }
 
                 pendingLogin = false
                 val intent = Intent(this@LoginActivity, HomeActivity::class.java)
