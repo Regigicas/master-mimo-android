@@ -30,7 +30,7 @@ class UsuarioController
             if (!validateEmail(email))
                 return UsuarioResultEnum.invalidEmail
 
-            val passHash = hashPassword("${username.toUpperCase(Locale.ROOT)}:$password")
+            val passHash = hashPassword(username, password);
             val usuario = Usuario(null, username, email, passHash, false)
 
             try
@@ -58,9 +58,10 @@ class UsuarioController
         }
 
         @JvmStatic
-        fun hashPassword(password: String): String
+        fun hashPassword(username: String, password: String): String
         {
-            val bytes = password.toString().toByteArray()
+            val generatedPassword = "${username.toUpperCase(Locale.ROOT)}:${password}"
+            val bytes = generatedPassword.toByteArray()
             val md = MessageDigest.getInstance("SHA-256")
             val digest = md.digest(bytes)
             return digest.fold("", { str, it -> str + "%02x".format(it) })
@@ -73,7 +74,7 @@ class UsuarioController
             if (userLogin == null)
                 return Pair(UsuarioResultEnum.usernameNotFound, null)
 
-            val passHash = hashPassword("${username.toUpperCase(Locale.ROOT)}:$password")
+            val passHash = hashPassword(username, password)
 
             if (userLogin.shaHashPass != passHash)
                 return Pair(UsuarioResultEnum.passwordMismatch, null)
@@ -254,8 +255,9 @@ class UsuarioController
             if (usuario == null)
                 return UsuarioResultEnum.usernameNotFound
 
-            val oldPassHash = hashPassword("${usuario.username.toUpperCase(Locale.ROOT)}:$oldPass")
-            val newPassHash = hashPassword("${usuario.username.toUpperCase(Locale.ROOT)}:$newPass")
+            val upperName = usuario.username.toUpperCase(Locale.ROOT)
+            val oldPassHash = hashPassword(upperName, oldPass)
+            val newPassHash = hashPassword(upperName, newPass)
             if (oldPassHash == newPassHash)
                 return UsuarioResultEnum.oldNewPasswordSame
 
